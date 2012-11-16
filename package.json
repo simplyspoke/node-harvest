@@ -8,7 +8,7 @@
   },
   "repository": "https://github.com/nrub/harvest-node",
   "author": "Paul English",
-  "license": "BSD",
+  "license": "MIT",
   "dependencies": {
     "request": "~2.12.0",
     "restler": "~2.0.1",

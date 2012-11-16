@@ -1,0 +1,21 @@
+{
+  "name": "harvest-node",
+  "version": "0.0.1",
+  "description": "Harvest app HTTP client API",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": "https://github.com/nrub/harvest-node",
+  "author": "Paul English",
+  "license": "BSD",
+  "dependencies": {
+    "request": "~2.12.0",
+    "restler": "~2.0.1",
+    "xml2js": "~0.2.2"
+  },
+  "devDependencies": {
+    "mocha": "~1.7.0",
+    "config": "~0.4.18"
+  }
+}

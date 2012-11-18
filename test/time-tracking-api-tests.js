@@ -1,5 +1,6 @@
 var assert = require('assert'),
     config = require('config'),
+    util = require('util'),
     Harvest = require('../index'),
     harvest = new Harvest({
         subdomain: config.harvest.subdomain,
@@ -13,8 +14,42 @@ describe('The TimeTracking API', function() {
         it('should implement the daily method', function() {
             assert.equal(typeof TimeTracking.daily, "function");
         });
-        it('should return a list of tasks that occured that day', function(done) {
+        it('should return a list of tasks that occured today', function(done) {
             TimeTracking.daily({}, function(err, tasks) {
+                assert(!err, err);
+                assert.equal(typeof tasks, "object");
+                assert.equal(typeof tasks.daily, "object");
+                assert(Array.isArray(tasks.daily.for_day));
+                assert.equal(typeof tasks.daily.for_day[0], "object");
+                assert(Array.isArray(tasks.daily.day_entries));
+                assert.equal(typeof tasks.daily.day_entries[0], "object");
+                assert(Array.isArray(tasks.daily.projects));
+                assert.equal(typeof tasks.daily.projects[0], "object");
+                assert(Array.isArray(tasks.daily.projects[0].project));
+                assert.equal(typeof tasks.daily.projects[0].project[0], "object");
+                assert(Array.isArray(tasks.daily.projects[0].project[0].name));
+                assert(Array.isArray(tasks.daily.projects[0].project[0].code));
+                assert(Array.isArray(tasks.daily.projects[0].project[0].id));
+                assert(Array.isArray(tasks.daily.projects[0].project[0].client));
+                assert(Array.isArray(tasks.daily.projects[0].project[0].client_id));
+                assert(Array.isArray(tasks.daily.projects[0].project[0].client_currency));
+                assert(Array.isArray(tasks.daily.projects[0].project[0].client_currency_symbol));
+                assert(Array.isArray(tasks.daily.projects[0].project[0].tasks));
+                assert(Array.isArray(tasks.daily.projects[0].project[0].tasks));
+                assert.equal(typeof tasks.daily.projects[0].project[0].tasks[0], "object");
+                assert(Array.isArray(tasks.daily.projects[0].project[0].tasks[0].task));
+                assert.equal(typeof tasks.daily.projects[0].project[0].tasks[0].task[0], "object");
+                assert(Array.isArray(tasks.daily.projects[0].project[0].tasks[0].task[0].name));
+                assert(Array.isArray(tasks.daily.projects[0].project[0].tasks[0].task[0].id));
+                assert(Array.isArray(tasks.daily.projects[0].project[0].tasks[0].task[0].billable));
+                done();
+            });
+	});
+        it('should return a list of tasks that occured on a specific day', function(done) {
+	    // assuming there was an entry that day
+            TimeTracking.daily({
+		date: new Date('11/15/2012')
+	    }, function(err, tasks) {
                 assert(!err, err);
                 assert.equal(typeof tasks, "object");
                 assert.equal(typeof tasks.daily, "object");
@@ -63,11 +98,37 @@ describe('The TimeTracking API', function() {
         it('should implement the get method', function() {
             assert.equal(typeof TimeTracking.get, "function");
         });
+        it('should return an individual task', function(done) {
+	    TimeTracking.get('118593641', {}, function(err, task) {
+		assert(!err);
+		assert.equal(typeof task, "object");
+		assert.equal(typeof task.add, "object");
+		assert(Array.isArray(task.add.day_entry));
+		assert.equal(typeof task.add.day_entry[0], "object");
+		assert(Array.isArray(task.add.day_entry[0].id));
+		assert(Array.isArray(task.add.day_entry[0].spent_at));
+		assert(Array.isArray(task.add.day_entry[0].user_id));
+		assert(Array.isArray(task.add.day_entry[0].client));
+		assert(Array.isArray(task.add.day_entry[0].project_id));
+		assert(Array.isArray(task.add.day_entry[0].project));
+		assert(Array.isArray(task.add.day_entry[0].task_id));
+		assert(Array.isArray(task.add.day_entry[0].task));
+		assert(Array.isArray(task.add.day_entry[0].hours));
+		assert(Array.isArray(task.add.day_entry[0].hours_without_timer));
+		assert(Array.isArray(task.add.day_entry[0].notes));
+		assert(Array.isArray(task.add.day_entry[0].created_at));
+		assert(Array.isArray(task.add.day_entry[0].updated_at));
+		done();
+	    });
+        });
     });
     describe('Toggling a timer', function() {
         it('should implement the toggleTimer method', function() {
             assert.equal(typeof TimeTracking.toggleTimer, "function");
         });
+	it('should toggle a timer', function(done) {
+	    TimeTracking.toggleTimer()
+	});
     });
     describe('Creating an entry', function() {
         it('should implement the create method', function() {

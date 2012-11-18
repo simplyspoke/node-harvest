@@ -39,13 +39,13 @@ module.exports = Harvest = function(opts) {
                 'Accept': 'application/xml'
             };
 
-                if (typeof data !== 'undefined') {
+            if (typeof data !== 'undefined') {
                 if (typeof data === 'object') {
-                        opts.headers['Content-Length'] = querystring.stringify(data).length;
+                    opts.headers['Content-Length'] = querystring.stringify(data).length;
                 } else {
                     opts.headers['Content-Length'] = data.length;
                 }
-                } else {
+            } else {
                 opts.headers['Content-Length'] = 0;
             }
 

@@ -33,6 +33,7 @@ module.exports = Harvest = function(opts) {
     }, {
 
         run: function(type, url, data) {
+	    console.log('run', type, url, data);
             var opts = {};
             opts.headers = {
                 'Content-Type': 'application/xml',

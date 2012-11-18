@@ -10,13 +10,13 @@ var assert = require('assert'),
 
 describe('The InvoiceCategories API', function() {
     describe('Show all recorded categories for an invoice', function() {
-        it('should implement the categoriesByInvoice method', function() {
-            assert.equal(typeof InvoiceCategories.categoriesByInvoice, "function");
+        it('should implement the list method', function() {
+            assert.equal(typeof InvoiceCategories.list, "function");
         });
     });
-    describe('Show a particular category', function() {
-        it('should implement the getByInvoice method', function() {
-            assert.equal(typeof InvoiceCategories.getByInvoice, "function");
+    describe('Update a particular category', function() {
+        it('should implement the update method', function() {
+            assert.equal(typeof InvoiceCategories.update, "function");
         });
     });
     describe('Create a new category', function() {

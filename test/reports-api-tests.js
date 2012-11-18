@@ -24,11 +24,6 @@ describe('The Reports API', function() {
             assert.equal(typeof Reports.timeEntriesByUser, "function");
         });
     });
-    describe('Get all your time entries from a project and a given timeframe', function() {
-        it('should implement the yourTimeEntriesByProject method', function() {
-            assert.equal(typeof Reports.yourTimeEntriesByProject, "function");
-        });
-    });
     describe('Get all expense entries logged by a user for a given timeframe', function() {
         it('should implement the expensesByUser method', function() {
             assert.equal(typeof Reports.expensesByUser, "function");

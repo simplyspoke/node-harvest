@@ -13,6 +13,12 @@ describe('The Clients API', function() {
         it('should implement the list method', function() {
             assert.equal(typeof Clients.list, "function");
         });
+	it('should provide a list of all clients', function(done) {
+	    Clients.list({}, function(err, clients) {
+		assert(!err);
+		done();
+	    });
+	});
     });
     describe('Get a client', function() {
         it('should implement the get method', function() {

@@ -103,21 +103,37 @@ module.exports = Harvest = function(opts) {
         }
     };
 
-    this.TimeTracking = require('./lib/time-tracking')(this);
-    this.Clients = require('./lib/clients')(this);
-    this.ClientContacts = require('./lib/client-contacts')(this);
-    this.Projects = require('./lib/projects')(this);
-    this.Tasks = require('./lib/tasks')(this);
-    this.People = require('./lib/people')(this);
-    this.ExpenseCategories = require('./lib/expense-categories')(this);
-    this.Expenses = require('./lib/expenses')(this);
-    this.UserAssignment = require('./lib/user-assignment')(this);
-    this.TaskAssignment = require('./lib/task-assignment')(this);
-    this.Reports = require('./lib/reports')(this);
-    this.Invoices = require('./lib/invoices')(this);
-    this.InvoiceMessages = require('./lib/invoice-messages')(this);
-    this.InvoicePayments = require('./lib/invoice-payments')(this);
-    this.InvoiceCategories = require('./lib/invoice-categories')(this);
+    var TimeTracking = require('./lib/time-tracking');
+    var Clients = require('./lib/clients');
+    var ClientContacts = require('./lib/client-contacts');
+    var Projects = require('./lib/projects');
+    var Tasks = require('./lib/tasks');
+    var People = require('./lib/people');
+    var ExpenseCategories = require('./lib/expense-categories');
+    var Expenses = require('./lib/expenses');
+    var UserAssignment = require('./lib/user-assignment');
+    var TaskAssignment = require('./lib/task-assignment');
+    var Reports = require('./lib/reports');
+    var Invoices = require('./lib/invoices');
+    var InvoiceMessages = require('./lib/invoice-messages');
+    var InvoicePayments = require('./lib/invoice-payments');
+    var InvoiceCategories = require('./lib/invoice-categories');
+
+    this.TimeTracking = new TimeTracking(this);
+    this.Clients = new Clients(this);
+    this.ClientContacts = new ClientContacts(this);
+    this.Projects = new Projects(this);
+    this.Tasks = new Tasks(this);
+    this.People = new People(this);
+    this.ExpenseCategories = new ExpenseCategories(this);
+    this.Expenses = new Expenses(this);
+    this.UserAssignment = new UserAssignment(this);
+    this.TaskAssignment = new TaskAssignment(this);
+    this.Reports = new Reports(this);
+    this.Invoices = new Invoices(this);
+    this.InvoiceMessages = new InvoiceMessages(this);
+    this.InvoicePayments = new InvoicePayments(this);
+    this.InvoiceCategories = new InvoiceCategories(this);
 
     return this;
 

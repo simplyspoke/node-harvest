@@ -1,8 +1,12 @@
 Harvest is a tool that enables businesses to track time, track projects, manage clients, and invoice. This is a full client API built using node.js.
 
+# Install
+
+    npm install harvest-node
+
 # Usage
 
-    var Harvest = require('../index')
+    var Harvest = require('harvest')
         , harvest = new Harvest({
             subdomain: config.harvest.subdomain,
             email: config.harvest.email,

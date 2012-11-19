@@ -1,7 +1,7 @@
 {
-  "name": "harvest-node",
+  "name": "harvest",
   "version": "0.0.5",
-  "description": "Harvest app HTTP client API",
+  "description": "Harvest API client library",
   "main": "index.js",
   "scripts": {
     "test": "mocha"

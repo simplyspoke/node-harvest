@@ -1,6 +1,6 @@
 {
   "name": "harvest-node",
-  "version": "0.0.1",
+  "version": "0.0.5",
   "description": "Harvest app HTTP client API",
   "main": "index.js",
   "scripts": {

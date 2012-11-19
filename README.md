@@ -2,7 +2,7 @@ Harvest is a tool that enables businesses to track time, track projects, manage 
 
 # Install
 
-    npm install harvest-node
+    npm install harvest
 
 # Usage
 

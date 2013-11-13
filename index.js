@@ -24,6 +24,7 @@ module.exports = Harvest = function(opts) {
     this.identifier = opts.identifier;
     this.secret = opts.secret;
     this.user_agent = opts.user_agent;
+    this.debug = opts.debug || false;
 
     var restService = restler.service(function(u, p) {
         this.defaults.username = u;
@@ -31,9 +32,11 @@ module.exports = Harvest = function(opts) {
     }, {
         baseURL: self.host
     }, {
-
         run: function(type, url, data) {
-	    console.log('run', type, url, data);
+            if (self.debug) {
+	           console.log('run', type, url, data);
+            }
+
             var opts = {};
             opts.headers = {
                 'Content-Type': 'application/xml',
@@ -73,13 +76,15 @@ module.exports = Harvest = function(opts) {
     });
 
     this.processRequest = function(res, cb) {
-	//console.log('processRequest', cb);
+        if (this.debug) {
+	       console.log('processRequest', cb);
+        }
 
 	if (typeof cb !== "function") throw new Error('processRequest: Callback is not defined');
-
         res.addListener('success', function(data, res) {
-
-            //console.log('success', util.inspect(data, false, 10));
+            if (self.debug) {
+                console.log('success', util.inspect(data, false, 10));
+            }
 
             // TODO Xml sucks and the JSON it generates is horrendous
             // this default response could be greatly simplified for all requests

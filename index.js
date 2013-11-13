@@ -33,11 +33,11 @@ module.exports = Harvest = function(opts) {
     }, {
 
         run: function(type, url, data) {
-	    console.log('run', type, url, data);
+	       console.log('run', type, url, data);
             var opts = {};
             opts.headers = {
-                'Content-Type': 'application/xml',
-                'Accept': 'application/xml'
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
             };
 
             if (typeof data !== 'undefined') {
@@ -73,18 +73,14 @@ module.exports = Harvest = function(opts) {
     });
 
     this.processRequest = function(res, cb) {
-	//console.log('processRequest', cb);
+	    //console.log('processRequest', cb);
 
-	if (typeof cb !== "function") throw new Error('processRequest: Callback is not defined');
+	    if (typeof cb !== "function") throw new Error('processRequest: Callback is not defined');
 
         res.addListener('success', function(data, res) {
-
             //console.log('success', util.inspect(data, false, 10));
 
-            // TODO Xml sucks and the JSON it generates is horrendous
-            // this default response could be greatly simplified for all requests
             cb(null, data);
-
         }).addListener('error', cb);
     };
 
@@ -141,5 +137,4 @@ module.exports = Harvest = function(opts) {
     this.InvoiceCategories = new InvoiceCategories(this);
 
     return this;
-
 };

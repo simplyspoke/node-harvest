@@ -47,4 +47,4 @@ This API is designed to work either using HTTP Basic authentication, or OAuth so
 
 # WIP
 
-Just a fair warning this is a work in progress, and though the entire API has been mocked up with testing, a portion of API functionality still needs to be implemented. If you'd like to help out with this project, feel free to send a message or pull-request my way. The project should be relatively easy to grasp at this point.
+It should work

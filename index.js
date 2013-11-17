@@ -3,19 +3,21 @@ var restler = require('restler'),
     util = require('util'),
     Harvest;
 
-module.exports = Harvest = function(opts) {
+module.exports = Harvest = function (opts) {
     var self = this;
 
-    if (typeof opts.subdomain === "undefined")
+    if (opts.subdomain === undefined) {
         throw new Error('The Harvest API client requires a subdomain');
+    }
 
-    this.use_oauth = (typeof opts.identifier !== "undefined" &&
-                      typeof opts.secret !== "undefined");
-    this.use_basic_auth = (typeof opts.email !== "undefined" &&
-                           typeof opts.password !== "undefined");
+    this.use_oauth = (opts.identifier !== undefined &&
+                      opts.secret !== undefined);
+    this.use_basic_auth = (opts.email !== undefined &&
+                           opts.password !== undefined);
 
-    if (!this.use_oauth && !this.use_basic_auth)
+    if (!this.use_oauth && !this.use_basic_auth) {
         throw new Error('The Harvest API client requires credentials for basic authentication or an identifier and secret for OAuth');
+    }
 
     this.subdomain = opts.subdomain;
     this.host = "https://" + this.subdomain + ".harvestapp.com";
@@ -26,25 +28,25 @@ module.exports = Harvest = function(opts) {
     this.user_agent = opts.user_agent;
     this.debug = opts.debug || false;
 
-    var restService = restler.service(function(u, p) {
+    var restService = restler.service(function (u, p) {
         this.defaults.username = u;
         this.defaults.password = p;
     }, {
         baseURL: self.host
     }, {
-        run: function(type, url, data) {
+        run: function (type, url, data) {
             if (self.debug) {
-	           console.log('run', type, url, data);
+                console.log('run', type, url, data);
             }
 
             var opts = {};
             opts.headers = {
-                'Content-Type': 'application/xml',
-                'Accept': 'application/xml'
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
             };
 
-            if (typeof data !== 'undefined') {
-                if (typeof data === 'object') {
+            if (data !== 'undefined') {
+                if (data === 'object') {
                     opts.headers['Content-Length'] = querystring.stringify(data).length;
                 } else {
                     opts.headers['Content-Length'] = data.length;
@@ -54,61 +56,63 @@ module.exports = Harvest = function(opts) {
             }
 
             opts.data = data;
-            switch(type) {
+            switch (type) {
             case 'get':
                 return this.get(url, opts);
-                break;
 
             case 'post':
                 return this.post(url, opts);
-                break;
 
             case 'put':
                 return this.put(url, opts);
-                break;
 
             case 'delete':
                 return this.del(url, opts);
-                break;
             }
             return this;
         }
     });
 
-    this.processRequest = function(res, cb) {
+    this.processRequest = function (res, cb) {
         if (this.debug) {
-	       console.log('processRequest', cb);
+            console.log('processRequest', cb);
         }
 
-	if (typeof cb !== "function") throw new Error('processRequest: Callback is not defined');
-        res.addListener('success', function(data, res) {
+        if (typeof cb !== "function") {
+            throw new Error('processRequest: Callback is not defined');
+        }
+
+        res.addListener('complete', function (data, res) {
+            var err;
+
             if (self.debug) {
-                console.log('success', util.inspect(data, false, 10));
+                console.log('complete', util.inspect(data, false, 10));
             }
 
-            // TODO Xml sucks and the JSON it generates is horrendous
-            // this default response could be greatly simplified for all requests
-            cb(null, data);
+            if (res.statusCode > 399) {
+                err = data;
+            }
 
-        }).addListener('error', cb);
+            cb(err, data);
+        });
     };
 
     this.service = new restService(this.email, this.password);
 
     this.client = {
-        get: function(url, data, cb) {
+        get: function (url, data, cb) {
             self.processRequest(self.service.run('get', url, data), cb);
         },
-        patch: function(url, data, cb) {
+        patch: function (url, data, cb) {
             self.processRequest(self.service.run('patch', url, data), cb);
         },
-        post: function(url, data, cb) {
+        post: function (url, data, cb) {
             self.processRequest(self.service.run('post', url, data), cb);
         },
-        put: function(url, data, cb) {
+        put: function (url, data, cb) {
             self.processRequest(self.service.run('put', url, data), cb);
         },
-        delete: function(url, data, cb) {
+        delete: function (url, data, cb) {
             self.processRequest(self.service.run('delete', url, data), cb);
         }
     };
@@ -146,5 +150,4 @@ module.exports = Harvest = function(opts) {
     this.InvoiceCategories = new InvoiceCategories(this);
 
     return this;
-
 };

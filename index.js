@@ -89,8 +89,10 @@ module.exports = Harvest = function (opts) {
                 console.log('complete', util.inspect(data, false, 10));
             }
 
-            if (res.statusCode > 399) {
+            err = null;
+            if (res.statusCode > 399 || data instanceof Error) {
                 err = data;
+                data = {};
             }
 
             cb(err, data);

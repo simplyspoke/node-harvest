@@ -89,8 +89,10 @@ module.exports = Harvest = function (opts) {
                 console.log('complete', util.inspect(data, false, 10));
             }
 
-            if (res.statusCode > 399) {
+            err = null;
+            if (res.statusCode > 399 || data instanceof Error || data === "Authentication failed for API request.") {
                 err = data;
+                data = {};
             }
 
             cb(err, data);
@@ -117,6 +119,7 @@ module.exports = Harvest = function (opts) {
         }
     };
 
+    var Account = require('./lib/account');
     var TimeTracking = require('./lib/time-tracking');
     var Clients = require('./lib/clients');
     var ClientContacts = require('./lib/client-contacts');
@@ -133,6 +136,7 @@ module.exports = Harvest = function (opts) {
     var InvoicePayments = require('./lib/invoice-payments');
     var InvoiceCategories = require('./lib/invoice-categories');
 
+    this.Account = new Account(this);
     this.TimeTracking = new TimeTracking(this);
     this.Clients = new Clients(this);
     this.ClientContacts = new ClientContacts(this);

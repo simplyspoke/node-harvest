@@ -45,6 +45,6 @@ This API is designed to work either using HTTP Basic authentication, or OAuth so
 
     mocha
 
-# WIP
+## Projects using this library
 
-It should work
+- [impleri/sow](https://github.com/impleri/sow): Command line time tracking utility

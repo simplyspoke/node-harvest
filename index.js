@@ -1,12 +1,13 @@
 var restler = require('restler'),
     querystring = require('querystring'),
     util = require('util'),
+    _isUndefined = require('./mixin'),
     Harvest;
 
 module.exports = Harvest = function (opts) {
     var self = this;
 
-    if (opts.subdomain === undefined) {
+    if (_isUndefined(opts,'subdomain')) {
         throw new Error('The Harvest API client requires a subdomain');
     }
 

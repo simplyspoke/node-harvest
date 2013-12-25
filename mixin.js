@@ -7,7 +7,6 @@ module.exports = _isUndefined = function(obj) {
         if(!obj.hasOwnProperty(arguments[i])) {
             return true;
         }
-        obj = obj[arguments[i]];
     };
     return false;
 };

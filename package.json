@@ -6,7 +6,7 @@
   "scripts": {
     "test": "mocha"
   },
-  "repository": "https://github.com/log0ymxm/harvest-node",
+  "repository": "https://github.com/log0ymxm/node-harvest",
   "author": "Paul English",
   "license": "MIT",
   "dependencies": {

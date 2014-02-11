@@ -83,7 +83,7 @@ module.exports = Harvest = function (opts) {
             throw new Error('processRequest: Callback is not defined');
         }
 
-        res.addListener('complete', function (data, res) {
+        res.once('complete', function (data, res) {
             var err;
 
             if (self.debug) {

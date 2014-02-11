@@ -1,6 +1,6 @@
 {
   "name": "harvest",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Harvest API client library",
   "main": "index.js",
   "scripts": {

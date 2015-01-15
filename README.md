@@ -6,12 +6,12 @@ Harvest is a tool that enables businesses to track time, track projects, manage 
 
 # Usage
 
-    var Harvest = require('harvest')
-        , harvest = new Harvest({
+    var Harvest = require('harvest'),
+    	harvest = new Harvest({
             subdomain: config.harvest.subdomain,
             email: config.harvest.email,
             password: config.harvest.password
-        })
+        }),
         TimeTracking = harvest.TimeTracking;
 
     TimeTracking.daily({}, function(err, tasks) {

@@ -1,6 +1,7 @@
 var restler = require('restler'),
     querystring = require('querystring'),
     util = require('util'),
+    url = require('url'),
     _isUndefined = require('./mixin'),
     Harvest;
 
@@ -83,14 +84,32 @@ module.exports = Harvest = function (opts) {
             throw new Error('processRequest: Callback is not defined');
         }
 
-        res.once('complete', function (data, res) {
-            var err;
+        var processedRes = res;
+        res.on('complete', function (data, res) {
+            
+            var err = null;
+
+            try {
+            
+                if (res.headers['location']) {
+                    processedRes.url = url.parse(url.resolve(processedRes.url.href, res.headers['location']));
+                    processedRes.options.method = 'GET';
+                    delete processedRes.options.data;
+                    
+                    processedRes._retry();
+                    return;
+                }
+            
+            } catch(error) {
+                err = error;
+                data = {};
+                return;
+            }
 
             if (self.debug) {
                 console.log('complete', util.inspect(data, false, 10));
             }
 
-            err = null;
             if (res.statusCode > 399 || data instanceof Error || data === "Authentication failed for API request.") {
                 err = data;
                 data = {};

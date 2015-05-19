@@ -14,7 +14,9 @@
     "restler": "~3.2.2"
   },
   "devDependencies": {
+    "config": "~1.13.0",
+    "coveralls": "^2.11.2",
     "mocha": "~2.2.5",
-    "config": "~1.13.0"
+    "mocha-lcov-reporter": "0.0.2"
   }
 }

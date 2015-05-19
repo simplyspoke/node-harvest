@@ -4,3 +4,6 @@ node_js:
   - '0.10'
 before_install:
   - openssl aes-256-cbc -K $encrypted_9111b7576717_key -iv $encrypted_9111b7576717_iv -in config/default.json.enc -out config/default.json -d
+after_success:
+  - ./node_modules/.bin/jscoverage lib lib-cov
+  - ./node_modules/.bin/mocha tests/**.js -R mocha-lcov-reporter | ./node_modules/coveralls/bin/coveralls.js

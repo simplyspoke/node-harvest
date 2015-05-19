@@ -13,10 +13,30 @@ describe('The Projects API', function() {
         it('should implement the list method', function() {
             assert.equal(typeof Projects.list, "function");
         });
+        it('should return projects', function(done) {
+            Projects.list({}, function(err, projects) {
+                assert(!err, err);
+                assert(Array.isArray(projects));
+                assert.equal(typeof projects[0], "object");
+                done();
+            });
+        });
     });
     describe('Get a project', function() {
         it('should implement the get method', function() {
             assert.equal(typeof Projects.get, "function");
+        });
+        it('should return projects', function(done) {
+            Projects.list({}, function(err, projects) {
+                var project_id = projects[0].project.id;
+                Projects.get({id: project_id}, function(err, project) {
+                    console.log('--- projects', err, project);
+                    assert(!err, err);
+                    assert.equal(typeof project.project, "object");
+                    done();
+                });
+            });
+
         });
     });
     describe('Create a new project', function() {

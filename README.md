@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/log0ymxm/node-harvest.svg?branch=master)](https://travis-ci.org/log0ymxm/node-harvest)
+
 Harvest is a tool that enables businesses to track time, track projects, manage clients, and invoice. This is a full client API built using node.js.
 
 # Install

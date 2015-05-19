@@ -30,7 +30,6 @@ describe('The Projects API', function() {
             Projects.list({}, function(err, projects) {
                 var project_id = projects[0].project.id;
                 Projects.get({id: project_id}, function(err, project) {
-                    console.log('--- projects', err, project);
                     assert(!err, err);
                     assert.equal(typeof project.project, "object");
                     done();

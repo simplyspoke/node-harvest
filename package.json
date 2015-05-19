@@ -10,11 +10,11 @@
   "author": "Paul English",
   "license": "MIT",
   "dependencies": {
-    "request": "~2.12.0",
-    "restler": "~3.1.0"
+    "request": "~2.55.0",
+    "restler": "~3.2.2"
   },
   "devDependencies": {
-    "mocha": "~1.7.0",
-    "config": "~0.4.18"
+    "mocha": "~2.2.5",
+    "config": "~1.13.0"
   }
 }

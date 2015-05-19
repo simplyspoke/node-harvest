@@ -1,5 +1,5 @@
 [![Build Status](https://travis-ci.org/log0ymxm/node-harvest.svg?branch=master)](https://travis-ci.org/log0ymxm/node-harvest)
-[![Coverage Status](https://coveralls.io/repos/log0ymxm/node-harvest/badge.svg)](https://coveralls.io/r/log0ymxm/node-harvest)
+[![Coverage Status](https://coveralls.io/repos/log0ymxm/node-harvest/badge.svg?branch=master)](https://coveralls.io/r/log0ymxm/node-harvest?branch=master)
 [![npm version](https://badge.fury.io/js/harvest.svg)](http://badge.fury.io/js/harvest)
 
 Harvest is a tool that enables businesses to track time, track projects, manage clients, and invoice. This is a full client API built using node.js.

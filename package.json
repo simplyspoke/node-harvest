@@ -16,6 +16,7 @@
   "devDependencies": {
     "config": "~1.13.0",
     "coveralls": "^2.11.2",
+    "istanbul": "^0.3.14",
     "mocha": "~2.2.5",
     "mocha-lcov-reporter": "0.0.2"
   }

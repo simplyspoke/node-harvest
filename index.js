@@ -92,9 +92,11 @@ module.exports = Harvest = function (opts) {
 
             err = null;
 
+            console.log(res)
             if (data instanceof Error || !res || res.statusCode > 399 || data === "Authentication failed for API request.") {
                 err = data;
                 data = {};
+                return cb(err);
             }
 
             if (res.req.method === "DELETE" && res.statusCode) {

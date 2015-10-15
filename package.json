@@ -10,14 +10,14 @@
   "author": "Paul English",
   "license": "MIT",
   "dependencies": {
-    "request": "~2.55.0",
-    "restler": "~3.2.2"
+    "request": "~2.65.0",
+    "restler": "~3.4.0"
   },
   "devDependencies": {
-    "config": "~1.13.0",
+    "config": "~1.16.0",
     "coveralls": "^2.11.2",
     "istanbul": "^0.3.14",
-    "mocha": "~2.2.5",
-    "mocha-lcov-reporter": "0.0.2"
+    "mocha": "~2.3.3",
+    "mocha-lcov-reporter": "1.0.0"
   }
 }

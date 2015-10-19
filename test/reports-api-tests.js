@@ -34,4 +34,9 @@ describe('The Reports API', function() {
             assert.equal(typeof Reports.expensesByProject, "function");
         });
     });
+    describe('Get all expenses entries to a client for a given timeframe', function() {
+        it('should implement the expensesByClient method', function() {
+            assert.equal(typeof Reports.expensesByClient, "function");
+        });
+    });
 });

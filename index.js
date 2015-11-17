@@ -46,9 +46,12 @@ module.exports = Harvest = function (opts) {
                 'Accept': 'application/json'
             };
 
-            if (data !== 'undefined') {
-                if (data === 'object') {
-                    opts.headers['Content-Length'] = querystring.stringify(data).length;
+            if (typeof data !== 'undefined') {
+                if (typeof data === 'object') {
+                    // restler uses url encoding to transmit data
+                    // url encoding does not support data types
+                    data = JSON.stringify(data);
+                    opts.headers['Content-Length'] = data.length;
                 } else {
                     opts.headers['Content-Length'] = data.length;
                 }

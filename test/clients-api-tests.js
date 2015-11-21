@@ -9,7 +9,7 @@ var assert = require('assert'),
     Clients = harvest.Clients;
 
 
-var TEST_CLIENT_NAME = '__NODE-HARVEST__TESTS__CLIENT__',
+var TEST_CLIENT_NAME = '__NODE-HARVEST__TESTS__CLIENT__' + parseInt(Math.random()*10000),
     TEST_CLIENT_ID = null;
 
 

@@ -4,7 +4,7 @@
   "description": "Harvest API client library",
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha --no-timeouts"
   },
   "repository": "https://github.com/log0ymxm/node-harvest",
   "author": "Paul English",

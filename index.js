@@ -2,6 +2,7 @@ var restler = require('restler'),
     querystring = require('querystring'),
     util = require('util'),
     _isUndefined = require('./mixin'),
+    Throttle = require('./throttle.js'),
     Harvest;
 
 module.exports = Harvest = function (opts) {
@@ -28,6 +29,7 @@ module.exports = Harvest = function (opts) {
     this.secret = opts.secret;
     this.user_agent = opts.user_agent;
     this.debug = opts.debug || false;
+    this.throttle_concurrency = opts.throttle_concurrency || null;
 
     var restService = restler.service(function (u, p) {
         this.defaults.username = u;
@@ -77,57 +79,32 @@ module.exports = Harvest = function (opts) {
         }
     });
 
-    this.processRequest = function (res, cb) {
-        if (this.debug) {
-            console.log('processRequest', cb);
-        }
 
-        if (typeof cb !== "function") {
-            throw new Error('processRequest: Callback is not defined');
-        }
-
-        res.once('complete', function (data, res) {
-            var err;
-
-            if (self.debug) {
-                console.log('complete', util.inspect(data, false, 10));
-            }
-
-            err = null;
-
-            if (res && res.req.method === "DELETE" && res.statusCode) {
-                return cb(err, data);
-            }
-
-            if (data instanceof Error || !res || res.statusCode > 399 || data === "Authentication failed for API request.") {
-                err = data;
-                data = {};
-                return cb(err);
-            }
-
-            cb(err, data);
-        });
-    };
 
     this.service = new restService(this.email, this.password);
+    this.throttle = new Throttle(this.throttle_concurrency);
+
+
 
     this.client = {
         get: function (url, data, cb) {
-            self.processRequest(self.service.run('get', url, data), cb);
+            self.throttle.push(function () {return self.service.run('get', url, data);}, cb);
         },
         patch: function (url, data, cb) {
-            self.processRequest(self.service.run('patch', url, data), cb);
+            self.throttle.push(function () {return self.service.run('patch', url, data);}, cb);
         },
         post: function (url, data, cb) {
-            self.processRequest(self.service.run('post', url, data), cb);
+            self.throttle.push(function () {return self.service.run('post', url, data);}, cb);
         },
         put: function (url, data, cb) {
-            self.processRequest(self.service.run('put', url, data), cb);
+            self.throttle.push(function () {return self.service.run('put', url, data);}, cb);
         },
         delete: function (url, data, cb) {
-            self.processRequest(self.service.run('delete', url, data), cb);
+            self.throttle.push(function () {return self.service.run('delete', url, data);}, cb);
         }
     };
+
+
 
     var Account = require('./lib/account');
     var TimeTracking = require('./lib/time-tracking');

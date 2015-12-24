@@ -12,13 +12,13 @@ module.exports = Harvest = function (opts) {
         throw new Error('The Harvest API client requires a subdomain');
     }
 
-    this.use_oauth = (opts.identifier !== undefined &&
-                      opts.secret !== undefined);
+    this.use_oauth = ((opts.identifier !== undefined && opts.secret !== undefined && opts.redirect_uri !== undefined)
+                      || (opts.access_token !== undefined));
     this.use_basic_auth = (opts.email !== undefined &&
                            opts.password !== undefined);
 
     if (!this.use_oauth && !this.use_basic_auth) {
-        throw new Error('The Harvest API client requires credentials for basic authentication or an identifier and secret for OAuth');
+        throw new Error('The Harvest API client requires credentials for basic authentication or an identifier, secret and redirect_uri (or an access_token) for OAuth');
     }
 
     this.subdomain = opts.subdomain;
@@ -27,6 +27,8 @@ module.exports = Harvest = function (opts) {
     this.password = opts.password;
     this.identifier = opts.identifier;
     this.secret = opts.secret;
+    this.redirect_uri = opts.redirect_uri;
+    this.access_token = opts.access_token || false;
     this.user_agent = opts.user_agent;
     this.debug = opts.debug || false;
     this.throttle_concurrency = opts.throttle_concurrency || null;
@@ -38,6 +40,13 @@ module.exports = Harvest = function (opts) {
         baseURL: self.host
     }, {
         run: function (type, url, data) {
+            if(self.use_oauth) {
+                if(!self.access_token) {
+                    throw new Error("An access token is required if using oAuth, use parseAccessCode or pass an access_token before making any requests");
+                }
+                url = url + "?access_token=" + self.access_token;
+            }
+
             if (self.debug) {
                 console.log('run', type, url, data);
             }
@@ -104,7 +113,41 @@ module.exports = Harvest = function (opts) {
         }
     };
 
+    this.getAccessTokenURL = function() {
+        return this.host
+            + "/oauth2/authorize?client_id=" + this.identifier
+            + "&redirect_uri=" + encodeURIComponent(this.redirect_uri)
+            + "&response_type=code";
+    }
 
+    this.parseAccessCode = function(access_code, cb) {
+        var self = this;
+        this.access_code = access_code;
+
+        var options = {
+            "code": this.access_code,
+            "client_id": this.identifier,
+            "client_secret": this.secret,
+            "redirect_uri": this.redirect_uri,
+            "grant_type": "authorization_code"
+        }
+
+        if (self.debug) {
+            console.log('request token', options);
+        }
+
+        restler.post(this.host + '/oauth2/token', {
+            data: options
+        }).on('complete', function(response) {
+            if(!response.access_token) {
+                throw new Error("Provided access code was rejected by Harvest, no token was returned");
+            }
+
+            self.access_token = response.access_token;
+
+            cb(self.access_token);
+        });
+    }
 
     var Account = require('./lib/account');
     var TimeTracking = require('./lib/time-tracking');

@@ -10,6 +10,7 @@
   "author": "Paul English",
   "license": "MIT",
   "dependencies": {
+    "append-query": "^1.1.0",
     "async": "^1.5.0",
     "day-of-year": "^0.1.0",
     "request": "~2.55.0",

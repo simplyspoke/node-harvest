@@ -1,6 +1,6 @@
 {
   "name": "harvest",
-  "version": "0.1.5",
+  "version": "0.2.0",
   "description": "Harvest API client library",
   "main": "index.js",
   "scripts": {
@@ -13,6 +13,7 @@
     "append-query": "^1.1.0",
     "async": "^1.5.0",
     "day-of-year": "^0.1.0",
+    "qs": "^6.3.0",
     "request": "~2.55.0",
     "restler": "~3.2.2"
   },

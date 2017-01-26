@@ -56,3 +56,4 @@ This API is designed to work either using HTTP Basic authentication, or OAuth so
 ## Projects using this library
 
 - [impleri/sow](https://github.com/impleri/sow): Command line time tracking utility
+- [pingsrl/revenue](https://github.com/pingsrl/revenue): Revenue is a dashboard that gives you a quick summary of your revenue from Harvest

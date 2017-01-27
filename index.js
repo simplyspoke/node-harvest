@@ -12,7 +12,7 @@ module.exports = Harvest = function(opts) {
     throw new Error('The Harvest API client requires a subdomain');
   }
 
-  this.use_oauth = ((opts.identifier !== undefined && opts.secret !== undefined && opts.redirect_uri !== undefined) || opts.access_token !== undefined);
+  this.use_oauth = ((opts.identifier !== undefined && opts.secret !== undefined && opts.redirect_uri !== undefined) || (opts.identifier !== undefined && opts.secret !== undefined) || opts.access_token !== undefined);
   this.use_basic_auth = (opts.email !== undefined &&
     opts.password !== undefined);
 

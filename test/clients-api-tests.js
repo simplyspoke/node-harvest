@@ -25,6 +25,7 @@ describe('The Clients API', function() {
                     assert.equal(err.message, 'Name has already been taken');
                 else
                     assert(data); */
+
                 done();
             });
         });
@@ -76,6 +77,7 @@ describe('The Clients API', function() {
             Clients.update({"id": TEST_CLIENT_ID, "client": { "name": TEST_CLIENT_NAME, "details": dets } }, function (err, data, res) {
                 /* TODO: uncomment when graceful processing for PUT requests implemented
                   assert(!err); */
+
                 Clients.get({"id": TEST_CLIENT_ID}, function(err, data) {
                     assert(!err);
                     assert(data);
@@ -97,6 +99,7 @@ describe('The Clients API', function() {
             Clients.toggleActivation({ id: TEST_CLIENT_ID }, function(err, data) {
                 /* TODO: uncomment when graceful processing for POST requests implemented
                 assert(!err); */
+
                 Clients.get({ id: TEST_CLIENT_ID }, function (err, data) {
                     assert(!err);
                     assert(data);

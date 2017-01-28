@@ -61,7 +61,7 @@ describe('The TimeTracking API', function() {
     });
     it('should return a list of timers that occured on a specific day', function(done) {
       TimeTracking.daily({
-        date: new Date('11/15/2012')
+        date: new Date('11/16/2012')
       }, function(err, timers) {
         assert(!err, err);
         assert.equal(typeof timers, 'object');
@@ -325,10 +325,10 @@ function seedHarvest(done) {
                   hours: 2,
                   project_id: TEST_PROJECT_ID,
                   task_id: TEST_TASK_ID,
-                  spent_at: 'Thu, 15 Nov 2012'
+                  spent_at: 'Thu, 16 Nov 2012'
                 }, function(err, response) {
                   TimeTracking.daily({
-                    date: new Date('11/15/2012')
+                    date: new Date('11/16/2012')
                   }, function(err, entries) {
                     for (var i = 0; i < entries.day_entries.length; ++i) {
                       if (entries.day_entries[i].task === TEST_TASK_NAME) {

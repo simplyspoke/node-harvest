@@ -1,6 +1,6 @@
 module.exports = {
   extends: [
-    'airbnb/legacy'
+    'eslint:recommended'
   ],
   rules: {
     camelcase: 0,

@@ -32,7 +32,7 @@ module.exports = Harvest = function(opts) {
   this.debug = opts.debug || false;
   this.throttle_concurrency = opts.throttle_concurrency || null;
 
-  var restService = restler.service(function(u, p) {
+  var RestService = restler.service(function(u, p) {
     this.defaults.username = u;
     this.defaults.password = p;
   }, {
@@ -87,7 +87,7 @@ module.exports = Harvest = function(opts) {
     }
   });
 
-  this.service = new restService(this.email, this.password);
+  this.service = new RestService(this.email, this.password);
   this.throttle = new Throttle(this.throttle_concurrency);
 
   this.client = {
@@ -164,7 +164,7 @@ module.exports = Harvest = function(opts) {
         cb(self.access_token);
       });
     };
-  };
+  }
 
   var Account = require('./lib/account');
   var TimeTracking = require('./lib/time-tracking');

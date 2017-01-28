@@ -21,10 +21,6 @@
     "config": "~1.13.0",
     "coveralls": "^2.11.2",
     "eslint": "^3.14.0",
-    "eslint-config-airbnb": "^14.0.0",
-    "eslint-plugin-import": "^2.2.0",
-    "eslint-plugin-jsx-a11y": "^3.0.2",
-    "eslint-plugin-react": "^6.9.0",
     "istanbul": "^0.3.14",
     "mocha": "~2.2.5",
     "mocha-lcov-reporter": "0.0.2"

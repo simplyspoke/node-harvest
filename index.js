@@ -3,13 +3,13 @@
 var restler = require('restler'),
   qs = require('qs'),
   util = require('util'),
-  _isUndefined = require('./mixin'),
+  isUndefined = require('./mixin'),
   Throttle = require('./throttle.js');
 
 var Harvest = function(opts) {
   var self = this;
 
-  if (_isUndefined(opts, 'subdomain')) {
+  if (isUndefined(opts, 'subdomain')) {
     throw new Error('The Harvest API client requires a subdomain');
   }
 

@@ -352,19 +352,19 @@ function cleanupHarvest(done) {
   TimeTracking.delete({
     'id': TEST_TIMER_ID
   }, function(err, response) {
-    if (err) console.log(err)
+    if (err) console.log('TimeTracking', err)
     Tasks.delete({
       'id': TEST_TASK_ID
     }, function(err, response) {
-      if (err) console.log(err)
+      if (err) console.log('Tasks', err)
       Projects.delete({
         'id': TEST_PROJECT_ID
       }, function(err, response) {
-        if (err) console.log(err)
+        if (err) console.log('Projects', err)
         Clients.delete({
           'id': TEST_CLIENT_ID
         }, function(err, response) {
-          if (err) console.log(err)
+          if (err) console.log('Clients', err)
           done();
         });
       });

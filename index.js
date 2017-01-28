@@ -6,32 +6,31 @@ var restler = require('restler'),
   isUndefined = require('./mixin'),
   Throttle = require('./throttle.js');
 
-var Harvest = function(opts) {
+var Harvest = function(options) {
   var self = this;
 
-  if (isUndefined(opts, 'subdomain')) {
+  if (isUndefined(options, 'subdomain')) {
     throw new Error('The Harvest API client requires a subdomain');
   }
 
-  this.use_oauth = ((opts.identifier !== undefined && opts.secret !== undefined && opts.redirect_uri !== undefined) || (opts.identifier !== undefined && opts.secret !== undefined) || opts.access_token !== undefined);
-  this.use_basic_auth = (opts.email !== undefined &&
-    opts.password !== undefined);
+  self.use_oauth = ((options.identifier !== undefined && options.secret !== undefined && options.redirect_uri !== undefined) || (options.identifier !== undefined && options.secret !== undefined) || options.access_token !== undefined);
+  self.use_basic_auth = (options.email !== undefined &&
+    options.password !== undefined);
 
-  if (!this.use_oauth && !this.use_basic_auth) {
+  if (!self.use_oauth && !self.use_basic_auth) {
     throw new Error('The Harvest API client requires credentials for basic authentication or an identifier, secret and redirect_uri (or an access_token) for OAuth');
   }
 
-  this.subdomain = opts.subdomain;
-  this.host = 'https://' + this.subdomain + '.harvestapp.com';
-  this.email = opts.email;
-  this.password = opts.password;
-  this.identifier = opts.identifier;
-  this.secret = opts.secret;
-  this.redirect_uri = opts.redirect_uri;
-  this.access_token = opts.access_token || false;
-  this.user_agent = opts.user_agent;
-  this.debug = opts.debug || false;
-  this.throttle_concurrency = opts.throttle_concurrency || null;
+  self.host = 'https://' + options.subdomain + '.harvestapp.com';
+  self.email = options.email;
+  self.password = options.password;
+  self.identifier = options.identifier;
+  self.secret = options.secret;
+  self.redirect_uri = options.redirect_uri;
+  self.access_token = options.access_token || false;
+  self.user_agent = options.user_agent;
+  self.debug = options.debug || false;
+  self.throttle_concurrency = options.throttle_concurrency || null;
 
   var RestService = restler.service(function(u, p) {
     this.defaults.username = u;
@@ -51,8 +50,8 @@ var Harvest = function(opts) {
         url = url.indexOf('?') > -1 ? url + '&access_token=' + self.access_token : url + '?access_token=' + self.access_token;
       }
 
-      var opts = {};
-      opts.headers = {
+      var options = {};
+      options.headers = {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
       };
@@ -62,36 +61,36 @@ var Harvest = function(opts) {
           // restler uses url encoding to transmit data
           // url encoding does not support data types
           data = JSON.stringify(data);
-          opts.headers['Content-Length'] = data.length;
+          options.headers['Content-Length'] = data.length;
         } else {
-          opts.headers['Content-Length'] = data.length;
+          options.headers['Content-Length'] = data.length;
         }
       } else {
-        opts.headers['Content-Length'] = 0;
+        options.headers['Content-Length'] = 0;
       }
 
-      opts.data = data;
+      options.data = data;
       switch (type) {
         case 'get':
-          return this.get(url, opts);
+          return this.get(url, options);
 
         case 'post':
-          return this.post(url, opts);
+          return this.post(url, options);
 
         case 'put':
-          return this.put(url, opts);
+          return this.put(url, options);
 
         case 'delete':
-          return this.del(url, opts);
+          return this.del(url, options);
       }
       return this;
     }
   });
 
-  this.service = new RestService(this.email, this.password);
-  this.throttle = new Throttle(this.throttle_concurrency);
+  self.service = new RestService(this.email, this.password);
+  self.throttle = new Throttle(this.throttle_concurrency);
 
-  this.client = {
+  self.client = {
     get: function(url, data, cb) {
       if (Object.keys(data).length) {
         var query = qs.stringify(data, {
@@ -130,14 +129,14 @@ var Harvest = function(opts) {
   };
 
   if (self.use_oauth) {
-    this.getAccessTokenURL = function() {
+    self.getAccessTokenURL = function() {
       return this.host +
         '/oauth2/authorize?client_id=' + this.identifier +
         '&redirect_uri=' + encodeURIComponent(this.redirect_uri) +
         '&response_type=code';
     };
 
-    this.parseAccessCode = function(access_code, cb) {
+    self.parseAccessCode = function(access_code, cb) {
       var self = this;
       this.access_code = access_code;
 

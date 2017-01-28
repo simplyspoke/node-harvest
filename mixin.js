@@ -1,3 +1,5 @@
+'use strict';
+
 var mixins = {
   _isUndefined: _isUndefined
 };

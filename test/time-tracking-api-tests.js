@@ -1,3 +1,5 @@
+'use strict';
+
 var assert = require('assert'),
   config = require('config'),
   util = require('util'),

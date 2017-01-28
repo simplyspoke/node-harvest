@@ -1,8 +1,6 @@
 'use strict';
 
-
 var Async = require('async');
-
 
 /**
  * Graceful request/response processing
@@ -75,13 +73,11 @@ function Throttle(concurrency) {
   }, concurrency || 40);
 }
 
-
 Throttle.prototype.push = function(query, callback) {
   this._queue.push({
     query: query,
     callback: callback
   });
 };
-
 
 module.exports = Throttle;

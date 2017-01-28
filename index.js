@@ -1,3 +1,5 @@
+'use strict';
+
 var restler = require('restler'),
   qs = require('qs'),
   util = require('util'),

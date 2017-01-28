@@ -18,8 +18,11 @@ describe('Mixins', function() {
     it('should return submitted url if of_user is not defined', function() {
       assert.equal(url, mixins.ofUserUrl(url, {}));
     });
+    it('should an appended url with the of user parameter set', function() {
+      assert.equal(url + '/?of_user=userID', mixins.ofUserUrl(url, options));
+    });
     it('should delete the of_user property if defined', function() {
-      assert.equal(url + '?of_user=userID', mixins.ofUserUrl(url, options));
+      assert.equal(typeof options.of_user, 'undefined');
     });
   });
 });

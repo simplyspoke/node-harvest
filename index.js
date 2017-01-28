@@ -3,7 +3,7 @@
 var restler = require('restler'),
   qs = require('qs'),
   util = require('util'),
-  isUndefined = require('./mixin'),
+  isUndefined = require('./mixins').isUndefined,
   Throttle = require('./throttle.js');
 
 var Harvest = function(options) {
@@ -32,9 +32,9 @@ var Harvest = function(options) {
   self.debug = options.debug || false;
   self.throttle_concurrency = options.throttle_concurrency || null;
 
-  var RestService = restler.service(function(u, p) {
-    this.defaults.username = u;
-    this.defaults.password = p;
+  var RestService = restler.service(function(username, password) {
+    this.defaults.username = username;
+    this.defaults.password = password;
   }, {
     baseURL: self.host
   }, {
@@ -87,8 +87,8 @@ var Harvest = function(options) {
     }
   });
 
-  self.service = new RestService(this.email, this.password);
-  self.throttle = new Throttle(this.throttle_concurrency);
+  self.service = new RestService(self.email, self.password);
+  self.throttle = new Throttle(self.throttle_concurrency);
 
   self.client = {
     get: function(url, data, cb) {
@@ -98,7 +98,7 @@ var Harvest = function(options) {
         });
 
         if (typeof query == 'string' && query.length > 0) {
-          url += '?' + query;
+          url.indexOf('?') > -1 ? url + '&' + query : url + '?' + query;
         }
       }
 
@@ -130,21 +130,20 @@ var Harvest = function(options) {
 
   if (self.use_oauth) {
     self.getAccessTokenURL = function() {
-      return this.host +
-        '/oauth2/authorize?client_id=' + this.identifier +
-        '&redirect_uri=' + encodeURIComponent(this.redirect_uri) +
+      return self.host +
+        '/oauth2/authorize?client_id=' + self.identifier +
+        '&redirect_uri=' + encodeURIComponent(self.redirect_uri) +
         '&response_type=code';
     };
 
     self.parseAccessCode = function(access_code, cb) {
-      var self = this;
-      this.access_code = access_code;
+      self.access_code = access_code;
 
       var options = {
-        'code': this.access_code,
-        'client_id': this.identifier,
-        'client_secret': this.secret,
-        'redirect_uri': this.redirect_uri,
+        'code': self.access_code,
+        'client_id': self.identifier,
+        'client_secret': self.secret,
+        'redirect_uri': self.redirect_uri,
         'grant_type': 'authorization_code'
       };
 
@@ -152,7 +151,7 @@ var Harvest = function(options) {
         console.log('request token', options);
       }
 
-      restler.post(this.host + '/oauth2/token', {
+      restler.post(self.host + '/oauth2/token', {
         data: options
       }).on('complete', function(response) {
         if (!response.access_token) {

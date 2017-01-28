@@ -46,14 +46,14 @@ function Throttle(concurrency) {
           // RFC2616, Section 14.37, timout may be either seconds or datetime value
           var timeout;
           if (/^\d+$/.test(res.headers['retry-after'])) {
-            timeout = parseInt(res.headers['retry-after']) * 1000;
+            timeout = parseInt(res.headers['retry-after'], 10) * 1000;
           } else {
             var til = Date.parse(res.headers['retry-after']);
 
             if (isNaN(til)) {
               timeout = 0;
               self._fatalError = {
-                "error": "cannot parse Retry-After value: " + res.headers['retry-after']
+                'error': 'cannot parse Retry-After value: ' + res.headers['retry-after']
               };
 
               done();

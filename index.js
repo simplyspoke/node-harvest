@@ -21,7 +21,7 @@ module.exports = Harvest = function(opts) {
   }
 
   this.subdomain = opts.subdomain;
-  this.host = "https://" + this.subdomain + ".harvestapp.com";
+  this.host = 'https://' + this.subdomain + '.harvestapp.com';
   this.email = opts.email;
   this.password = opts.password;
   this.identifier = opts.identifier;

@@ -36,6 +36,7 @@ module.exports = {
     'no-else-return': 0,
     'no-empty-class': 0,
     'no-multi-spaces': 2,
+    'no-multi-str': 0,
     'no-param-reassign': 0,
     'no-plusplus': ['error', {
       allowForLoopAfterthoughts: true

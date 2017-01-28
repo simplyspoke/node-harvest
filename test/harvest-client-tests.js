@@ -10,7 +10,7 @@ describe('The Harvest API Client', function() {
         email: config.harvest.email,
         password: config.harvest.password
       });
-      assert(typeof harvest === "object");
+      assert(typeof harvest === 'object');
     });
     it('should be able to work with OAuth 2.0', function() {
       var harvest = new Harvest({
@@ -18,7 +18,7 @@ describe('The Harvest API Client', function() {
         identifier: config.harvest.identifier,
         secret: config.harvest.secret
       });
-      assert(typeof harvest === "object");
+      assert(typeof harvest === 'object');
     });
   });
 });

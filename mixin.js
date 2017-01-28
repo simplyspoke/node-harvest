@@ -1,6 +1,8 @@
-var _isUndefined;
+var mixins = {
+  _isUndefined: _isUndefined
+};
 
-module.exports = _isUndefined = function(obj) {
+function _isUndefined(obj) {
   var i;
 
   for (i = arguments.length - 1; i >= 1; i--) {
@@ -9,4 +11,6 @@ module.exports = _isUndefined = function(obj) {
     }
   }
   return false;
-};
+}
+
+module.exports = mixins;

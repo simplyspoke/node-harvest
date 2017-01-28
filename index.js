@@ -2,10 +2,9 @@ var restler = require('restler'),
   qs = require('qs'),
   util = require('util'),
   _isUndefined = require('./mixin'),
-  Throttle = require('./throttle.js'),
-  Harvest;
+  Throttle = require('./throttle.js');
 
-module.exports = Harvest = function(opts) {
+var Harvest = function(opts) {
   var self = this;
 
   if (_isUndefined(opts, 'subdomain')) {
@@ -202,3 +201,5 @@ module.exports = Harvest = function(opts) {
 
   return this;
 };
+
+module.exports = Harvest;

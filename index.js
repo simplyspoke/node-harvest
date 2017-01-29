@@ -2,6 +2,7 @@
 
 var fs = require('fs'),
   path = require('path'),
+  has = require('lodash/has'),
   startCase = require('lodash/startCase'),
   replace = require('lodash/replace'),
   restler = require('restler'),
@@ -13,7 +14,7 @@ var fs = require('fs'),
 var Harvest = function(options) {
   var self = this;
 
-  if (isUndefined(options, 'subdomain')) {
+  if (has(options, 'subdomain')) {
     throw new Error('The Harvest API client requires a subdomain');
   }
 

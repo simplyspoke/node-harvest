@@ -15,11 +15,6 @@ describe('Mixins', function() {
       assert.equal(result, '/1/2017');
     });
   });
-  describe('isUndefined', function() {
-    it('should return true if property is not defined', function() {
-      assert.equal(true, mixins.isUndefined({}, 'project_id'));
-    });
-  });
   describe('ofUserUrl', function() {
     var url = 'http://localhost';
     var options = {

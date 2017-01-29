@@ -1,18 +1,19 @@
 'use strict';
 
-var fs = require('fs'),
-  path = require('path'),
-  has = require('lodash/has'),
-  startCase = require('lodash/startCase'),
-  replace = require('lodash/replace'),
-  restler = require('restler'),
-  qs = require('qs'),
-  util = require('util'),
-  isUndefined = require('./mixins').isUndefined,
-  Throttle = require('./throttle.js');
+const fs = require('fs');
+const path = require('path');
+const has = require('lodash/has');
+const startCase = require('lodash/startCase');
+const replace = require('lodash/replace');
+const restler = require('restler');
+const qs = require('qs');
+const util = require('util');
 
-var Harvest = function(options) {
-  var self = this;
+const isUndefined = require('./mixins').isUndefined;
+const Throttle = require('./throttle.js');
+
+function Harvest(options) {
+  let self = this;
 
   if (has(options, 'subdomain')) {
     throw new Error('The Harvest API client requires a subdomain');
@@ -37,7 +38,7 @@ var Harvest = function(options) {
   self.debug = options.debug || false;
   self.throttle_concurrency = options.throttle_concurrency || null;
 
-  var RestService = restler.service(function(username, password) {
+  let RestService = restler.service(function(username, password) {
     this.defaults.username = username;
     this.defaults.password = password;
   }, {
@@ -55,7 +56,7 @@ var Harvest = function(options) {
         url = url.indexOf('?') > -1 ? url + '&access_token=' + self.access_token : url + '?access_token=' + self.access_token;
       }
 
-      var options = {};
+      let options = {};
       options.headers = {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
@@ -98,7 +99,7 @@ var Harvest = function(options) {
   self.client = {
     get: function(url, data, cb) {
       if (Object.keys(data).length) {
-        var query = qs.stringify(data, {
+        let query = qs.stringify(data, {
           arrayFormat: 'brackets'
         });
 
@@ -134,7 +135,7 @@ var Harvest = function(options) {
   };
 
   return this;
-};
+}
 
 Harvest.prototype.getAccessTokenURL = function() {
   return self.host +
@@ -146,7 +147,7 @@ Harvest.prototype.getAccessTokenURL = function() {
 Harvest.prototype.parseAccessCode = function(access_code, cb) {
   self.access_code = access_code;
 
-  var options = {
+  let options = {
     'code': self.access_code,
     'client_id': self.identifier,
     'client_secret': self.secret,
@@ -173,11 +174,11 @@ Harvest.prototype.parseAccessCode = function(access_code, cb) {
 
 // Require and instantiate the resources lazily.
 fs.readdirSync(path.join(__dirname, 'lib')).forEach(name => {
-  var prop = replace(startCase(name.slice(0, -3)), ' ', '');
+  let prop = replace(startCase(name.slice(0, -3)), ' ', '');
 
   Object.defineProperty(Harvest.prototype, prop, {
     get: function get() {
-      var Resource = require(`./lib/${name}`);
+      let Resource = require(`./lib/${name}`);
 
       return Object.defineProperty(this, prop, {
         value: new Resource(this)

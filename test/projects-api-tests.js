@@ -1,14 +1,14 @@
 'use strict';
 
-var assert = require('assert'),
-  config = require('../config'),
-  Harvest = require('../index'),
-  harvest = new Harvest({
-    subdomain: config.subdomain,
-    email: config.email,
-    password: config.password
-  }),
-  Projects = harvest.Projects;
+const assert = require('assert');
+const config = require('../config');
+const Harvest = require('../index');
+const harvest = new Harvest({
+  subdomain: config.subdomain,
+  email: config.email,
+  password: config.password
+});
+const Projects = harvest.Projects;
 
 describe('The Projects API', function() {
   describe('Show all projects', function() {
@@ -30,7 +30,7 @@ describe('The Projects API', function() {
     });
     it('should return projects', function(done) {
       Projects.list({}, function(err, projects) {
-        var project_id = projects[0].project.id;
+        let project_id = projects[0].project.id;
         Projects.get({
           id: project_id
         }, function(err, project) {

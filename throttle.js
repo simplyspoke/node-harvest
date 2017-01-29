@@ -1,12 +1,12 @@
 'use strict';
 
-var Async = require('async');
+const Async = require('async');
 
 /**
  * Graceful request/response processing
  */
 function Throttle(concurrency) {
-  var self = this;
+  let self = this;
 
   self._timeout = null;
   self._fatalError = null;
@@ -41,11 +41,11 @@ function Throttle(concurrency) {
           clearTimeout(self._timeout);
 
           // RFC2616, Section 14.37, timout may be either seconds or datetime value
-          var timeout;
+          let timeout;
           if (/^\d+$/.test(res.headers['retry-after'])) {
             timeout = parseInt(res.headers['retry-after'], 10) * 1000;
           } else {
-            var til = Date.parse(res.headers['retry-after']);
+            let til = Date.parse(res.headers['retry-after']);
 
             if (isNaN(til)) {
               timeout = 0;

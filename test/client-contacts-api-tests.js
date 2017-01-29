@@ -1,14 +1,14 @@
 'use strict';
 
-var assert = require('assert'),
-  config = require('../config'),
-  Harvest = require('../index'),
-  harvest = new Harvest({
-    subdomain: config.subdomain,
-    email: config.email,
-    password: config.password
-  }),
-  ClientContacts = harvest.ClientContacts;
+const assert = require('assert');
+const config = require('../config');
+const Harvest = require('../index');
+const harvest = new Harvest({
+  subdomain: config.subdomain,
+  email: config.email,
+  password: config.password
+});
+const ClientContacts = harvest.ClientContacts;
 
 describe('The ClientContacts API', function() {
   describe('Get all client contacts for an account', function() {

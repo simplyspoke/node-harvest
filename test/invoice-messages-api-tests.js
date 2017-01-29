@@ -1,14 +1,14 @@
 'use strict';
 
-var assert = require('assert'),
-  config = require('../config'),
-  Harvest = require('../index'),
-  harvest = new Harvest({
-    subdomain: config.subdomain,
-    email: config.email,
-    password: config.password
-  }),
-  InvoiceMessages = harvest.InvoiceMessages;
+const assert = require('assert');
+const config = require('../config');
+const Harvest = require('../index');
+const harvest = new Harvest({
+  subdomain: config.subdomain,
+  email: config.email,
+  password: config.password
+});
+const InvoiceMessages = harvest.InvoiceMessages;
 
 describe('The InvoiceMessages API', function() {
   describe('Show all messages sent for an invoice', function() {

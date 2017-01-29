@@ -16,7 +16,7 @@ Harvest is a tool that enables businesses to track time, track projects, manage 
 ## Basic Authentication
 
 ```js
-var Harvest = require('harvest'),
+let Harvest = require('harvest'),
 	harvest = new Harvest({
     subdomain: config.harvest.subdomain,
     email: config.harvest.email,
@@ -36,12 +36,12 @@ TimeTracking.daily({}, function(err, tasks) {
 ### When you already have an access token
 
 ```js
-var harvest_with_token = new Harvest({
+let harvest_with_token = new Harvest({
   subdomain: config.harvest_oauth.subdomain,
   access_token: stored_access_token
 });
 
-var TimeTracking = harvest.TimeTracking;
+let TimeTracking = harvest.TimeTracking;
 
 TimeTracking.daily({}, function(err, tasks) {
   if (err) throw new Error(err);
@@ -54,7 +54,7 @@ TimeTracking.daily({}, function(err, tasks) {
 
 ```js
 // See https://platform.harvestapp.com/oauth2_clients to get these
-var harvest = new Harvest({
+let harvest = new Harvest({
   subdomain: config.harvest_oauth.subdomain,
   redirect_uri: config.harvest_oauth.redirect_uri,
   identifier: config.harvest_oauth.client_id,
@@ -63,12 +63,12 @@ var harvest = new Harvest({
 
 // Send the user to harvest.getAccessTokenURL()) and grab the access code passed as a get parameter
 // e.g. By running an express.js server at redirect_url
-var access_code = req.query.code;
+let access_code = req.query.code;
 
 harvest.parseAccessCode(access_code, function(access_token) {
   console.log('Grabbed the access token to save', access_token);
 
-  var TimeTracking = harvest.TimeTracking;
+  let TimeTracking = harvest.TimeTracking;
 
   TimeTracking.daily({}, function(err, tasks) {
     if (err) throw new Error(err);

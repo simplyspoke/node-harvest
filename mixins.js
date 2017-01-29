@@ -1,8 +1,8 @@
 'use strict';
 
-var appendQuery = require('append-query');
+const appendQuery = require('append-query');
 
-var mixins = {
+const mixins = {
   dayOfYear: dayOfYear,
   ofUserUrl: ofUserUrl
 };

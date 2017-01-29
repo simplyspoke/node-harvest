@@ -1,19 +1,17 @@
 'use strict';
 
-var assert = require('assert'),
-  config = require('../config'),
-  Harvest = require('../index'),
-  harvest = new Harvest({
-    subdomain: config.subdomain,
-    email: config.email,
-    password: config.password
-  }),
-  Clients = harvest.Clients;
+const assert = require('assert');
+const config = require('../config');
+const Harvest = require('../index');
+const harvest = new Harvest({
+  subdomain: config.subdomain,
+  email: config.email,
+  password: config.password
+});
+const Clients = harvest.Clients;
 
-
-var TEST_CLIENT_NAME = '__NODE-HARVEST__TESTS__CLIENT__' + parseInt(Math.random() * 10000, 10),
-  TEST_CLIENT_ID = null;
-
+const TEST_CLIENT_NAME = '__NODE-HARVEST__TESTS__CLIENT__' + parseInt(Math.random() * 10000, 10);
+let TEST_CLIENT_ID = null;
 
 describe('The Clients API', function() {
   describe('Create a new client', function() {
@@ -42,8 +40,8 @@ describe('The Clients API', function() {
     it('should provide a list of all clients', function(done) {
       Clients.list({}, function(err, clients) {
         assert(!err);
-        var testClient;
-        for (var i = 0; i < clients.length; ++i) {
+        let testClient;
+        for (let i = 0; i < clients.length; ++i) {
           if (clients[i].client.name === TEST_CLIENT_NAME) {
             testClient = clients[i].client;
             break;
@@ -79,7 +77,7 @@ describe('The Clients API', function() {
     });
     it('update method should work properly', function(done) {
       assert(TEST_CLIENT_ID);
-      var dets = 'New details: ' + Math.random();
+      let dets = 'New details: ' + Math.random();
 
       Clients.update({
         'id': TEST_CLIENT_ID,

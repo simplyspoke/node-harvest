@@ -1,8 +1,7 @@
 'use strict';
 
-var assert = require('assert'),
-  mixins = require('../mixins');
-
+const assert = require('assert');
+const mixins = require('../mixins');
 
 describe('Mixins', function() {
   describe('isUndefined', function() {
@@ -10,14 +9,14 @@ describe('Mixins', function() {
       assert.equal(typeof mixins.dayOfYear, 'function');
     });
     it('should accept a date parameter and return a string', function() {
-      var result = mixins.dayOfYear(new Date('1/1/2017'));
+      let result = mixins.dayOfYear(new Date('1/1/2017'));
       assert.equal(typeof result, 'string');
       assert.equal(result, '/1/2017');
     });
   });
   describe('ofUserUrl', function() {
-    var url = 'http://localhost';
-    var options = {
+    let url = 'http://localhost';
+    let options = {
       of_user: 'userID'
     };
     it('should return submitted url if of_user is not defined', function() {

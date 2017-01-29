@@ -1,28 +1,25 @@
 'use strict';
 
-var assert = require('assert'),
-  config = require('../config'),
-  util = require('util'),
-  Harvest = require('../index'),
-  harvest = new Harvest({
-    subdomain: config.subdomain,
-    email: config.email,
-    password: config.password
-  }),
-  Clients = harvest.Clients,
-  Projects = harvest.Projects,
-  Tasks = harvest.Tasks,
-  TaskAssignment = harvest.TaskAssignment,
-  TimeTracking = harvest.TimeTracking;
+const assert = require('assert');
+const config = require('../config');
+const util = require('util');
+const Harvest = require('../index');
+const harvest = new Harvest({
+  subdomain: config.subdomain,
+  email: config.email,
+  password: config.password
+});
+const TimeTracking = harvest.TimeTracking;
 
-var random = parseInt(Math.random() * 10000, 10);
-var TEST_CLIENT_NAME = '__NODE-HARVEST__TESTS__CLIENT__' + random,
-  TEST_CLIENT_ID,
-  TEST_PROJECT_NAME = '__NODE-HARVEST__TESTS__PROJECT__' + random,
-  TEST_PROJECT_ID,
-  TEST_TASK_NAME = '__NODE-HARVEST__TESTS__TASK__' + random,
-  TEST_TASK_ID,
-  TEST_TIMER_ID;
+const random = parseInt(Math.random() * 10000, 10);
+const TEST_CLIENT_NAME = '__NODE-HARVEST__TESTS__CLIENT__' + random;
+const TEST_PROJECT_NAME = '__NODE-HARVEST__TESTS__PROJECT__' + random;
+const TEST_TASK_NAME = '__NODE-HARVEST__TESTS__TASK__' + random;
+
+let TEST_CLIENT_ID;
+let TEST_PROJECT_ID;
+let TEST_TASK_ID;
+let TEST_TIMER_ID;
 
 describe('The TimeTracking API', function() {
   before(function(done) {
@@ -185,7 +182,7 @@ describe('The TimeTracking API', function() {
         assert.equal(typeof timer.created_at, 'string');
         assert.equal(typeof timer.updated_at, 'string');
 
-        var entry_id = timer.id;
+        let entry_id = timer.id;
 
         TimeTracking.delete({
           id: entry_id
@@ -208,7 +205,7 @@ describe('The TimeTracking API', function() {
         task_id: TEST_TASK_ID,
         spent_at: 'Sat, 17 Nov 2012'
       }, function(err, timer) {
-        var entry_id = timer.id;
+        let entry_id = timer.id;
 
         TimeTracking.delete({
           id: entry_id
@@ -231,7 +228,7 @@ describe('The TimeTracking API', function() {
         task_id: TEST_TASK_ID,
         spent_at: 'Sun, 18 Nov 2012'
       }, function(err, new_entry) {
-        var entry_id = new_entry.id;
+        let entry_id = new_entry.id;
         TimeTracking.update({
           id: entry_id,
           notes: 'This is a test time entry for the node-harvest client',
@@ -268,7 +265,7 @@ describe('The TimeTracking API', function() {
 });
 
 function seedHarvest(done) {
-  Clients.create({
+  harvest.Clients.create({
     'client': {
       'name': TEST_CLIENT_NAME,
       'active': true,
@@ -278,14 +275,14 @@ function seedHarvest(done) {
     }
   }, function(err, response) {
     if (err) console.log('Clients', err)
-    Clients.list({}, function(err, clients) {
-      for (var i = 0; i < clients.length; ++i) {
+    harvest.Clients.list({}, function(err, clients) {
+      for (let i = 0; i < clients.length; ++i) {
         if (clients[i].client.name === TEST_CLIENT_NAME) {
           TEST_CLIENT_ID = clients[i].client.id;
           break;
         }
       }
-      Projects.create({
+      harvest.Projects.create({
         'project': {
           'client_id': TEST_CLIENT_ID,
           'name': TEST_PROJECT_NAME,
@@ -293,14 +290,14 @@ function seedHarvest(done) {
         }
       }, function(err, response) {
         if (err) console.log('Projects', err)
-        Projects.list({}, function(err, projects) {
-          for (var i = 0; i < projects.length; ++i) {
+        harvest.Projects.list({}, function(err, projects) {
+          for (let i = 0; i < projects.length; ++i) {
             if (projects[i].project.name === TEST_PROJECT_NAME) {
               TEST_PROJECT_ID = projects[i].project.id;
               break;
             }
           }
-          Tasks.create({
+          harvest.Tasks.create({
             'task': {
               'name': TEST_TASK_NAME,
               'billable_by_default': false,
@@ -310,14 +307,14 @@ function seedHarvest(done) {
             }
           }, function(err, response) {
             if (err) console.log('Tasks', err)
-            Tasks.list({}, function(err, tasks) {
-              for (var i = 0; i < tasks.length; ++i) {
+            harvest.Tasks.list({}, function(err, tasks) {
+              for (let i = 0; i < tasks.length; ++i) {
                 if (tasks[i].task.name === TEST_TASK_NAME) {
                   TEST_TASK_ID = tasks[i].task.id;
                   break;
                 }
               }
-              TaskAssignment.assign({
+              harvest.TaskAssignment.assign({
                 project_id: TEST_PROJECT_ID,
                 task: {
                   id: TEST_TASK_ID
@@ -335,7 +332,7 @@ function seedHarvest(done) {
                   TimeTracking.daily({
                     date: new Date('11/16/2012')
                   }, function(err, entries) {
-                    for (var i = 0; i < entries.day_entries.length; ++i) {
+                    for (let i = 0; i < entries.day_entries.length; ++i) {
                       if (entries.day_entries[i].task === TEST_TASK_NAME) {
                         TEST_TIMER_ID = entries.day_entries[i].id;
                         break;
@@ -358,15 +355,15 @@ function cleanupHarvest(done) {
     'id': TEST_TIMER_ID
   }, function(err, response) {
     if (err) console.log('TimeTracking', err)
-    Tasks.delete({
+    harvest.Tasks.delete({
       'id': TEST_TASK_ID
     }, function(err, response) {
       if (err) console.log('Tasks', err)
-      Projects.delete({
+      harvest.Projects.delete({
         'id': TEST_PROJECT_ID
       }, function(err, response) {
         if (err) console.log('Projects', err)
-        Clients.delete({
+        harvest.Clients.delete({
           'id': TEST_CLIENT_ID
         }, function(err, response) {
           if (err) console.log('Clients', err)

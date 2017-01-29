@@ -1,13 +1,13 @@
 'use strict';
 
-var assert = require('assert'),
-  config = require('../config'),
-  Harvest = require('../index');
+const assert = require('assert');
+const config = require('../config');
+const Harvest = require('../index');
 
 describe('The Harvest API Client', function() {
   describe('Instantiating a Harvest instance', function() {
     it('should be able to work with HTTP basic authentication', function() {
-      var harvest = new Harvest({
+      let harvest = new Harvest({
         subdomain: config.subdomain,
         email: config.email,
         password: config.password
@@ -15,7 +15,7 @@ describe('The Harvest API Client', function() {
       assert(typeof harvest === 'object');
     });
     it('should be able to work with OAuth 2.0', function() {
-      var harvest = new Harvest({
+      let harvest = new Harvest({
         subdomain: config.subdomain,
         identifier: config.identifier,
         secret: config.secret

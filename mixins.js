@@ -3,9 +3,23 @@
 var appendQuery = require('append-query');
 
 var mixins = {
+  dayOfYear: dayOfYear,
   isUndefined: isUndefined,
   ofUserUrl: ofUserUrl
 };
+
+function dayOfYear(date) {
+  let year = date.getFullYear(),
+    month = date.getMonth(),
+    day = date.getDate();
+
+  let then = new Date(year, month, day, 12, 0, 0),
+    first = new Date(year, 0, 0, 12, 0, 0);
+
+  day = Math.round((then - first) / 864e5)
+
+  return '/' + day + '/' + year;
+}
 
 function isUndefined(obj) {
   var i;
@@ -27,5 +41,7 @@ function ofUserUrl(url, options) {
   }
   return url;
 }
+
+
 
 module.exports = mixins;

@@ -6,6 +6,16 @@ var assert = require('assert'),
 
 describe('Mixins', function() {
   describe('isUndefined', function() {
+    it('be a function', function() {
+      assert.equal(typeof mixins.dayOfYear, 'function');
+    });
+    it('should accept a date parameter and return a string', function() {
+      var result = mixins.dayOfYear(new Date('1/1/2017'));
+      assert.equal(typeof result, 'string');
+      assert.equal(result, '/1/2017');
+    });
+  });
+  describe('isUndefined', function() {
     it('should return true if property is not defined', function() {
       assert.equal(true, mixins.isUndefined({}, 'project_id'));
     });

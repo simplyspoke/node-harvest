@@ -12,7 +12,6 @@
   "dependencies": {
     "append-query": "^2.0.1",
     "async": "^2.1.4",
-    "day-of-year": "^0.1.0",
     "qs": "^6.3.0",
     "request": "^2.79.0",
     "restler": "^3.4.0"

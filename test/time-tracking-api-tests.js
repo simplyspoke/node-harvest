@@ -277,6 +277,7 @@ function seedHarvest(done) {
       'details': '123 Main St\r\nAnytown, NY 12345'
     }
   }, function(err, response) {
+    if (err) console.log('Clients', err)
     Clients.list({}, function(err, clients) {
       for (var i = 0; i < clients.length; ++i) {
         if (clients[i].client.name === TEST_CLIENT_NAME) {
@@ -291,6 +292,7 @@ function seedHarvest(done) {
           'active': true
         }
       }, function(err, response) {
+        if (err) console.log('Projects', err)
         Projects.list({}, function(err, projects) {
           for (var i = 0; i < projects.length; ++i) {
             if (projects[i].project.name === TEST_PROJECT_NAME) {
@@ -307,6 +309,7 @@ function seedHarvest(done) {
               'deactivated': true
             }
           }, function(err, response) {
+            if (err) console.log('Tasks', err)
             Tasks.list({}, function(err, tasks) {
               for (var i = 0; i < tasks.length; ++i) {
                 if (tasks[i].task.name === TEST_TASK_NAME) {
@@ -320,6 +323,7 @@ function seedHarvest(done) {
                   id: TEST_TASK_ID
                 }
               }, function(err, response) {
+                if (err) console.log('TaskAssignment', err)
                 TimeTracking.create({
                   notes: 'Boring new text',
                   hours: 2,
@@ -327,6 +331,7 @@ function seedHarvest(done) {
                   task_id: TEST_TASK_ID,
                   spent_at: 'Thu, 16 Nov 2012'
                 }, function(err, response) {
+                  if (err) console.log('TimeTracking', err)
                   TimeTracking.daily({
                     date: new Date('11/16/2012')
                   }, function(err, entries) {

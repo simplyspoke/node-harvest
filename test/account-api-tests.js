@@ -10,6 +10,9 @@ var assert = require('assert'),
   }),
   Account = harvest.Account;
 
+var subdomain = process.env.subdomain || config.harvest.subdomain,
+  email = process.env.email || config.harvest.email;
+
 describe('The Account API', function() {
   describe('Show account info', function() {
     it('should implement the get method', function() {
@@ -19,13 +22,12 @@ describe('The Account API', function() {
     it('should return account info', function(done) {
       Account.get({}, function(err, info) {
         if (err) throw err;
-
         assert(info, 'Info must contain some information');
         assert(info.company, 'Info must contain some information about the company');
-        assert.equal(info.company.full_domain, config.harvest.subdomain + '.harvestapp.com');
+        assert.equal(info.company.full_domain, subdomain + '.harvestapp.com');
 
         assert(info.user, 'Info must contain some information about the user');
-        assert(info.user.email, config.harvest.email);
+        assert(info.user.email, email);
 
         done();
       });

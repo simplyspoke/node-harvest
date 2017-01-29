@@ -132,44 +132,42 @@ var Harvest = function(options) {
     }
   };
 
-  if (self.use_oauth) {
-    self.getAccessTokenURL = function() {
-      return self.host +
-        '/oauth2/authorize?client_id=' + self.identifier +
-        '&redirect_uri=' + encodeURIComponent(self.redirect_uri) +
-        '&response_type=code';
-    };
+  return this;
+};
 
-    self.parseAccessCode = function(access_code, cb) {
-      self.access_code = access_code;
+Harvest.prototype.getAccessTokenURL = function() {
+  return self.host +
+    '/oauth2/authorize?client_id=' + self.identifier +
+    '&redirect_uri=' + encodeURIComponent(self.redirect_uri) +
+    '&response_type=code';
+};
 
-      var options = {
-        'code': self.access_code,
-        'client_id': self.identifier,
-        'client_secret': self.secret,
-        'redirect_uri': self.redirect_uri,
-        'grant_type': 'authorization_code'
-      };
+Harvest.prototype.parseAccessCode = function(access_code, cb) {
+  self.access_code = access_code;
 
-      if (self.debug) {
-        console.log('request token', options);
-      }
+  var options = {
+    'code': self.access_code,
+    'client_id': self.identifier,
+    'client_secret': self.secret,
+    'redirect_uri': self.redirect_uri,
+    'grant_type': 'authorization_code'
+  };
 
-      restler.post(self.host + '/oauth2/token', {
-        data: options
-      }).on('complete', function(response) {
-        if (!response.access_token) {
-          throw new Error('Provided access code was rejected by Harvest, no token was returned');
-        }
-
-        self.access_token = response.access_token;
-
-        cb(self.access_token);
-      });
-    };
+  if (self.debug) {
+    console.log('request token', options);
   }
 
-  return this;
+  restler.post(self.host + '/oauth2/token', {
+    data: options
+  }).on('complete', function(response) {
+    if (!response.access_token) {
+      throw new Error('Provided access code was rejected by Harvest, no token was returned');
+    }
+
+    self.access_token = response.access_token;
+
+    cb(self.access_token);
+  });
 };
 
 // Require and instantiate the resources lazily.

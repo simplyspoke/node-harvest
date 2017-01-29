@@ -1,6 +1,6 @@
 {
   "name": "harvest",
-  "version": "0.2.9",
+  "version": "0.3.0",
   "description": "Harvest API client library",
   "main": "index.js",
   "scripts": {
@@ -10,19 +10,22 @@
   "author": "Paul English",
   "license": "MIT",
   "dependencies": {
-    "append-query": "^1.1.0",
-    "async": "^1.5.0",
+    "append-query": "^2.0.1",
+    "async": "^2.1.4",
     "day-of-year": "^0.1.0",
     "qs": "^6.3.0",
-    "request": "~2.55.0",
-    "restler": "~3.2.2"
+    "request": "^2.79.0",
+    "restler": "^3.4.0"
   },
   "devDependencies": {
-    "config": "~1.13.0",
-    "coveralls": "^2.11.2",
-    "eslint": "^3.14.0",
-    "istanbul": "^0.3.14",
-    "mocha": "~2.2.5",
-    "mocha-lcov-reporter": "0.0.2"
+    "coveralls": "^2.11.15",
+    "eslint": "^3.14.1",
+    "istanbul": "^0.4.5",
+    "mocha": "^3.2.0",
+    "mocha-lcov-reporter": "^1.2.0"
+  },
+  "engines": {
+    "node": ">=6.9.4",
+    "npm": ">=3.10.10"
   }
 }

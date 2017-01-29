@@ -13,6 +13,8 @@
   "dependencies": {
     "append-query": "^2.0.1",
     "async": "^2.1.4",
+    "bluebird": "^3.4.7",
+    "lodash": "^4.17.4",
     "qs": "^6.3.0",
     "request": "^2.79.0",
     "restler": "^3.4.0"

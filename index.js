@@ -1,6 +1,10 @@
 'use strict';
 
-var restler = require('restler'),
+var fs = require('fs'),
+  path = require('path'),
+  startCase = require('lodash/startCase'),
+  replace = require('lodash/replace'),
+  restler = require('restler'),
   qs = require('qs'),
   util = require('util'),
   isUndefined = require('./mixins').isUndefined,
@@ -165,41 +169,27 @@ var Harvest = function(options) {
     };
   }
 
-  var Account = require('./lib/account');
-  var TimeTracking = require('./lib/time-tracking');
-  var Clients = require('./lib/clients');
-  var ClientContacts = require('./lib/client-contacts');
-  var Projects = require('./lib/projects');
-  var Tasks = require('./lib/tasks');
-  var People = require('./lib/people');
-  var ExpenseCategories = require('./lib/expense-categories');
-  var Expenses = require('./lib/expenses');
-  var UserAssignment = require('./lib/user-assignment');
-  var TaskAssignment = require('./lib/task-assignment');
-  var Reports = require('./lib/reports');
-  var Invoices = require('./lib/invoices');
-  var InvoiceMessages = require('./lib/invoice-messages');
-  var InvoicePayments = require('./lib/invoice-payments');
-  var InvoiceCategories = require('./lib/invoice-categories');
-
-  this.Account = new Account(this);
-  this.TimeTracking = new TimeTracking(this);
-  this.Clients = new Clients(this);
-  this.ClientContacts = new ClientContacts(this);
-  this.Projects = new Projects(this);
-  this.Tasks = new Tasks(this);
-  this.People = new People(this);
-  this.ExpenseCategories = new ExpenseCategories(this);
-  this.Expenses = new Expenses(this);
-  this.UserAssignment = new UserAssignment(this);
-  this.TaskAssignment = new TaskAssignment(this);
-  this.Reports = new Reports(this);
-  this.Invoices = new Invoices(this);
-  this.InvoiceMessages = new InvoiceMessages(this);
-  this.InvoicePayments = new InvoicePayments(this);
-  this.InvoiceCategories = new InvoiceCategories(this);
-
   return this;
 };
+
+// Require and instantiate the resources lazily.
+fs.readdirSync(path.join(__dirname, 'lib')).forEach(name => {
+  var prop = replace(startCase(name.slice(0, -3)), ' ', '');
+
+  Object.defineProperty(Harvest.prototype, prop, {
+    get: function get() {
+      var Resource = require(`./lib/${name}`);
+
+      return Object.defineProperty(this, prop, {
+        value: new Resource(this)
+      })[prop];
+    },
+    set: function set(value) {
+      return Object.defineProperty(this, prop, {
+        value
+      })[prop];
+    }
+  });
+});
 
 module.exports = Harvest;

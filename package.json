@@ -1,6 +1,6 @@
 {
   "name": "harvest",
-  "version": "0.2.7",
+  "version": "0.2.9",
   "description": "Harvest API client library",
   "main": "index.js",
   "scripts": {
@@ -14,12 +14,13 @@
     "async": "^1.5.0",
     "day-of-year": "^0.1.0",
     "qs": "^6.3.0",
-    "request": "~2.74.0",
+    "request": "~2.55.0",
     "restler": "~3.2.2"
   },
   "devDependencies": {
     "config": "~1.13.0",
     "coveralls": "^2.11.2",
+    "eslint": "^3.14.0",
     "istanbul": "^0.3.14",
     "mocha": "~2.2.5",
     "mocha-lcov-reporter": "0.0.2"

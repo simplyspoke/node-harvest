@@ -1,13 +1,13 @@
 'use strict';
 
 var assert = require('assert'),
-  config = require('config'),
+  config = require('../config'),
   util = require('util'),
   Harvest = require('../index'),
   harvest = new Harvest({
-    subdomain: process.env.subdomain || config.harvest.subdomain,
-    email: process.env.email || config.harvest.email,
-    password: process.env.password || config.harvest.password
+    subdomain: config.subdomain,
+    email: config.email,
+    password: config.password
   }),
   Clients = harvest.Clients,
   Projects = harvest.Projects,

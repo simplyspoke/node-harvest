@@ -1,17 +1,17 @@
 'use strict';
 
 var assert = require('assert'),
-  config = require('config'),
+  config = require('../config'),
   Harvest = require('../index'),
   harvest = new Harvest({
-    subdomain: process.env.subdomain || config.harvest.subdomain,
-    email: process.env.email || config.harvest.email,
-    password: process.env.password || config.harvest.password
+    subdomain: config.subdomain,
+    email: config.email,
+    password: config.password
   }),
   Account = harvest.Account;
 
-var subdomain = process.env.subdomain || config.harvest.subdomain,
-  email = process.env.email || config.harvest.email;
+var subdomain = config.subdomain,
+  email = config.email;
 
 describe('The Account API', function() {
   describe('Show account info', function() {

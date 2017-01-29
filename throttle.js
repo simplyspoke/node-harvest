@@ -8,28 +8,27 @@ var Async = require('async');
 function Throttle(concurrency) {
   var self = this;
 
-  this._timeout = null;
-  this._fatalError = null;
+  self._timeout = null;
+  self._fatalError = null;
 
-  this._queue = Async.queue(function(task, done) {
+  self._queue = Async.queue(function(task, done) {
     if (self._fatalError) {
-      task.callback(self._fatalError, {});
-      return;
+      return task.callback(self._fatalError, {});
     }
 
     task.query()
       .once('success', function(data, res) {
         done();
-        task.callback(null, data, res);
+        return task.callback(null, data, res);
       })
 
       .once('error', function(data, res) {
         done();
 
-        if (res && res.statusCode < 400)
-          task.callback(null, data, res);
-        else
-          task.callback(data, {}, res);
+        if (res && res.statusCode < 400) {
+          return task.callback(null, data, res);
+        }
+        return task.callback(data, {}, res);
       })
 
       .once('fail', function(data, res) {
@@ -55,20 +54,20 @@ function Throttle(concurrency) {
               };
 
               done();
-              task.callback(data, self._fatalError, res);
+              return task.callback(data, self._fatalError, res);
 
-            } else
+            } else {
               timeout = new Date(til) - new Date();
+            }
           }
 
-          self._timeout = setTimeout(function() {
+          return self._timeout = setTimeout(function() {
             self._queue.resume();
           }, timeout);
 
-        } else {
-          done();
-          task.callback(data, {}, res);
         }
+        done();
+        return task.callback(data, {}, res);
       });
   }, concurrency || 40);
 }

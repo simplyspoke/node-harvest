@@ -5,9 +5,9 @@ var assert = require('assert'),
   util = require('util'),
   Harvest = require('../index'),
   harvest = new Harvest({
-    subdomain: config.harvest.subdomain,
-    email: config.harvest.email,
-    password: config.harvest.password
+    subdomain: process.env.subdomain || config.harvest.subdomain,
+    email: process.env.email || config.harvest.email,
+    password: process.env.password || config.harvest.password
   }),
   Clients = harvest.Clients,
   Projects = harvest.Projects,

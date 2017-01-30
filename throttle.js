@@ -16,13 +16,15 @@ function Throttle(concurrency) {
       return task.callback(self._fatalError, {});
     }
 
+    console.log(task.query);
+
     task.query()
-      .once('success', function(data, res) {
+      .on('success', function(data, res) {
         done();
         return task.callback(null, data, res);
       })
 
-      .once('error', function(data, res) {
+      .on('error', function(data, res) {
         done();
 
         if (res && res.statusCode < 400) {
@@ -31,7 +33,7 @@ function Throttle(concurrency) {
         return task.callback(data, {}, res);
       })
 
-      .once('fail', function(data, res) {
+      .on('fail', function(data, res) {
         if (res && res.statusCode === 503 && res.headers['retry-after']) {
           self._queue.pause();
           self._queue.push(task);

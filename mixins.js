@@ -4,6 +4,7 @@ const appendQuery = require('append-query');
 
 const mixins = {
   dayOfYear: dayOfYear,
+  has: has,
   ofUserUrl: ofUserUrl
 };
 
@@ -18,6 +19,15 @@ function dayOfYear(date) {
   day = Math.round((then - first) / 864e5)
 
   return '/' + day + '/' + year;
+}
+
+function has(object, properties) {
+  for (let i = 0; i < properties.length; i++) {
+    if (!object.hasOwnProperty(properties[i])) {
+      return false;
+    }
+  }
+  return true;
 }
 
 function ofUserUrl(url, options) {

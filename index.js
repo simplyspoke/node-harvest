@@ -66,9 +66,9 @@ Harvest.prototype.service = function() {
   };
 
   return function(method, url, query) {
-    if (this.debug) {
+    // if (this.debug) {
       console.log('run', method, url, query);
-    }
+    // }
 
     options.method = method;
     options.qs = query;
@@ -81,9 +81,9 @@ Harvest.prototype.service = function() {
 
 Harvest.prototype.client = function(method, url, data, cb) {
   let throttle = new Throttle(this.throttle_concurrency);
-  let self = this.api;
+  let self = this.harvest;
 
-  console.log(this);
+  // console.log(this);
 
   throttle.push(function() {
     return self.service(method, url, data);

@@ -13,31 +13,32 @@ const util = require('util');
 const isUndefined = require('./mixins').isUndefined;
 const Throttle = require('./throttle.js');
 
-function Harvest(options) {
+function Harvest(config) {
   let self = this;
 
-  if (has(options, 'subdomain')) {
+  if (!has(config, 'subdomain')) {
     throw new Error('The Harvest API client requires a subdomain');
   }
 
-  self.use_oauth = ((options.identifier !== undefined && options.secret !== undefined && options.redirect_uri !== undefined) || (options.identifier !== undefined && options.secret !== undefined) || options.access_token !== undefined);
-  self.use_basic_auth = (options.email !== undefined &&
-    options.password !== undefined);
+  self.host = 'https://' + config.subdomain + '.harvestapp.com';
+  self.user_agent = config.user_agent;
+  self.debug = config.debug || false;
+  self.throttle_concurrency = config.throttle_concurrency || null;
 
-  if (!self.use_oauth && !self.use_basic_auth) {
+  self.use_oauth = (has(config, ['identifier', 'secret', 'redirect_uri'])) || (has(config, 'access_token'));
+  self.use_basic_auth = (has(config, ['email', 'password']));
+
+  if (!self.use_basic_auth) {
+    self.email = config.email;
+    self.password = config.password;
+  } else if (!self.use_oauth) {
+    self.identifier = config.identifier;
+    self.secret = config.secret;
+    self.redirect_uri = config.redirect_uri;
+    self.access_token = config.access_token || false;
+  } else {
     throw new Error('The Harvest API client requires credentials for basic authentication or an identifier, secret and redirect_uri (or an access_token) for OAuth');
   }
-
-  self.host = 'https://' + options.subdomain + '.harvestapp.com';
-  self.email = options.email;
-  self.password = options.password;
-  self.identifier = options.identifier;
-  self.secret = options.secret;
-  self.redirect_uri = options.redirect_uri;
-  self.access_token = options.access_token || false;
-  self.user_agent = options.user_agent;
-  self.debug = options.debug || false;
-  self.throttle_concurrency = options.throttle_concurrency || null;
 
   let RestService = restler.service(function(username, password) {
     this.defaults.username = username;
@@ -63,6 +64,20 @@ function Harvest(options) {
         'Accept': 'application/json'
       };
 
+      if (type === 'get') {
+        if (Object.keys(data).length) {
+          let query = qs.stringify(data, {
+            arrayFormat: 'brackets'
+          });
+
+          if (typeof query == 'string' && query.length > 0) {
+            url.indexOf('?') > -1 ? url + '&' + query : url + '?' + query;
+          }
+
+          data = {}
+        }
+      }
+
       if (typeof data !== 'undefined') {
         if (typeof data === 'object') {
           // restler uses url encoding to transmit data
@@ -78,16 +93,16 @@ function Harvest(options) {
 
       options.data = data;
       switch (type) {
-        case 'get':
+        case 'GET':
           return this.get(url, options);
 
-        case 'post':
+        case 'POST':
           return this.post(url, options);
 
-        case 'put':
+        case 'PUT':
           return this.put(url, options);
 
-        case 'delete':
+        case 'DELETE':
           return this.del(url, options);
       }
       return this;
@@ -97,48 +112,18 @@ function Harvest(options) {
   self.service = new RestService(self.email, self.password);
   self.throttle = new Throttle(self.throttle_concurrency);
 
-  self.client = {
-    get: function(url, data, cb) {
-      if (Object.keys(data).length) {
-        let query = qs.stringify(data, {
-          arrayFormat: 'brackets'
-        });
-
-        if (typeof query == 'string' && query.length > 0) {
-          url.indexOf('?') > -1 ? url + '&' + query : url + '?' + query;
-        }
-      }
-
-      self.throttle.push(function() {
-        return self.service.run('get', url, {});
-      }, cb);
-    },
-    patch: function(url, data, cb) {
-      self.throttle.push(function() {
-        return self.service.run('patch', url, data);
-      }, cb);
-    },
-    post: function(url, data, cb) {
-      self.throttle.push(function() {
-        return self.service.run('post', url, data);
-      }, cb);
-    },
-    put: function(url, data, cb) {
-      self.throttle.push(function() {
-        return self.service.run('put', url, data);
-      }, cb);
-    },
-    delete: function(url, data, cb) {
-      self.throttle.push(function() {
-        return self.service.run('delete', url, data);
-      }, cb);
-    }
-  };
+  self.client = function(url, method, data, cb) {
+    self.throttle.push(function() {
+      return self.service.run(method, url, data);
+    }, cb);
+  }
 
   return this;
 }
 
 Harvest.prototype.getAccessTokenURL = function() {
+  let self = this;
+
   return self.host +
     '/oauth2/authorize?client_id=' + self.identifier +
     '&redirect_uri=' + encodeURIComponent(self.redirect_uri) +
@@ -146,6 +131,8 @@ Harvest.prototype.getAccessTokenURL = function() {
 };
 
 Harvest.prototype.parseAccessCode = function(access_code, cb) {
+  let self = this;
+
   self.access_code = access_code;
 
   let options = {

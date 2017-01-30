@@ -10,9 +10,6 @@ const harvest = new Harvest({
 });
 const Account = harvest.Account;
 
-const subdomain = config.subdomain;
-const email = config.email;
-
 describe('The Account API', function() {
   describe('Show account info', function() {
     it('should implement the get method', function() {
@@ -24,10 +21,10 @@ describe('The Account API', function() {
         if (err) throw err;
         assert(info, 'Info must contain some information');
         assert(info.company, 'Info must contain some information about the company');
-        assert.equal(info.company.full_domain, subdomain + '.harvestapp.com');
+        assert.equal(info.company.full_domain, config.subdomain + '.harvestapp.com');
 
         assert(info.user, 'Info must contain some information about the user');
-        assert(info.user.email, email);
+        assert(info.user.email, config.email);
 
         done();
       });

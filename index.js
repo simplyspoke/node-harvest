@@ -6,6 +6,7 @@ const has = require('lodash/has');
 const startCase = require('lodash/startCase');
 const replace = require('lodash/replace');
 const restler = require('restler');
+const request = require('request');
 const qs = require('qs');
 const util = require('util');
 
@@ -159,7 +160,7 @@ Harvest.prototype.parseAccessCode = function(access_code, cb) {
     console.log('request token', options);
   }
 
-  restler.post(self.host + '/oauth2/token', {
+  request.post(self.host + '/oauth2/token', {
     data: options
   }).on('complete', function(response) {
     if (!response.access_token) {

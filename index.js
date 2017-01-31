@@ -81,12 +81,12 @@ Harvest.prototype.service = function() {
 
 Harvest.prototype.client = function(method, url, data, cb) {
   let throttle = new Throttle(this.throttle_concurrency);
-  let self = this.harvest;
+  const service = this.harvest.service;
 
   // console.log(this);
 
   throttle.push(function() {
-    return self.service(method, url, data);
+    return.service(method, url, data);
   }, cb);
 }
 

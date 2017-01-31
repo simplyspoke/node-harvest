@@ -8,16 +8,17 @@ const harvest = new Harvest({
   email: config.email,
   password: config.password
 });
-const Account = harvest.Account;
+
+console.log(harvest);
 
 describe('The Account API', function() {
   describe('Show account info', function() {
     it('should implement the get method', function() {
-      assert.equal(typeof Account.get, 'function');
+      assert.equal(typeof harvest.account.get, 'function');
     });
 
     it('should return account info', function(done) {
-      Account.get({}, function(err, info) {
+      harvest.account.get({}, function(err, info) {
         if (err) throw err;
         assert(info, 'Info must contain some information');
         assert(info.company, 'Info must contain some information about the company');
@@ -33,11 +34,11 @@ describe('The Account API', function() {
 
   describe('Show account throttle status', function() {
     it('should implement the rate_limit_status method', function() {
-      assert.equal(typeof Account.rate_limit_status, 'function');
+      assert.equal(typeof harvest.account.rate_limit_status, 'function');
     });
 
     it('should return throttle status', function(done) {
-      Account.rate_limit_status({}, function(err, status) {
+      harvest.account.rate_limit_status({}, function(err, status) {
         if (err) throw err;
 
         assert(status, 'Status must contain some information');

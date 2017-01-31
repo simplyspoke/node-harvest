@@ -8,32 +8,31 @@ const harvest = new Harvest({
   email: config.email,
   password: config.password
 });
-const Invoices = harvest.Invoices;
 
 describe('The Invoices API', function() {
   describe('Show recently issued invoices', function() {
     it('should implement the list method', function() {
-      assert.equal(typeof Invoices.list, 'function');
+      assert.equal(typeof harvest.invoices.list, 'function');
     });
   });
   describe('Show a particular invoice', function() {
     it('should implement the get method', function() {
-      assert.equal(typeof Invoices.get, 'function');
+      assert.equal(typeof harvest.invoices.get, 'function');
     });
   });
   describe('Create a new invoice', function() {
     it('should implement the create method', function() {
-      assert.equal(typeof Invoices.create, 'function');
+      assert.equal(typeof harvest.invoices.create, 'function');
     });
   });
   describe('Update existing invoice', function() {
     it('should implement the update method', function() {
-      assert.equal(typeof Invoices.update, 'function');
+      assert.equal(typeof harvest.invoices.update, 'function');
     });
   });
   describe('Delete a invoice', function() {
     it('should implement the delete method', function() {
-      assert.equal(typeof Invoices.delete, 'function');
+      assert.equal(typeof harvest.invoices.delete, 'function');
     });
   });
 });

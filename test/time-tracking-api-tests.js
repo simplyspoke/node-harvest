@@ -9,7 +9,6 @@ const harvest = new Harvest({
   email: config.email,
   password: config.password
 });
-const TimeTracking = harvest.TimeTracking;
 
 const random = parseInt(Math.random() * 10000, 10);
 const TEST_CLIENT_NAME = '__NODE-HARVEST__TESTS__CLIENT__' + random;
@@ -32,10 +31,10 @@ describe('The TimeTracking API', function() {
 
   describe('Retrieving entries and projects/tasks for a day', function() {
     it('should implement the daily method', function() {
-      assert.equal(typeof TimeTracking.daily, 'function');
+      assert.equal(typeof harvest.timeTracking.daily, 'function');
     });
     it('should return a list of timers that occured today', function(done) {
-      TimeTracking.daily({}, function(err, timers) {
+      harvest.timeTracking.daily({}, function(err, timers) {
         assert(!err, err);
         assert.equal(typeof timers, 'object');
         assert(Array.isArray(timers.day_entries));
@@ -57,7 +56,7 @@ describe('The TimeTracking API', function() {
       });
     });
     it('should return a list of timers that occured on a specific day', function(done) {
-      TimeTracking.daily({
+      harvest.timeTracking.daily({
         date: new Date('11/16/2012')
       }, function(err, timers) {
         assert(!err, err);
@@ -97,10 +96,10 @@ describe('The TimeTracking API', function() {
   });
   describe('Retrieving a single entry', function() {
     it('should implement the get method', function() {
-      assert.equal(typeof TimeTracking.get, 'function');
+      assert.equal(typeof harvest.timeTracking.get, 'function');
     });
     it('should return an individual timer', function(done) {
-      TimeTracking.get({
+      harvest.timeTracking.get({
         id: TEST_TIMER_ID
       }, function(err, timer) {
         assert(!err);
@@ -124,10 +123,10 @@ describe('The TimeTracking API', function() {
   });
   describe('Toggling a timer', function() {
     it('should implement the toggleTimer method', function() {
-      assert.equal(typeof TimeTracking.toggleTimer, 'function');
+      assert.equal(typeof harvest.timeTracking.toggleTimer, 'function');
     });
     it('should toggle a timer on and off', function(done) {
-      TimeTracking.toggleTimer({
+      harvest.timeTracking.toggleTimer({
         id: TEST_TIMER_ID
       }, function(err, timer) {
         assert(!err);
@@ -146,7 +145,7 @@ describe('The TimeTracking API', function() {
         assert.equal(typeof timer.created_at, 'string');
         assert.equal(typeof timer.updated_at, 'string');
 
-        TimeTracking.toggleTimer({
+        harvest.timeTracking.toggleTimer({
           id: TEST_TIMER_ID
         }, function(err, timer) {
           done();
@@ -156,10 +155,10 @@ describe('The TimeTracking API', function() {
   });
   describe('Creating an entry', function() {
     it('should implement the create method', function() {
-      assert.equal(typeof TimeTracking.create, 'function');
+      assert.equal(typeof harvest.timeTracking.create, 'function');
     });
     it('should allow the creation of new time entries', function(done) {
-      TimeTracking.create({
+      harvest.timeTracking.create({
         notes: 'This is a test time entry for the node-harvest client',
         hours: 3,
         project_id: TEST_PROJECT_ID,
@@ -184,7 +183,7 @@ describe('The TimeTracking API', function() {
 
         let entry_id = timer.id;
 
-        TimeTracking.delete({
+        harvest.timeTracking.delete({
           id: entry_id
         }, function(err, res) {
           done();
@@ -195,10 +194,10 @@ describe('The TimeTracking API', function() {
   });
   describe('Deleting an entry', function() {
     it('should implement the delete method', function() {
-      assert.equal(typeof TimeTracking.delete, 'function');
+      assert.equal(typeof harvest.timeTracking.delete, 'function');
     });
     it('should allow the deletion of a time entry', function(done) {
-      TimeTracking.create({
+      harvest.timeTracking.create({
         notes: 'This is a test time entry for the node-harvest client',
         hours: 3,
         project_id: TEST_PROJECT_ID,
@@ -207,7 +206,7 @@ describe('The TimeTracking API', function() {
       }, function(err, timer) {
         let entry_id = timer.id;
 
-        TimeTracking.delete({
+        harvest.timeTracking.delete({
           id: entry_id
         }, function(err) {
           assert(!err);
@@ -218,10 +217,10 @@ describe('The TimeTracking API', function() {
   });
   describe('Updating an entry', function() {
     it('should implement the update method', function() {
-      assert.equal(typeof TimeTracking.update, 'function');
+      assert.equal(typeof harvest.timeTracking.update, 'function');
     });
     it('should allow the updating of time entries', function(done) {
-      TimeTracking.create({
+      harvest.timeTracking.create({
         notes: 'Boring new text',
         hours: 2,
         project_id: TEST_PROJECT_ID,
@@ -229,7 +228,7 @@ describe('The TimeTracking API', function() {
         spent_at: 'Sun, 18 Nov 2012'
       }, function(err, new_entry) {
         let entry_id = new_entry.id;
-        TimeTracking.update({
+        harvest.timeTracking.update({
           id: entry_id,
           notes: 'This is a test time entry for the node-harvest client',
           hours: 3,
@@ -253,7 +252,7 @@ describe('The TimeTracking API', function() {
           assert.equal(typeof entry.created_at, 'string');
           assert.equal(typeof entry.updated_at, 'string');
 
-          TimeTracking.delete({
+          harvest.timeTracking.delete({
             id: entry_id
           }, function(err) {
             done();
@@ -325,7 +324,7 @@ function seedHarvest(done) {
               }, function(err, response, res) {
                 if (err) console.log('TaskAssignment', err)
                 console.log('res', res);
-                TimeTracking.create({
+                harvest.timeTracking.create({
                   notes: 'Boring new text',
                   hours: 2,
                   project_id: TEST_PROJECT_ID,
@@ -334,7 +333,7 @@ function seedHarvest(done) {
                 }, function(err, response, res) {
                   if (err) console.log('TimeTracking', err)
                   console.log('res', res);
-                  TimeTracking.daily({
+                  harvest.timeTracking.daily({
                     date: new Date('11/16/2012')
                   }, function(err, entries) {
                     for (let i = 0; i < entries.day_entries.length; ++i) {
@@ -356,7 +355,7 @@ function seedHarvest(done) {
 }
 
 function cleanupHarvest(done) {
-  TimeTracking.delete({
+  harvest.timeTracking.delete({
     'id': TEST_TIMER_ID
   }, function(err, response, res) {
     if (err) console.log('TimeTracking', err)

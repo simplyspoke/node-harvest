@@ -8,42 +8,41 @@ const harvest = new Harvest({
   email: config.email,
   password: config.password
 });
-const Expenses = harvest.Expenses;
 
 describe('The Expenses API', function() {
-  describe('Show all expense categories', function() {
+  describe('Show all expenses', function() {
     it('should implement the list method', function() {
-      assert.equal(typeof Expenses.list, 'function');
+      assert.equal(typeof harvest.expenses.list, 'function');
     });
   });
-  describe('Get an expense category', function() {
+  describe('Get an expense', function() {
     it('should implement the get method', function() {
-      assert.equal(typeof Expenses.get, 'function');
+      assert.equal(typeof harvest.expenses.get, 'function');
     });
   });
-  describe('Create a new expense category', function() {
+  describe('Create a new expense', function() {
     it('should implement the create method', function() {
-      assert.equal(typeof Expenses.create, 'function');
+      assert.equal(typeof harvest.expenses.create, 'function');
     });
   });
-  describe('Update existing expense category', function() {
+  describe('Update existing expense', function() {
     it('should implement the update method', function() {
-      assert.equal(typeof Expenses.update, 'function');
+      assert.equal(typeof harvest.expenses.update, 'function');
     });
   });
-  describe('Delete an expense category', function() {
+  describe('Delete an expense', function() {
     it('should implement the delete method', function() {
-      assert.equal(typeof Expenses.delete, 'function');
+      assert.equal(typeof harvest.expenses.delete, 'function');
     });
   });
-  describe('Getting an attached receipt', function() {
-    it('should implement the getReceipt method', function() {
-      assert.equal(typeof Expenses.getReceipt, 'function');
-    });
-  });
-  describe('Attaching a receipt to an expense', function() {
+  describe('Attach a receipt image to an expense', function() {
     it('should implement the attachReceipt method', function() {
-      assert.equal(typeof Expenses.attachReceipt, 'function');
+      assert.equal(typeof harvest.expenses.attachReceipt, 'function');
+    });
+  });
+  describe('Retrieve a receipt image from an expense', function() {
+    it('should implement the getReceipt method', function() {
+      assert.equal(typeof harvest.expenses.getReceipt, 'function');
     });
   });
 });

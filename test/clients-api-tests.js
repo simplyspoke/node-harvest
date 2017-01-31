@@ -8,7 +8,6 @@ const harvest = new Harvest({
   email: config.email,
   password: config.password
 });
-const Clients = harvest.Clients;
 
 const TEST_CLIENT_NAME = '__NODE-HARVEST__TESTS__CLIENT__' + parseInt(Math.random() * 10000, 10);
 let TEST_CLIENT_ID = null;
@@ -16,10 +15,10 @@ let TEST_CLIENT_ID = null;
 describe('The Clients API', function() {
   describe('Create a new client', function() {
     it('should implement the create method', function() {
-      assert.equal(typeof Clients.create, 'function');
+      assert.equal(typeof harvest.clients.create, 'function');
     });
     it('create method should work properly', function(done) {
-      Clients.create({
+      harvest.clients.create({
         'client': {
           'name': TEST_CLIENT_NAME
         }
@@ -35,13 +34,13 @@ describe('The Clients API', function() {
   });
   describe('Get all clients', function() {
     it('should implement the list method', function() {
-      assert.equal(typeof Clients.list, 'function');
+      assert.equal(typeof harvest.clients.list, 'function');
     });
     it('should provide a list of all clients', function(done) {
-      Clients.list({}, function(err, clients) {
+      harvest.clients.list({}, function(err, clients) {
         assert(!err);
         let testClient;
-        for (let i = 0; i < clients.length; ++i) {
+        for (let i = 0; i < harvest.clients.length; ++i) {
           if (clients[i].client.name === TEST_CLIENT_NAME) {
             testClient = clients[i].client;
             break;
@@ -55,11 +54,11 @@ describe('The Clients API', function() {
   });
   describe('Get a client', function() {
     it('should implement the get method', function() {
-      assert.equal(typeof Clients.get, 'function');
+      assert.equal(typeof harvest.clients.get, 'function');
     });
     it('get method should work properly', function(done) {
       assert(TEST_CLIENT_ID);
-      Clients.get({
+      harvest.clients.get({
         'id': TEST_CLIENT_ID
       }, function(err, data) {
         assert(!err);
@@ -73,13 +72,13 @@ describe('The Clients API', function() {
   });
   describe('Update client', function() {
     it('should implement the update method', function() {
-      assert.equal(typeof Clients.update, 'function');
+      assert.equal(typeof harvest.clients.update, 'function');
     });
     it('update method should work properly', function(done) {
       assert(TEST_CLIENT_ID);
       let dets = 'New details: ' + Math.random();
 
-      Clients.update({
+      harvest.clients.update({
         'id': TEST_CLIENT_ID,
         'client': {
           'name': TEST_CLIENT_NAME,
@@ -88,7 +87,7 @@ describe('The Clients API', function() {
       }, function(err, data, res) {
         /* TODO: uncomment when graceful processing for PUT requests implemented
           assert(!err); */
-        Clients.get({
+        harvest.clients.get({
           'id': TEST_CLIENT_ID
         }, function(err, data) {
           assert(!err);
@@ -104,16 +103,16 @@ describe('The Clients API', function() {
   });
   describe('(De)Activate an existing client', function() {
     it('should implement the toggleActivation method', function() {
-      assert.equal(typeof Clients.toggleActivation, 'function');
+      assert.equal(typeof harvest.clients.toggleActivation, 'function');
     });
     it('toggleActivation method should work properly', function(done) {
       assert(TEST_CLIENT_ID);
-      Clients.toggleActivation({
+      harvest.clients.toggleActivation({
         id: TEST_CLIENT_ID
       }, function(err, data) {
         /* TODO: uncomment when graceful processing for POST requests implemented
         assert(!err); */
-        Clients.get({
+        harvest.clients.get({
           id: TEST_CLIENT_ID
         }, function(err, data) {
           assert(!err);
@@ -127,11 +126,11 @@ describe('The Clients API', function() {
   });
   describe('Delete a client', function() {
     it('should implement the delete method', function() {
-      assert.equal(typeof Clients.delete, 'function');
+      assert.equal(typeof harvest.clients.delete, 'function');
     });
     it('delete method should work properly', function(done) {
       assert(TEST_CLIENT_ID);
-      Clients.delete({
+      harvest.clients.delete({
         id: TEST_CLIENT_ID
       }, function(err, data) {
         assert(!err);

@@ -3,7 +3,7 @@
 const fs = require('fs');
 const path = require('path');
 const mixins = require('./mixins');
-const startCase = require('lodash/startCase');
+const camelCase = require('lodash/startCase');
 const replace = require('lodash/replace');
 const restler = require('restler');
 const request = require('request');
@@ -66,9 +66,9 @@ Harvest.prototype.service = function() {
   };
 
   return function(method, url, query) {
-    // if (this.debug) {
+    if (this.debug) {
       console.log('run', method, url, query);
-    // }
+    }
 
     options.method = method;
     options.qs = query;

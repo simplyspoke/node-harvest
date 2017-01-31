@@ -86,7 +86,7 @@ Harvest.prototype.client = function(method, url, data, cb) {
   // console.log(this);
 
   throttle.push(function() {
-    return.service(method, url, data);
+    return service(method, url, data);
   }, cb);
 }
 

@@ -14,6 +14,10 @@ const isUndefined = require('./mixins').isUndefined;
 const Throttle = require('./throttle.js');
 
 function Harvest(config) {
+  if (!(this instanceof Harvest)) {
+    return new Harvest(config);
+  }
+
   if (!mixins.has(config, ['subdomain'])) {
     throw new Error('The Harvest API client requires a subdomain');
   }
@@ -39,8 +43,12 @@ function Harvest(config) {
   }
 }
 
-Harvest.prototype.service = function() {
-  let options = {
+Harvest.prototype.service = function() {};
+
+Harvest.prototype.client = function(method, url, data, cb) {
+  console.log(this);
+
+  const options = {
     baseUrl: this.host
   }
 
@@ -75,19 +83,9 @@ Harvest.prototype.service = function() {
 
     request(options, function(error, response, body) {
       console.log(error, response, body);
+      cb(error, response, body);
     });
   }
-};
-
-Harvest.prototype.client = function(method, url, data, cb) {
-  let throttle = new Throttle(this.throttle_concurrency);
-  const service = this.harvest.service;
-
-  // console.log(this);
-
-  throttle.push(function() {
-    return service(method, url, data);
-  }, cb);
 }
 
 Harvest.prototype.getAccessTokenURL = function() {
@@ -112,7 +110,7 @@ Harvest.prototype.parseAccessCode = function(access_code, cb) {
     console.log('request token', options);
   }
 
-  request.post(this.host + '/oauth2/token', {
+  return request.post(this.host + '/oauth2/token', {
     data: options
   }).on('complete', function(response) {
     if (!response.access_token) {
@@ -127,22 +125,33 @@ Harvest.prototype.parseAccessCode = function(access_code, cb) {
 
 // Require and instantiate the resources lazily.
 fs.readdirSync(path.join(__dirname, 'lib')).forEach(name => {
-  let prop = replace(startCase(name.slice(0, -3)), ' ', '');
+  const prop = replace(camelCase(name.slice(0, -3)), ' ', '');
 
-  Object.defineProperty(Harvest.prototype, prop, {
-    get: function get() {
-      let Resource = require(`./lib/${name}`);
+  Harvest[prop] = require(`./lib/${name}`);
 
-      return Object.defineProperty(this, prop, {
-        value: new Resource(this)
-      })[prop];
-    },
-    set: function set(value) {
-      return Object.defineProperty(this, prop, {
-        value
-      })[prop];
-    }
-  });
+  // Object.defineProperty(Harvest.prototype, prop, {
+  //   get: function get() {
+  //     const Resource = require(`./lib/${name}`);
+  //
+  //     return Object.defineProperty(this, prop, {
+  //       value: new Resource(this)
+  //     })[prop];
+  //   },
+  //   set: function set(value) {
+  //     return Object.defineProperty(this, prop, {
+  //       value
+  //     })[prop];
+  //   }
+  // });
 });
+
+console.log(Harvest);
+
+const config = require('./config');
+console.log(new Harvest({
+  subdomain: config.subdomain,
+  email: config.email,
+  password: config.password
+}));
 
 module.exports = Harvest;

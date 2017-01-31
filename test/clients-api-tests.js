@@ -1,13 +1,9 @@
 'use strict';
 
 const assert = require('assert');
-const config = require('../config');
-const Harvest = require('../index');
-const harvest = new Harvest({
-  subdomain: config.subdomain,
-  email: config.email,
-  password: config.password
-});
+const common = require('./common');
+
+const harvest = common.harvest;
 
 const TEST_CLIENT_NAME = '__NODE-HARVEST__TESTS__CLIENT__' + parseInt(Math.random() * 10000, 10);
 let TEST_CLIENT_ID = null;

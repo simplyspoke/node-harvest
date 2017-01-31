@@ -1,13 +1,9 @@
 'use strict';
 
 const assert = require('assert');
-const config = require('../config');
-const Harvest = require('../index');
-const harvest = new Harvest({
-  subdomain: config.subdomain,
-  email: config.email,
-  password: config.password
-});
+const common = require('./common');
+
+const harvest = common.harvest;
 
 describe('The Reports API', function() {
   describe('Get all time entries logged to a project for a given timeframe', function() {

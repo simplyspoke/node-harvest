@@ -1,13 +1,10 @@
 'use strict';
 
 const assert = require('assert');
+const common = require('./common');
+
+const harvest = common.harvest;
 const config = require('../config');
-const Harvest = require('../index');
-const harvest = new Harvest({
-  subdomain: config.subdomain,
-  email: config.email,
-  password: config.password
-});
 
 console.log(harvest);
 

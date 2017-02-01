@@ -14,6 +14,8 @@ const isUndefined = require('./mixins').isUndefined;
 const Throttle = require('./throttle.js');
 
 const Harvest = function(config) {
+  const self = this;
+
   if (!(this instanceof Harvest)) return new Harvest(config);
 
   if (!mixins.has(config, ['subdomain'])) {
@@ -28,10 +30,6 @@ const Harvest = function(config) {
   // this.use_oauth = (has(config, ['identifier', 'secret', 'redirect_uri'])) || (has(config, 'access_token'));
   this.use_basic_auth = mixins.has(config, ['email', 'password']);
 
-  this.count = 0;
-
-  console.log('31', this);
-
   if (this.use_basic_auth) {
     this.email = config.email;
     this.password = config.password;
@@ -43,34 +41,35 @@ const Harvest = function(config) {
   } else {
     throw new Error('The Harvest API client requires credentials for basic authentication or an identifier, secret and redirect_uri (or an access_token) for OAuth');
   }
-}
 
-Harvest.prototype.service = function() {
-  this.count--;
-};
+  // Require and instantiate the resources lazily.
+  fs.readdirSync(path.join(__dirname, 'lib')).forEach(name => {
+    var prop = camelCase(name.slice(0, -3));
+    var Resource = require(`./lib/${name}`);
+
+    self[prop] = new(Resource)(self);
+  });
+}
 
 Harvest.prototype.client = function client(method, uri, data, cb) {
   const self = this;
 
   const options = {
-    baseUrl: self.host,
-    uri: uri
+    baseUrl: this.host
   }
 
-  console.log('60', options);
-
-  if (self.use_basic_auth) {
+  if (this.use_basic_auth) {
     options.auth = {
-      username: self.email,
-      password: self.password
+      username: this.email,
+      password: this.password
     }
   } else {
-    if (!self.access_token) {
+    if (!this.access_token) {
       throw new Error('An access token is required if using oAuth, use parseAccessCode or pass an access_token before making any requests');
     }
     options.auth = {
       auth: {
-        'bearer': self.access_token
+        'bearer': this.access_token
       }
     }
   }
@@ -80,21 +79,20 @@ Harvest.prototype.client = function client(method, uri, data, cb) {
     'Accept': 'application/json'
   };
 
-  if (self.debug) {
-    console.log('run', method, uri, data);
+  if (this.debug) {
+    // console.log('run', method, uri, data);
   }
 
-  self.client = function () {
-    options.method = method;
-    options.qs = data;
+  options.method = method;
+  options.uri = uri;
+  options.qs = data;
 
-    console.log(options);
+  // console.log(options);
 
-    request(options, function(error, response, body) {
-      console.log(error, response, body);
-      cb(error, response, body);
-    });
-  }
+  return request(options, function(error, response, body) {
+    // console.log(error, response, body);
+    cb(error, response, body);
+  });
 }
 
 Harvest.prototype.getAccessTokenURL = function() {
@@ -116,7 +114,7 @@ Harvest.prototype.parseAccessCode = function(access_code, cb) {
   };
 
   if (this.debug) {
-    console.log('request token', options);
+    // console.log('request token', options);
   }
 
   return request.post(this.host + '/oauth2/token', {
@@ -131,28 +129,5 @@ Harvest.prototype.parseAccessCode = function(access_code, cb) {
     cb(this.access_token);
   });
 };
-
-// Require and instantiate the resources lazily.
-fs.readdirSync(path.join(__dirname, 'lib')).forEach(name => {
-  const prop = camelCase(name.slice(0, -3));
-  // const Resource = require(`./lib/${name}`);
-  //
-  // Harvest.prototype[prop] = new Resource(Harvest.prototype);
-
-  Object.defineProperty(Harvest.prototype, prop, {
-    get: function get() {
-      const Resource = require(`./lib/${name}`);
-
-      return Object.defineProperty(this, prop, {
-        value: new Resource(Harvest)
-      })[prop];
-    },
-    set: function set(value) {
-      return Object.defineProperty(this, prop, {
-        value
-      })[prop];
-    }
-  });
-});
 
 module.exports = Harvest;

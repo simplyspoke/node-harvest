@@ -267,9 +267,9 @@ function seedHarvest(done) {
       'currency_symbol': '$',
       'details': '123 Main St\r\nAnytown, NY 12345'
     }
-  }, function(err, response, res) {
+  }, function(err, response, body) {
     if (err) console.log('Clients', err)
-    console.log('res', res);
+    console.log('res', body);
     harvest.clients.list({}, function(err, clients) {
       for (let i = 0; i < clients.length; ++i) {
         if (clients[i].client.name === TEST_CLIENT_NAME) {
@@ -285,7 +285,7 @@ function seedHarvest(done) {
         }
       }, function(err, response, res) {
         if (err) console.log('Projects', err)
-        console.log('res', res);
+        // console.log('res', res);
         harvest.projects.list({}, function(err, projects) {
           for (let i = 0; i < projects.length; ++i) {
             if (projects[i].project.name === TEST_PROJECT_NAME) {
@@ -303,7 +303,7 @@ function seedHarvest(done) {
             }
           }, function(err, response, res) {
             if (err) console.log('Tasks', err)
-            console.log('res', res);
+            // console.log('res', res);
             harvest.tasks.list({}, function(err, tasks) {
               for (let i = 0; i < tasks.length; ++i) {
                 if (tasks[i].task.name === TEST_TASK_NAME) {
@@ -318,7 +318,7 @@ function seedHarvest(done) {
                 }
               }, function(err, response, res) {
                 if (err) console.log('TaskAssignment', err)
-                console.log('res', res);
+                // console.log('res', res);
                 harvest.timeTracking.create({
                   notes: 'Boring new text',
                   hours: 2,
@@ -327,7 +327,7 @@ function seedHarvest(done) {
                   spent_at: 'Thu, 16 Nov 2012'
                 }, function(err, response, res) {
                   if (err) console.log('TimeTracking', err)
-                  console.log('res', res);
+                  // console.log('res', res);
                   harvest.timeTracking.daily({
                     date: new Date('11/16/2012')
                   }, function(err, entries) {

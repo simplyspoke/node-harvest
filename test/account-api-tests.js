@@ -6,10 +6,6 @@ const common = require('./common');
 const harvest = common.harvest;
 const config = require('../config');
 
-harvest.client('GET', 'url', {}, function(one, two, three) {
-  console.log('13', one, two, three);
-})
-
 describe('The Account API', function() {
   describe('Show account info', function() {
     it('should implement the get method', function() {

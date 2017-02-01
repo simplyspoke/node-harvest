@@ -1,7 +1,7 @@
 'use strict';
 
 const assert = require('assert');
-const helpers = require('../helpers');
+const helpers = require('../lib/helpers');
 
 describe('Helpers', function() {
   describe('isUndefined', function() {

@@ -10,6 +10,7 @@
   "repository": "https://github.com/log0ymxm/node-harvest",
   "author": "Paul English",
   "license": "MIT",
+  "main": "./lib/harest.js",
   "dependencies": {
     "append-query": "^2.0.1",
     "async": "^2.1.4",

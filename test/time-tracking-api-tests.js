@@ -2,7 +2,7 @@
 
 const assert = require('assert');
 const common = require('./common');
-const helpers = require('../helpers');
+const helpers = require('../lib/helpers');
 
 const harvest = common.harvest;
 

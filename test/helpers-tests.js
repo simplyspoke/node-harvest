@@ -19,7 +19,7 @@ describe('Helpers', function() {
       assert.equal(typeof helpers.getId, 'function');
     });
     it('should return the id at the end of a response location header', function() {
-      assert.equal('2342', helpers.getId({
+      assert.equal(2342, helpers.getId({
         headers: {
           location: '/sometest/2342'
         }

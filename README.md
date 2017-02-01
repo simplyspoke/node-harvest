@@ -36,9 +36,9 @@ TimeTracking.daily({}, function(err, tasks) {
 ### When you already have an access token
 
 ```js
-let harvest_with_token = new Harvest({
-  subdomain: config.harvest_oauth.subdomain,
-  access_token: stored_access_token
+let harvest = new Harvest({
+  subdomain: config.subdomain,
+  accessToken: stored_accessToken
 });
 
 let TimeTracking = harvest.TimeTracking;
@@ -46,7 +46,7 @@ let TimeTracking = harvest.TimeTracking;
 TimeTracking.daily({}, function(err, tasks) {
   if (err) throw new Error(err);
 
-  console.log('Loaded tasks using passed in auth_token!');
+  console.log('Loaded tasks using passed in stored_accessToken!');
 });
 ```
 
@@ -55,18 +55,18 @@ TimeTracking.daily({}, function(err, tasks) {
 ```js
 // See https://platform.harvestapp.com/oauth2_clients to get these
 let harvest = new Harvest({
-  subdomain: config.harvest_oauth.subdomain,
-  redirect_uri: config.harvest_oauth.redirect_uri,
-  identifier: config.harvest_oauth.client_id,
-  secret: config.harvest_oauth.secret
+  subdomain: config.subdomain,
+  redirectUri: config.redirectUri,
+  identifier: config.clientId,
+  secret: config.secret
 });
 
 // Send the user to harvest.getAccessTokenURL()) and grab the access code passed as a get parameter
 // e.g. By running an express.js server at redirect_url
 let access_code = req.query.code;
 
-harvest.parseAccessCode(access_code, function(access_token) {
-  console.log('Grabbed the access token to save', access_token);
+harvest.parseAccessCode(access_code, function(accessToken) {
+  console.log('Grabbed the access token to save', accessToken);
 
   let TimeTracking = harvest.TimeTracking;
 
@@ -90,7 +90,7 @@ In order to test you will need to create a config file that uses your credential
     "password": "...",
     "identifier": "...",
     "secret": "...",
-    "user_agent": "node-harvest test runner"
+    "userAgent": "node-harvest test runner"
   }
 }
 ```

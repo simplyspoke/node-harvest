@@ -2,6 +2,7 @@
 
 const assert = require('assert');
 const common = require('./common');
+const helpers = require('../lib/helpers');
 
 const harvest = common.harvest;
 
@@ -18,12 +19,12 @@ describe('The Clients API', function() {
         'client': {
           'name': TEST_CLIENT_NAME
         }
-      }, function(err, data) {
-        /* TODO: uncomment when graceful processing for POST requests implemented
-        if (err)
-            assert.equal(err.message, 'Name has already been taken');
-        else
-            assert(data); */
+      }, function(err, response) {
+        if (err) {
+          assert(!err, 'There should not be and error of ' + err.message);
+        }
+        TEST_CLIENT_ID = helpers.getId(response);
+        assert.equal(typeof TEST_CLIENT_ID, 'number', 'The location header should contain a id');
         done();
       });
     });
@@ -33,17 +34,9 @@ describe('The Clients API', function() {
       assert.equal(typeof harvest.clients.list, 'function');
     });
     it('should provide a list of all clients', function(done) {
-      harvest.clients.list({}, function(err, clients) {
+      harvest.clients.list({}, function(err, response, clients) {
         assert(!err);
-        let testClient;
-        for (let i = 0; i < harvest.clients.length; ++i) {
-          if (clients[i].client.name === TEST_CLIENT_NAME) {
-            testClient = clients[i].client;
-            break;
-          }
-        }
-        assert(testClient);
-        TEST_CLIENT_ID = testClient.id;
+        assert(Array.isArray(clients));
         done();
       });
     });
@@ -56,7 +49,7 @@ describe('The Clients API', function() {
       assert(TEST_CLIENT_ID);
       harvest.clients.get({
         'id': TEST_CLIENT_ID
-      }, function(err, data) {
+      }, function(err, response, data) {
         assert(!err);
         assert(data);
         assert(data.client);
@@ -80,12 +73,12 @@ describe('The Clients API', function() {
           'name': TEST_CLIENT_NAME,
           'details': dets
         }
-      }, function(err, data, res) {
+      }, function(err, response, data) {
         /* TODO: uncomment when graceful processing for PUT requests implemented
           assert(!err); */
         harvest.clients.get({
           'id': TEST_CLIENT_ID
-        }, function(err, data) {
+        }, function(err, response, data) {
           assert(!err);
           assert(data);
           assert(data.client);
@@ -105,12 +98,12 @@ describe('The Clients API', function() {
       assert(TEST_CLIENT_ID);
       harvest.clients.toggleActivation({
         id: TEST_CLIENT_ID
-      }, function(err, data) {
+      }, function(err, response, data) {
         /* TODO: uncomment when graceful processing for POST requests implemented
         assert(!err); */
         harvest.clients.get({
           id: TEST_CLIENT_ID
-        }, function(err, data) {
+        }, function(err, response, data) {
           assert(!err);
           assert(data);
           assert(data.client);
@@ -128,7 +121,7 @@ describe('The Clients API', function() {
       assert(TEST_CLIENT_ID);
       harvest.clients.delete({
         id: TEST_CLIENT_ID
-      }, function(err, data) {
+      }, function(err, response, data) {
         assert(!err);
         done();
       });

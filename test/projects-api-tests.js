@@ -11,7 +11,7 @@ describe('The Projects API', function() {
       assert.equal(typeof harvest.projects.list, 'function');
     });
     it('should return projects', function(done) {
-      harvest.projects.list({}, function(err, projects) {
+      harvest.projects.list({}, function(err, response, projects) {
         assert(!err, err);
         assert(Array.isArray(projects));
         assert.equal(typeof projects[0], 'object');
@@ -24,11 +24,11 @@ describe('The Projects API', function() {
       assert.equal(typeof harvest.projects.get, 'function');
     });
     it('should return projects', function(done) {
-      harvest.projects.list({}, function(err, projects) {
+      harvest.projects.list({}, function(err, response, projects) {
         let project_id = projects[0].project.id;
         harvest.projects.get({
           id: project_id
-        }, function(err, project) {
+        }, function(err, response, project) {
           assert(!err, err);
           assert.equal(typeof project.project, 'object');
           done();

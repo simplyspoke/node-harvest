@@ -18,7 +18,8 @@ describe('The Harvest API Client', function() {
       let harvest = new Harvest({
         subdomain: config.subdomain,
         identifier: config.identifier,
-        secret: config.secret
+        secret: config.secret,
+        redirectUri: config.redirectUri
       });
       assert(typeof harvest === 'object');
     });

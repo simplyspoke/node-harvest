@@ -238,9 +238,7 @@ function seedHarvest(done) {
       'details': '123 Main St\r\nAnytown, NY 12345'
     }
   }, function(err, response, body) {
-    if (err) console.error('Clients', err)
     TEST_CLIENT_ID = helpers.getId(response);
-    console.log('TEST_CLIENT_ID', TEST_CLIENT_ID);
     harvest.projects.create({
       'project': {
         'client_id': TEST_CLIENT_ID,
@@ -248,9 +246,7 @@ function seedHarvest(done) {
         'active': true
       }
     }, function(err, response, res) {
-      if (err) console.error('Projects', err)
       TEST_PROJECT_ID = helpers.getId(response);
-      console.log('TEST_PROJECT_ID', TEST_PROJECT_ID);
       harvest.tasks.create({
         'task': {
           'name': TEST_TASK_NAME,
@@ -260,17 +256,13 @@ function seedHarvest(done) {
           'deactivated': true
         }
       }, function(err, response, res) {
-        if (err) console.error('Tasks', err)
         TEST_TASK_ID = helpers.getId(response);
-        console.log('TEST_TASK_ID', TEST_TASK_ID);
         harvest.taskAssignment.assign({
           project_id: TEST_PROJECT_ID,
           task: {
             id: TEST_TASK_ID
           }
         }, function(err, response, body) {
-          if (err) console.error('TaskAssignment', err)
-          console.log('taskAssignment', response.headers.status);
           done();
         });
       });
@@ -281,16 +273,13 @@ function seedHarvest(done) {
 function cleanupHarvest(done) {
   harvest.tasks.delete({
     'id': TEST_TASK_ID
-  }, function(err, response, res) {
-    if (err) console.error('Tasks', err)
+  }, function() {
     harvest.projects.delete({
       'id': TEST_PROJECT_ID
-    }, function(err, response, res) {
-      if (err) console.error('Projects', err)
+    }, function() {
       harvest.clients.delete({
         'id': TEST_CLIENT_ID
-      }, function(err, response, res) {
-        if (err) console.error('Clients', err)
+      }, function() {
         done();
       });
     });

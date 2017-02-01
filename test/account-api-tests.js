@@ -4,7 +4,7 @@ const assert = require('assert');
 const common = require('./common');
 
 const harvest = common.harvest;
-const config = require('../config');
+const config = common.config;
 
 describe('The Account API', function() {
   describe('Show account info', function() {

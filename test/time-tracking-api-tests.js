@@ -270,79 +270,45 @@ function seedHarvest(done) {
     }
   }, function(err, response, body) {
     if (err) console.log('Clients', err)
-    console.log('res', body);
-    harvest.clients.list({}, function(err, clients) {
-      for (let i = 0; i < clients.length; ++i) {
-        if (clients[i].client.name === TEST_CLIENT_NAME) {
-          TEST_CLIENT_ID = clients[i].client.id;
-          break;
-        }
+    TEST_CLIENT_ID = helpers.getId(response);
+    harvest.projects.create({
+      'project': {
+        'client_id': TEST_CLIENT_ID,
+        'name': TEST_PROJECT_NAME,
+        'active': true
       }
-      harvest.projects.create({
-        'project': {
-          'client_id': TEST_CLIENT_ID,
-          'name': TEST_PROJECT_NAME,
-          'active': true
+    }, function(err, response, res) {
+      if (err) console.log('Projects', err)
+      TEST_PROJECT_ID = helpers.getId(response);
+      harvest.tasks.create({
+        'task': {
+          'name': TEST_TASK_NAME,
+          'billable_by_default': false,
+          'is_default': true,
+          'default_hourly_rate': 100,
+          'deactivated': true
         }
       }, function(err, response, res) {
-        if (err) console.log('Projects', err)
-        // console.log('res', res);
-        harvest.projects.list({}, function(err, projects) {
-          for (let i = 0; i < projects.length; ++i) {
-            if (projects[i].project.name === TEST_PROJECT_NAME) {
-              TEST_PROJECT_ID = projects[i].project.id;
-              break;
-            }
+        if (err) console.log('Tasks', err)
+        TEST_TASK_ID = helpers.getId(response);
+        harvest.taskAssignment.assign({
+          project_id: TEST_PROJECT_ID,
+          task: {
+            id: TEST_TASK_ID
           }
-          harvest.tasks.create({
-            'task': {
-              'name': TEST_TASK_NAME,
-              'billable_by_default': false,
-              'is_default': true,
-              'default_hourly_rate': 100,
-              'deactivated': true
-            }
+        }, function(err, response, res) {
+          if (err) console.log('TaskAssignment', err)
+          // console.log('res', res);
+          harvest.timeTracking.create({
+            notes: 'Boring new text',
+            hours: 2,
+            project_id: TEST_PROJECT_ID,
+            task_id: TEST_TASK_ID,
+            spent_at: 'Thu, 16 Nov 2012'
           }, function(err, response, res) {
-            if (err) console.log('Tasks', err)
-            // console.log('res', res);
-            harvest.tasks.list({}, function(err, tasks) {
-              for (let i = 0; i < tasks.length; ++i) {
-                if (tasks[i].task.name === TEST_TASK_NAME) {
-                  TEST_TASK_ID = tasks[i].task.id;
-                  break;
-                }
-              }
-              harvest.taskAssignment.assign({
-                project_id: TEST_PROJECT_ID,
-                task: {
-                  id: TEST_TASK_ID
-                }
-              }, function(err, response, res) {
-                if (err) console.log('TaskAssignment', err)
-                // console.log('res', res);
-                harvest.timeTracking.create({
-                  notes: 'Boring new text',
-                  hours: 2,
-                  project_id: TEST_PROJECT_ID,
-                  task_id: TEST_TASK_ID,
-                  spent_at: 'Thu, 16 Nov 2012'
-                }, function(err, response, res) {
-                  if (err) console.log('TimeTracking', err)
-                  // console.log('res', res);
-                  harvest.timeTracking.daily({
-                    date: new Date('11/16/2012')
-                  }, function(err, entries) {
-                    for (let i = 0; i < entries.day_entries.length; ++i) {
-                      if (entries.day_entries[i].task === TEST_TASK_NAME) {
-                        TEST_TIMER_ID = entries.day_entries[i].id;
-                        break;
-                      }
-                    }
-                    done();
-                  });
-                });
-              });
-            });
+            if (err) console.log('TimeTracking', err)
+            TEST_TIMER_ID = helpers.getId(response);
+            done();
           });
         });
       });

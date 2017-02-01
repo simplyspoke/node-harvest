@@ -1,8 +1,8 @@
 'use strict';
 
 const assert = require('assert');
-const config = require('../config');
-const Harvest = require('../index');
+const config = require('./common').config;
+const Harvest = require('../lib/harvest');
 
 describe('The Harvest API Client', function() {
   describe('Instantiating a Harvest instance', function() {

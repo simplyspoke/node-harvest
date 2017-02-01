@@ -298,7 +298,6 @@ function seedHarvest(done) {
           }
         }, function(err, response, res) {
           if (err) console.log('TaskAssignment', err)
-          // console.log('res', res);
           harvest.timeTracking.create({
             notes: 'Boring new text',
             hours: 2,

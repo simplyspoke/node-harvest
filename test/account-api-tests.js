@@ -13,7 +13,7 @@ describe('The Account API', function() {
     });
 
     it('should return account info', function(done) {
-      harvest.account.get({}, function(err, info) {
+      harvest.account.get({}, function(err, responce, info) {
         if (err) throw err;
         assert(info, 'Info must contain some information');
         assert(info.company, 'Info must contain some information about the company');
@@ -33,7 +33,7 @@ describe('The Account API', function() {
     });
 
     it('should return throttle status', function(done) {
-      harvest.account.rate_limit_status({}, function(err, status) {
+      harvest.account.rate_limit_status({}, function(err, responce, status) {
         if (err) throw err;
 
         assert(status, 'Status must contain some information');

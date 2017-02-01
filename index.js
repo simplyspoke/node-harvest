@@ -2,7 +2,7 @@
 
 const fs = require('fs');
 const path = require('path');
-const mixins = require('./mixins');
+const helpers = require('./helpers');
 const camelCase = require('lodash/camelCase');
 const replace = require('lodash/replace');
 const restler = require('restler');
@@ -10,7 +10,7 @@ const request = require('request');
 const qs = require('qs');
 const util = require('util');
 
-const isUndefined = require('./mixins').isUndefined;
+const isUndefined = require('./helpers').isUndefined;
 const Throttle = require('./throttle.js');
 
 const Harvest = function(config) {
@@ -18,7 +18,7 @@ const Harvest = function(config) {
 
   if (!(this instanceof Harvest)) return new Harvest(config);
 
-  if (!mixins.has(config, ['subdomain'])) {
+  if (!helpers.has(config, ['subdomain'])) {
     throw new Error('The Harvest API client requires a subdomain');
   }
 
@@ -28,7 +28,7 @@ const Harvest = function(config) {
   this.throttle_concurrency = config.throttle_concurrency || null;
 
   // this.use_oauth = (has(config, ['identifier', 'secret', 'redirect_uri'])) || (has(config, 'access_token'));
-  this.use_basic_auth = mixins.has(config, ['email', 'password']);
+  this.use_basic_auth = helpers.has(config, ['email', 'password']);
 
   if (this.use_basic_auth) {
     this.email = config.email;
@@ -90,7 +90,7 @@ Harvest.prototype.client = function client(method, uri, data, cb) {
   // console.log(options);
 
   return request(options, function(error, response, body) {
-    // console.log(error, response, body);
+    console.log(response.headers);
     cb(error, response, body);
   });
 }

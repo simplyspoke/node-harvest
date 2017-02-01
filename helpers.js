@@ -2,7 +2,7 @@
 
 const appendQuery = require('append-query');
 
-const mixins = {
+const helpers = {
   dayOfYear: dayOfYear,
   has: has,
   ofUserUrl: ofUserUrl
@@ -40,4 +40,4 @@ function ofUserUrl(url, options) {
   return url;
 }
 
-module.exports = mixins;
+module.exports = helpers;

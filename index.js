@@ -3,7 +3,7 @@
 const fs = require('fs');
 const path = require('path');
 const mixins = require('./mixins');
-const camelCase = require('lodash/startCase');
+const camelCase = require('lodash/camelCase');
 const replace = require('lodash/replace');
 const restler = require('restler');
 const request = require('request');
@@ -13,10 +13,8 @@ const util = require('util');
 const isUndefined = require('./mixins').isUndefined;
 const Throttle = require('./throttle.js');
 
-function Harvest(config) {
-  if (!(this instanceof Harvest)) {
-    return new Harvest(config);
-  }
+const Harvest = function(config) {
+  if (!(this instanceof Harvest)) return new Harvest(config);
 
   if (!mixins.has(config, ['subdomain'])) {
     throw new Error('The Harvest API client requires a subdomain');
@@ -30,10 +28,14 @@ function Harvest(config) {
   // this.use_oauth = (has(config, ['identifier', 'secret', 'redirect_uri'])) || (has(config, 'access_token'));
   this.use_basic_auth = mixins.has(config, ['email', 'password']);
 
-  if (!this.use_basic_auth) {
+  this.count = 0;
+
+  console.log('31', this);
+
+  if (this.use_basic_auth) {
     this.email = config.email;
     this.password = config.password;
-  } else if (!this.use_oauth) {
+  } else if (this.use_oauth) {
     this.identifier = config.identifier;
     this.secret = config.secret;
     this.redirect_uri = config.redirect_uri;
@@ -43,27 +45,32 @@ function Harvest(config) {
   }
 }
 
-Harvest.prototype.service = function() {};
+Harvest.prototype.service = function() {
+  this.count--;
+};
 
-Harvest.prototype.client = function(method, url, data, cb) {
-  console.log(this);
+Harvest.prototype.client = function client(method, uri, data, cb) {
+  const self = this;
 
   const options = {
-    baseUrl: this.host
+    baseUrl: self.host,
+    uri: uri
   }
 
-  if (this.use_basic_auth) {
+  console.log('60', options);
+
+  if (self.use_basic_auth) {
     options.auth = {
-      username: this.email,
-      password: this.password
+      username: self.email,
+      password: self.password
     }
   } else {
-    if (!this.access_token) {
+    if (!self.access_token) {
       throw new Error('An access token is required if using oAuth, use parseAccessCode or pass an access_token before making any requests');
     }
     options.auth = {
       auth: {
-        'bearer': this.access_token
+        'bearer': self.access_token
       }
     }
   }
@@ -73,13 +80,15 @@ Harvest.prototype.client = function(method, url, data, cb) {
     'Accept': 'application/json'
   };
 
-  return function(method, url, query) {
-    if (this.debug) {
-      console.log('run', method, url, query);
-    }
+  if (self.debug) {
+    console.log('run', method, uri, data);
+  }
 
+  self.client = function () {
     options.method = method;
-    options.qs = query;
+    options.qs = data;
+
+    console.log(options);
 
     request(options, function(error, response, body) {
       console.log(error, response, body);
@@ -125,33 +134,25 @@ Harvest.prototype.parseAccessCode = function(access_code, cb) {
 
 // Require and instantiate the resources lazily.
 fs.readdirSync(path.join(__dirname, 'lib')).forEach(name => {
-  const prop = replace(camelCase(name.slice(0, -3)), ' ', '');
-
-  Harvest[prop] = require(`./lib/${name}`);
-
-  // Object.defineProperty(Harvest.prototype, prop, {
-  //   get: function get() {
-  //     const Resource = require(`./lib/${name}`);
+  const prop = camelCase(name.slice(0, -3));
+  // const Resource = require(`./lib/${name}`);
   //
-  //     return Object.defineProperty(this, prop, {
-  //       value: new Resource(this)
-  //     })[prop];
-  //   },
-  //   set: function set(value) {
-  //     return Object.defineProperty(this, prop, {
-  //       value
-  //     })[prop];
-  //   }
-  // });
+  // Harvest.prototype[prop] = new Resource(Harvest.prototype);
+
+  Object.defineProperty(Harvest.prototype, prop, {
+    get: function get() {
+      const Resource = require(`./lib/${name}`);
+
+      return Object.defineProperty(this, prop, {
+        value: new Resource(Harvest)
+      })[prop];
+    },
+    set: function set(value) {
+      return Object.defineProperty(this, prop, {
+        value
+      })[prop];
+    }
+  });
 });
-
-console.log(Harvest);
-
-const config = require('./config');
-console.log(new Harvest({
-  subdomain: config.subdomain,
-  email: config.email,
-  password: config.password
-}));
 
 module.exports = Harvest;

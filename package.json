@@ -1,6 +1,6 @@
 {
   "name": "harvest",
-  "version": "0.3.0",
+  "version": "1.0.0-rc.1",
   "description": "Harvest API client library",
   "repository": "https://github.com/log0ymxm/node-harvest",
   "author": "Paul English",
@@ -11,13 +11,10 @@
   },
   "main": "./lib/harest.js",
   "dependencies": {
-    "append-query": "^2.0.1",
     "async": "^2.1.4",
-    "bluebird": "^3.4.7",
     "lodash": "^4.17.4",
     "qs": "^6.3.0",
-    "request": "^2.79.0",
-    "restler": "^3.4.0"
+    "request": "^2.79.0"
   },
   "devDependencies": {
     "coveralls": "^2.11.15",

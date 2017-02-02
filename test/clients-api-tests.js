@@ -47,9 +47,7 @@ describe('The Clients API', function() {
     });
     it('get method should work properly', function(done) {
       assert(TEST_CLIENT_ID);
-      harvest.clients.get({
-        'id': TEST_CLIENT_ID
-      }, function(err, response, data) {
+      harvest.clients.get(TEST_CLIENT_ID, function(err, response, data) {
         assert(!err);
         assert(data);
         assert(data.client);
@@ -65,45 +63,35 @@ describe('The Clients API', function() {
     });
     it('update method should work properly', function(done) {
       assert(TEST_CLIENT_ID);
-      let dets = 'New details: ' + Math.random();
-
-      harvest.clients.update({
-        'id': TEST_CLIENT_ID,
+      harvest.clients.update(TEST_CLIENT_ID, {
         'client': {
           'name': TEST_CLIENT_NAME,
-          'details': dets
+          'details': 'some details'
         }
       }, function(err, response, data) {
-        /* TODO: uncomment when graceful processing for PUT requests implemented
-          assert(!err); */
-        harvest.clients.get({
-          'id': TEST_CLIENT_ID
-        }, function(err, response, data) {
+        assert(!err);
+        harvest.clients.get(TEST_CLIENT_ID, function(err, response, data) {
           assert(!err);
+          console.log(data);
           assert(data);
           assert(data.client);
           assert.equal(data.client.id, TEST_CLIENT_ID);
           assert.equal(data.client.name, TEST_CLIENT_NAME);
-          assert.equal(data.client.details, dets);
+          assert.equal(data.client.details, 'some details');
           done();
         });
       });
     });
   });
   describe('(De)Activate an existing client', function() {
-    it('should implement the toggleActivation method', function() {
-      assert.equal(typeof harvest.clients.toggleActivation, 'function');
+    it('should implement the toggle method', function() {
+      assert.equal(typeof harvest.clients.toggle, 'function');
     });
     it('toggleActivation method should work properly', function(done) {
       assert(TEST_CLIENT_ID);
-      harvest.clients.toggleActivation({
-        id: TEST_CLIENT_ID
-      }, function(err, response, data) {
-        /* TODO: uncomment when graceful processing for POST requests implemented
-        assert(!err); */
-        harvest.clients.get({
-          id: TEST_CLIENT_ID
-        }, function(err, response, data) {
+      harvest.clients.toggle(TEST_CLIENT_ID, function(err, response, data) {
+        assert(!err);
+        harvest.clients.get(TEST_CLIENT_ID, function(err, response, data) {
           assert(!err);
           assert(data);
           assert(data.client);
@@ -119,9 +107,7 @@ describe('The Clients API', function() {
     });
     it('delete method should work properly', function(done) {
       assert(TEST_CLIENT_ID);
-      harvest.clients.delete({
-        id: TEST_CLIENT_ID
-      }, function(err, response, data) {
+      harvest.clients.delete(TEST_CLIENT_ID, function(err, response, data) {
         assert(!err);
         done();
       });

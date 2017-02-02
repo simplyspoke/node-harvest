@@ -17,8 +17,8 @@ describe('The InvoiceMessages API', function() {
     });
   });
   describe('Send an invoice', function() {
-    it('should implement the create method', function() {
-      assert.equal(typeof harvest.invoiceMessages.create, 'function');
+    it('should implement the send method', function() {
+      assert.equal(typeof harvest.invoiceMessages.send, 'function');
     });
   });
   describe('Delete an existing message', function() {

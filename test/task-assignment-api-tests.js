@@ -21,11 +21,6 @@ describe('The TaskAssignment API', function() {
       assert.equal(typeof harvest.taskAssignment.assign, 'function');
     });
   });
-  describe('Create a new task and assign it to a project', function() {
-    it('should implement the create method', function() {
-      assert.equal(typeof harvest.taskAssignment.create, 'function');
-    });
-  });
   describe('Changing a task inside a project', function() {
     it('should implement the update method', function() {
       assert.equal(typeof harvest.taskAssignment.update, 'function');

@@ -13,7 +13,7 @@ describe('The Account API', function() {
     });
 
     it('should return account info', function(done) {
-      harvest.account.get({}, function(err, response, info) {
+      harvest.account.get(function(err, response, info) {
         if (err) throw err;
         assert(info, 'Info must contain some information');
         assert.equal(typeof info, 'object', 'Info should be an object');
@@ -34,7 +34,7 @@ describe('The Account API', function() {
     });
 
     it('should return throttle status', function(done) {
-      harvest.account.rate_limit_status({}, function(err, response, status) {
+      harvest.account.rate_limit_status(function(err, response, status) {
         if (err) throw err;
 
         assert(status, 'Status must contain some information');

@@ -128,9 +128,7 @@ describe('The TimeTracking API', function() {
       assert.equal(typeof harvest.timeTracking.get, 'function');
     });
     it('should return an individual timer', function(done) {
-      harvest.timeTracking.get({
-        id: TEST_TIMER_ID
-      }, function(err, responce, timer) {
+      harvest.timeTracking.get(TEST_TIMER_ID, function(err, responce, timer) {
         assert(!err);
         assert.equal(typeof timer, 'object');
         assert.equal(typeof timer.id, 'number');
@@ -155,9 +153,7 @@ describe('The TimeTracking API', function() {
       assert.equal(typeof harvest.timeTracking.toggleTimer, 'function');
     });
     it('should toggle a timer on and off', function(done) {
-      harvest.timeTracking.toggleTimer({
-        id: TEST_TIMER_ID
-      }, function(err, responce, timer) {
+      harvest.timeTracking.toggleTimer(TEST_TIMER_ID, function(err, responce, timer) {
         assert(!err);
         assert.equal(typeof timer, 'object');
         assert.equal(typeof timer.id, 'number');
@@ -174,9 +170,7 @@ describe('The TimeTracking API', function() {
         assert.equal(typeof timer.created_at, 'string');
         assert.equal(typeof timer.updated_at, 'string');
 
-        harvest.timeTracking.toggleTimer({
-          id: TEST_TIMER_ID
-        }, function(err, responce, timer) {
+        harvest.timeTracking.toggleTimer(TEST_TIMER_ID, function(err, responce, timer) {
           done();
         });
       });
@@ -187,8 +181,7 @@ describe('The TimeTracking API', function() {
       assert.equal(typeof harvest.timeTracking.update, 'function');
     });
     it('should allow the updating of time entries', function(done) {
-      harvest.timeTracking.update({
-        id: TEST_TIMER_ID,
+      harvest.timeTracking.update(TEST_TIMER_ID, {
         notes: 'New description',
         hours: 1,
         project_id: TEST_PROJECT_ID,
@@ -218,9 +211,7 @@ describe('The TimeTracking API', function() {
       assert.equal(typeof harvest.timeTracking.delete, 'function');
     });
     it('should allow the deletion of a time entry', function(done) {
-      harvest.timeTracking.delete({
-        id: TEST_TIMER_ID
-      }, function(err) {
+      harvest.timeTracking.delete(TEST_TIMER_ID, function(err) {
         assert(!err);
         done();
       });
@@ -239,6 +230,7 @@ function seedHarvest(done) {
     }
   }, function(err, response, body) {
     TEST_CLIENT_ID = helpers.getId(response);
+    console.log(TEST_CLIENT_ID);
     harvest.projects.create({
       'project': {
         'client_id': TEST_CLIENT_ID,
@@ -247,6 +239,7 @@ function seedHarvest(done) {
       }
     }, function(err, response, res) {
       TEST_PROJECT_ID = helpers.getId(response);
+      console.log(TEST_PROJECT_ID);
       harvest.tasks.create({
         'task': {
           'name': TEST_TASK_NAME,
@@ -257,6 +250,7 @@ function seedHarvest(done) {
         }
       }, function(err, response, res) {
         TEST_TASK_ID = helpers.getId(response);
+        console.log(TEST_TASK_ID);
         harvest.taskAssignment.assign({
           project_id: TEST_PROJECT_ID,
           task: {
@@ -271,15 +265,9 @@ function seedHarvest(done) {
 }
 
 function cleanupHarvest(done) {
-  harvest.tasks.delete({
-    'id': TEST_TASK_ID
-  }, function() {
-    harvest.projects.delete({
-      'id': TEST_PROJECT_ID
-    }, function() {
-      harvest.clients.delete({
-        'id': TEST_CLIENT_ID
-      }, function() {
+  harvest.tasks.delete(TEST_TASK_ID, function() {
+    harvest.projects.delete(TEST_PROJECT_ID, function() {
+      harvest.clients.delete(TEST_CLIENT_ID, function() {
         done();
       });
     });

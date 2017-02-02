@@ -36,9 +36,4 @@ describe('The People API', function() {
       assert.equal(typeof harvest.people.delete, 'function');
     });
   });
-  describe('Reset a persons password', function() {
-    it('should implement the reset method', function() {
-      assert.equal(typeof harvest.people.reset, 'function');
-    });
-  });
 });

@@ -88,81 +88,111 @@ harvest.projects.list({}, function(error, res, body) {
 ### Available resources and methods
 
 - account
-  - `delete()`
+  - `get(callback)`
+  - `rate_limit_status(callback)`
 - clientContacts
-  - `list([params], callback)`
+  - `list({params}, callback)`
   - `get(id, callback)`
-  - `create(params, callback)`
-  - `update(id, params, callback)`
+  - `create({params}, callback)`
+  - `update(id, {params}, callback)`
   - `delete(id, callback)`
+  - `listByClient(clientId, callback)`
+- clients
+  - `list({params}, callback)`
+  - `get(id, callback)`
+  - `create({params}, callback)`
+  - `update(id, {params}, callback)`
+  - `delete(id, callback)`
+  - `toggle(id, callback)`
 - expenseCategories
-  - `list([params], callback)`
+  - `list({params}, callback)`
   - `get(id, callback)`
-  - `create(params, callback)`
-  - `update(id, params, callback)`
+  - `create({params}, callback)`
+  - `update(id, {params}, callback)`
   - `delete(id, callback)`
-- invoiceCategories
-  - `list([params], callback)`
+  - `toggle(id, callback)`
+- expenses
+  - `list({params}, callback)`
   - `get(id, callback)`
-  - `create(params, callback)`
-  - `update(id, params, callback)`
+  - `create({params}, callback)`
+  - `update(id, {params}, callback)`
+  - `delete(id, callback)`
+  - `attachReceipt(id, {params}, callback)`
+  - `getReceipt(id, callback)`
+- invoiceCategories
+  - `list({params}, callback)`
+  - `get(id, callback)`
+  - `create({params}, callback)`
+  - `update(id, {params}, callback)`
   - `delete(id, callback)`
 - invoiceMessages
-  - `list([params], callback)`
-  - `get(id, callback)`
-  - `create(params, callback)`
-  - `update(id, params, callback)`
-  - `delete(id, callback)`
+  - `list(invoiceId, {params}, callback)`
+  - `get(invoiceId, id, callback)`
+  - `send(invoiceId, callback)`
+  - `delete(invoiceId, id, callback)`
+  - `send(markSent, callback)`
+  - `send(markDraft, callback)`
+  - `send(markClosed, callback)`
+  - `send(markOpen, callback)`
+- invoicePayments
+  - `list(invoiceId, {params}, callback)`
+  - `get(invoiceId, id, callback)`
+  - `create(invoiceId, {params}, callback)`
+  - `delete(invoiceId, id, callback)`
 - invoices
-  - `create(params)`
-  - `delete(id)`
-  - `get(id)`
-  - `list()`
-  - `update(id, params)`
+  - `list({params}, callback)`
+  - `get(id, callback)`
+  - `create({params}, callback)`
+  - `update(id, {params}, callback)`
+  - `delete(id, callback)`
 - people
-  - `list([params], callback)`
+  - `list({params}, callback)`
   - `get(id, callback)`
-  - `create(params, callback)`
-  - `update(id, params, callback)`
+  - `create({params}, callback)`
+  - `update(id, {params}, callback)`
   - `delete(id, callback)`
+  - `toggle(id, callback)`
 - projects
-  - `list([params], callback)`
+  - `list({params}, callback)`
   - `get(id, callback)`
-  - `create(params, callback)`
-  - `update(id, params, callback)`
+  - `create({params}, callback)`
+  - `update(id, {params}, callback)`
   - `delete(id, callback)`
+  - `toggle(id, callback)`
 - reports
-  - `list([params], callback)`
-  - `get(id, callback)`
-  - `create(params, callback)`
-  - `update(id, params, callback)`
-  - `delete(id, callback)`
+  - `timeEntriesByUser(id, {params}, callback)`
+  - `expensesByUser(id, {params}, callback)`
+  - `timeEntriesByProject(id, {params}, callback)`
+  - `expensesByProject(id, {params}, callback)`
 - taskAssignment
-  - `list([params], callback)`
-  - `get(id, callback)`
-  - `create(params, callback)`
-  - `update(id, params, callback)`
-  - `delete(id, callback)`
+  - `list(projectId, {params}, callback)`
+  - `get(projectId, id, callback)`
+  - `update(projectId, id, {params}, callback)`
+  - `delete(projectId, id, callback)`
+  - `assign(projectId, {params}, callback)`
+  - `addToAll(projectId, {params}, callback)`
 - tasks
-  - `list([params], callback)`
+  - `list({params}, callback)`
   - `get(id, callback)`
-  - `create(params, callback)`
-  - `update(id, params, callback)`
+  - `create({params}, callback)`
+  - `update(id, {params}, callback)`
   - `delete(id, callback)`
+  - `activate(id, callback)`
 - timeTracking
-  - `list([params], callback)`
+  - `daily({params}, callback)`
   - `get(id, callback)`
-  - `create(params, callback)`
-  - `update(id, params, callback)`
+  - `create({params}, callback)`
+  - `update(id, {params}, callback)`
   - `delete(id, callback)`
+  - `toggleTimer(id, callback)`
 - userAssignment
-  - `list([params], callback)`
-  - `get(id, callback)`
-  - `create(params, callback)`
-  - `update(id, params, callback)`
-  - `delete(id, callback)`
+  - `list(projectId, {params}, callback)`
+  - `get(projectId, id, callback)`
+  - `assign(projectId, {params}, callback)`
+  - `update(projectId, id, {params}, callback)`
+  - `delete(projectId, id, callback)`
 
-For all methods, the last variable is expected to be a callback function and the possible parameters can be found in the [Harvest API Documentation]. (http://help.getharvest.com/api/)
+For all methods, the last variable is expected to be a callback function. The possible options avalible for the params object can be found in the [Harvest API Documentation]. (http://help.getharvest.com/api/)
 
 # Testing
 

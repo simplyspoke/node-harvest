@@ -36,17 +36,11 @@ TimeTracking.daily({}, function(err, tasks) {
 ### When you already have an access token
 
 ```js
-let harvest = new Harvest({
-  subdomain: config.subdomain,
-  accessToken: stored_accessToken
-});
+const Harvest = require('harvest');
 
-let TimeTracking = harvest.TimeTracking;
-
-TimeTracking.daily({}, function(err, tasks) {
-  if (err) throw new Error(err);
-
-  console.log('Loaded tasks using passed in stored_accessToken!');
+const harvest = new Harvest({
+  subdomain: 'your-shop-name',
+  accessToken: 'your-oauth-token'
 });
 ```
 
@@ -55,28 +49,120 @@ TimeTracking.daily({}, function(err, tasks) {
 ```js
 // See https://platform.harvestapp.com/oauth2_clients to get these
 let harvest = new Harvest({
-  subdomain: config.subdomain,
-  redirectUri: config.redirectUri,
-  identifier: config.clientId,
-  secret: config.secret
+  subdomain: 'your-shop-name',
+  redirectUri: 'your-redirect-uri'
+  identifier: 'your-client-identifier',
+  secret: 'your-client-secret'
 });
 
 // Send the user to harvest.getAccessTokenURL()) and grab the access code passed as a get parameter
 // e.g. By running an express.js server at redirect_url
 let access_code = req.query.code;
 
-harvest.parseAccessCode(access_code, function(accessToken) {
-  console.log('Grabbed the access token to save', accessToken);
-
-  let TimeTracking = harvest.TimeTracking;
-
-  TimeTracking.daily({}, function(err, tasks) {
-    if (err) throw new Error(err);
-
-    console.log('Loaded tasks using oauth!');
-  });
+harvest.parseAccessCode(access_code, function(message) {
+  console.log(message);
 });
 ```
+
+## Resources
+
+Every resource is accessed via your `harvest` instance:
+
+```js
+const harvest = new Harvest({
+  subdomain: 'your-shop-name',
+  accessToken: 'your-oauth-token'
+});
+
+// harvest.<resouce_name>.<method_name>
+```
+
+Each method returns to a callback with the results:
+
+```js
+harvest.projects.list({}, function(error, res, body) {
+
+})
+```
+
+### Available resources and methods
+
+- account
+  - `delete()`
+- clientContacts
+  - `list([params], callback)`
+  - `get(id, callback)`
+  - `create(params, callback)`
+  - `update(id, params, callback)`
+  - `delete(id, callback)`
+- expenseCategories
+  - `list([params], callback)`
+  - `get(id, callback)`
+  - `create(params, callback)`
+  - `update(id, params, callback)`
+  - `delete(id, callback)`
+- invoiceCategories
+  - `list([params], callback)`
+  - `get(id, callback)`
+  - `create(params, callback)`
+  - `update(id, params, callback)`
+  - `delete(id, callback)`
+- invoiceMessages
+  - `list([params], callback)`
+  - `get(id, callback)`
+  - `create(params, callback)`
+  - `update(id, params, callback)`
+  - `delete(id, callback)`
+- invoices
+  - `create(params)`
+  - `delete(id)`
+  - `get(id)`
+  - `list()`
+  - `update(id, params)`
+- people
+  - `list([params], callback)`
+  - `get(id, callback)`
+  - `create(params, callback)`
+  - `update(id, params, callback)`
+  - `delete(id, callback)`
+- projects
+  - `list([params], callback)`
+  - `get(id, callback)`
+  - `create(params, callback)`
+  - `update(id, params, callback)`
+  - `delete(id, callback)`
+- reports
+  - `list([params], callback)`
+  - `get(id, callback)`
+  - `create(params, callback)`
+  - `update(id, params, callback)`
+  - `delete(id, callback)`
+- taskAssignment
+  - `list([params], callback)`
+  - `get(id, callback)`
+  - `create(params, callback)`
+  - `update(id, params, callback)`
+  - `delete(id, callback)`
+- tasks
+  - `list([params], callback)`
+  - `get(id, callback)`
+  - `create(params, callback)`
+  - `update(id, params, callback)`
+  - `delete(id, callback)`
+- timeTracking
+  - `list([params], callback)`
+  - `get(id, callback)`
+  - `create(params, callback)`
+  - `update(id, params, callback)`
+  - `delete(id, callback)`
+- userAssignment
+  - `list([params], callback)`
+  - `get(id, callback)`
+  - `create(params, callback)`
+  - `update(id, params, callback)`
+  - `delete(id, callback)`
+
+For all methods, the last variable is expected to be a callback function and the possible parameters can be found in the [Harvest API Documentation]. (http://help.getharvest.com/api/)
 
 # Testing
 

@@ -8,8 +8,7 @@ const config = {
   identifier: process.env.IDENTIFIER || '',
   secret: process.env.SECRET || '',
   redirectUri: process.env.REDIRECTURI || '',
-  userAgent: process.env.USERAGENT || 'node-harvest test runner',
-  debug: true
+  userAgent: process.env.USERAGENT || 'node-harvest test runner'
 };
 
 module.exports = {

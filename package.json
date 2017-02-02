@@ -6,7 +6,7 @@
   "author": "Paul English",
   "license": "MIT",
   "scripts": {
-    "test": "mocha --no-timeouts --debug",
+    "test": "mocha --no-timeouts",
     "cover": "istanbul cover --report html ./node_modules/mocha/bin/_mocha -- -R spec"
   },
   "main": "./lib/harest.js",

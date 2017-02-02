@@ -7,8 +7,8 @@ const harvest = common.harvest;
 
 describe('The UserAssignment API', function() {
   describe('Get all users assigned to a given project', function() {
-    it('should implement the listByProject method', function() {
-      assert.equal(typeof harvest.userAssignment.listByProject, 'function');
+    it('should implement the list method', function() {
+      assert.equal(typeof harvest.userAssignment.list, 'function');
     });
   });
   describe('Get a user assignment', function() {
@@ -28,7 +28,7 @@ describe('The UserAssignment API', function() {
   });
   describe('Remove a user from a project', function() {
     it('should implement the remove method', function() {
-      assert.equal(typeof harvest.userAssignment.remove, 'function');
+      assert.equal(typeof harvest.userAssignment.delete, 'function');
     });
   });
 });

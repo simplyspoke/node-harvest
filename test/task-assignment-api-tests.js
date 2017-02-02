@@ -7,8 +7,8 @@ const harvest = common.harvest;
 
 describe('The TaskAssignment API', function() {
   describe('Get all tasks assigned to a given project', function() {
-    it('should implement the listByProject method', function() {
-      assert.equal(typeof harvest.taskAssignment.listByProject, 'function');
+    it('should implement the list method', function() {
+      assert.equal(typeof harvest.taskAssignment.list, 'function');
     });
   });
   describe('Get a task assignment', function() {
@@ -32,8 +32,8 @@ describe('The TaskAssignment API', function() {
     });
   });
   describe('Remove a task from a project', function() {
-    it('should implement the remove method', function() {
-      assert.equal(typeof harvest.taskAssignment.remove, 'function');
+    it('should implement the delete method', function() {
+      assert.equal(typeof harvest.taskAssignment.delete, 'function');
     });
   });
 });

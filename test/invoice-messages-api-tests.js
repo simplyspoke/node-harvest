@@ -7,13 +7,13 @@ const harvest = common.harvest;
 
 describe('The InvoiceMessages API', function() {
   describe('Show all messages sent for an invoice', function() {
-    it('should implement the messagesByInvoice method', function() {
-      assert.equal(typeof harvest.invoiceMessages.messagesByInvoice, 'function');
+    it('should implement the list method', function() {
+      assert.equal(typeof harvest.invoiceMessages.list, 'function');
     });
   });
   describe('Show a particular message', function() {
-    it('should implement the getByInvoice method', function() {
-      assert.equal(typeof harvest.invoiceMessages.getByInvoice, 'function');
+    it('should implement the get method', function() {
+      assert.equal(typeof harvest.invoiceMessages.get, 'function');
     });
   });
   describe('Send an invoice', function() {

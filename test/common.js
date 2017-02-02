@@ -11,7 +11,13 @@ const config = {
   userAgent: process.env.USERAGENT || 'node-harvest test runner'
 };
 
+const harvest = new Harvest({
+  subdomain: config.subdomain,
+  email: config.email,
+  password: config.password
+});
+
 module.exports = {
-  harvest: new Harvest(config),
+  harvest,
   config
 };

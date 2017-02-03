@@ -19,11 +19,11 @@ describe('The Clients API', function() {
         'client': {
           'name': TEST_CLIENT_NAME
         }
-      }, function(err, response) {
+      }, function(err, res) {
         if (err) {
           assert(!err, 'There should not be and error of ' + err.message);
         }
-        TEST_CLIENT_ID = helpers.getId(response);
+        TEST_CLIENT_ID = helpers.getId(res);
         assert.equal(typeof TEST_CLIENT_ID, 'number', 'The location header should contain a id');
         done();
       });
@@ -34,7 +34,7 @@ describe('The Clients API', function() {
       assert.equal(typeof harvest.clients.list, 'function');
     });
     it('should provide a list of all clients', function(done) {
-      harvest.clients.list({}, function(err, response, clients) {
+      harvest.clients.list({}, function(err, res, clients) {
         assert(!err);
         assert(Array.isArray(clients));
         done();
@@ -47,7 +47,7 @@ describe('The Clients API', function() {
     });
     it('get method should work properly', function(done) {
       assert(TEST_CLIENT_ID);
-      harvest.clients.get(TEST_CLIENT_ID, function(err, response, data) {
+      harvest.clients.get(TEST_CLIENT_ID, function(err, res, data) {
         assert(!err);
         assert(data);
         assert(data.client);
@@ -68,9 +68,9 @@ describe('The Clients API', function() {
           'name': TEST_CLIENT_NAME,
           'details': 'some details'
         }
-      }, function(err, response, data) {
+      }, function(err, res, data) {
         assert(!err);
-        harvest.clients.get(TEST_CLIENT_ID, function(err, response, data) {
+        harvest.clients.get(TEST_CLIENT_ID, function(err, res, data) {
           assert(!err);
           console.log(data);
           assert(data);
@@ -89,9 +89,9 @@ describe('The Clients API', function() {
     });
     it('toggleActivation method should work properly', function(done) {
       assert(TEST_CLIENT_ID);
-      harvest.clients.toggle(TEST_CLIENT_ID, function(err, response, data) {
+      harvest.clients.toggle(TEST_CLIENT_ID, function(err, res, data) {
         assert(!err);
-        harvest.clients.get(TEST_CLIENT_ID, function(err, response, data) {
+        harvest.clients.get(TEST_CLIENT_ID, function(err, res, data) {
           assert(!err);
           assert(data);
           assert(data.client);
@@ -107,7 +107,7 @@ describe('The Clients API', function() {
     });
     it('delete method should work properly', function(done) {
       assert(TEST_CLIENT_ID);
-      harvest.clients.delete(TEST_CLIENT_ID, function(err, response, data) {
+      harvest.clients.delete(TEST_CLIENT_ID, function(err, res, data) {
         assert(!err);
         done();
       });

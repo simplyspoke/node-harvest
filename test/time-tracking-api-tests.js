@@ -228,18 +228,16 @@ function seedHarvest(done) {
       'currency_symbol': '$',
       'details': '123 Main St\r\nAnytown, NY 12345'
     }
-  }, function(err, response, body) {
-    TEST_CLIENT_ID = helpers.getId(response);
-    console.log(TEST_CLIENT_ID);
+  }, function(err, res, body) {
+    TEST_CLIENT_ID = helpers.getId(res);
     harvest.projects.create({
       'project': {
         'client_id': TEST_CLIENT_ID,
         'name': TEST_PROJECT_NAME,
         'active': true
       }
-    }, function(err, response, res) {
-      TEST_PROJECT_ID = helpers.getId(response);
-      console.log(TEST_PROJECT_ID);
+    }, function(err, res, body) {
+      TEST_PROJECT_ID = helpers.getId(res);
       harvest.tasks.create({
         'task': {
           'name': TEST_TASK_NAME,
@@ -248,15 +246,13 @@ function seedHarvest(done) {
           'default_hourly_rate': 100,
           'deactivated': true
         }
-      }, function(err, response, res) {
-        TEST_TASK_ID = helpers.getId(response);
-        console.log(TEST_TASK_ID);
-        harvest.taskAssignment.assign({
-          project_id: TEST_PROJECT_ID,
+      }, function(err, res, body) {
+        TEST_TASK_ID = helpers.getId(res);
+        harvest.taskAssignment.assign(TEST_PROJECT_ID, {
           task: {
             id: TEST_TASK_ID
           }
-        }, function(err, response, body) {
+        }, function(err, res, body) {
           done();
         });
       });

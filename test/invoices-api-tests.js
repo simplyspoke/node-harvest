@@ -10,6 +10,16 @@ describe('The Invoices API', function() {
     it('should implement the list method', function() {
       assert.equal(typeof harvest.invoices.list, 'function');
     });
+    it('should return something', function(done) {
+      harvest.invoices.list({
+        status: ['pastdue', 'draft']
+      }, function(err, res, invoices) {
+        assert(!err, err);
+        assert(Array.isArray(invoices));
+        assert.equal(typeof invoices[0], 'object');
+        done();
+      })
+    });
   });
   describe('Show a particular invoice', function() {
     it('should implement the get method', function() {

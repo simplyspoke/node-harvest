@@ -1,6 +1,8 @@
 'use strict';
 
+require('dotenv').config()
 const Harvest = require('../lib/harvest');
+
 const config = {
   subdomain: process.env.SUBDOMAIN || '',
   email: process.env.EMAIL || '',

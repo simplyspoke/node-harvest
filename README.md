@@ -65,7 +65,7 @@ var harvest = new Harvest({
 // e.g. By running an express.js server at redirect_url
 var access_code = req.query.code;
 
-harvest.parseAccessCode(access_code, function(access_token) {
+harvest.parseAccessCode(access_code, function(err, access_token) {
   console.log('Grabbed the access token to save', access_token);
 
   var TimeTracking = harvest.TimeTracking;

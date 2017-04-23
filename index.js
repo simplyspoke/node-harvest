@@ -156,11 +156,10 @@ var Harvest = function(options) {
       }).on('complete', function(response) {
         if (!response.access_token) {
           cb('Provided access code was rejected by Harvest, no token was returned', null);
+        } else {
+          self.access_token = response.access_token;
+          cb(null, self.access_token);
         }
-
-        self.access_token = response.access_token;
-
-        cb(null, self.access_token);
       });
     };
   }

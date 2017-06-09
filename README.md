@@ -130,10 +130,7 @@ harvest.projects.list({}, function(error, res, body) {
   - `get(invoiceId, id, callback)`
   - `send(invoiceId, callback)`
   - `delete(invoiceId, id, callback)`
-  - `send(markSent, callback)`
-  - `send(markDraft, callback)`
-  - `send(markClosed, callback)`
-  - `send(markOpen, callback)`
+  - `mark(invoiceId, status, callback)`
 - invoicePayments
   - `list(invoiceId, {params}, callback)`
   - `get(invoiceId, id, callback)`

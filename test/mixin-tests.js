@@ -56,12 +56,12 @@ describe('Child Base API', function() {
       });
     });
 
-    it('buildUri should be a function', function() {
-      assert.equal(typeof child.buildUri, 'function');
-    });
-
-    it('buildUri should return a string', function() {
-      assert.equal(typeof child.buildUri(), 'string');
-    });
+    // it('buildUri should be a function', function() {
+    //   assert.equal(typeof child.buildUri, 'function');
+    // });
+    //
+    // it('buildUri should return a string', function() {
+    //   assert.equal(typeof child.buildUri(), 'string');
+    // });
   });
 });

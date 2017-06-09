@@ -59,8 +59,8 @@ let harvest = new Harvest({
 // e.g. By running an express.js server at redirect_url
 let access_code = req.query.code;
 
-harvest.parseAccessCode(access_code, function(message) {
-  console.log(message);
+harvest.parseAccessCode(access_code, function(err, message) {
+  // Do something here....
 });
 ```
 

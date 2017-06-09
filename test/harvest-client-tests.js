@@ -3,11 +3,20 @@
 const assert = require('assert');
 const config = require('./common').config;
 const Harvest = require('../lib/harvest');
+const Client = require('../lib/client');
 
 const harvest = require('./common').harvest;
 
 describe('The Harvest API Client', function() {
   describe('Instantiating a Harvest instance', function() {
+    it('should be able to create an instance without new keyword', function() {
+      let harvest = Harvest({
+        subdomain: config.subdomain,
+        email: config.email,
+        password: config.password
+      });
+      assert(typeof harvest === 'object');
+    });
     it('should be able to work with HTTP basic authentication', function() {
       let harvest = new Harvest({
         subdomain: config.subdomain,
@@ -25,6 +34,24 @@ describe('The Harvest API Client', function() {
       });
       assert(typeof harvest === 'object');
     });
+    it('return an error if there is no subdomain', function() {
+      try {
+        let harvest = new Harvest({});
+      } catch (err) {
+        console.error(err);
+        assert(err.message === 'The Harvest API client requires a subdomain');
+      }
+    });
+    it('return an error if there is no auth', function() {
+      try {
+        let harvest = new Harvest({
+          subdomain: config.subdomain
+        });
+      } catch (err) {
+        console.error(err);
+        assert(err.message === 'The Harvest API client requires credentials for basic authentication or an identifier, secret and redirectUri (or an accessToken) for OAuth');
+      }
+    });
   });
   describe('Get an access code url', function() {
     it('should implement the get method', function() {
@@ -37,6 +64,25 @@ describe('The Harvest API Client', function() {
   describe('Parse as access code', function() {
     it('should implement the get method', function() {
       assert.equal(typeof harvest.parseAccessCode, 'function');
+    });
+    it('should return an error with incorrect access code', function() {
+      harvest.parseAccessCode('testcode!', function(err, message) {
+        assert.equal(err, 'Provided access code was rejected by Harvest, no token was returned');
+      })
+    });
+  });
+  describe('Parse timeout', function() {
+    it('should parse a date from a timestamp', function() {
+      let timeout = Client.prototype.parseTimeout(1497040704);
+      assert.equal(!isNaN(timeout), true);
+    });
+    it('should parse a date from the string provided', function() {
+      let timeout = Client.prototype.parseTimeout('Wed, 21 Oct 2015 07:28:00 GMT');
+      assert.equal(!isNaN(timeout), true);
+    });
+    it('should return an error if the string is not a date', function() {
+      let timeout = Client.prototype.parseTimeout('Some Test');
+      assert.equal(timeout, 'cannot parse Retry-After value: Some Test');
     });
   });
 });

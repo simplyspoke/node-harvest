@@ -36,7 +36,7 @@ describe('The Expenses API', function() {
       assert.equal(typeof harvest.expenses.attachReceipt, 'function');
     });
     it('should should return an error when valid ids', function() {
-      harvest.expenses.attachReceipt(1, {}, function(err, res, entries) {
+      harvest.expenses.attachReceipt(null, {}, function(err, res, entries) {
         assert(typeof err.message === 'string');
       });
     });
@@ -46,7 +46,7 @@ describe('The Expenses API', function() {
       assert.equal(typeof harvest.expenses.getReceipt, 'function');
     });
     it('should should return an error when valid ids', function() {
-      harvest.expenses.getReceipt(1, {}, function(err, res, entries) {
+      harvest.expenses.getReceipt(null, {}, function(err, res, entries) {
         assert(typeof err.message === 'string');
       });
     });

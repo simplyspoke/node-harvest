@@ -5,6 +5,8 @@ const Harvest = require('../lib/harvest');
 
 const config = {
   subdomain: process.env.SUBDOMAIN || '',
+  host: process.env.HOST || '',
+  debug: true,
   email: process.env.EMAIL || '',
   password: process.env.PASSWORD || '',
   identifier: process.env.IDENTIFIER || '',

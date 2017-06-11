@@ -5,7 +5,7 @@
 
 **Version 1.x represents a substantial rewrite of the module and includes many breaking changes from prior versions. Make sure to thoroughly test your application before releasing with the newest version.**
 
-Harvest is a tool that enables businesses to track time, track projects, manage clients, and invoice. This is a full client API built using node.js and the [Harvest API] (http://help.getharvest.com/api/).
+Harvest is a tool that enables businesses to track time, track projects, manage clients, and invoice. This is a full client API built using node.js and the [Harvest API](http://help.getharvest.com/api/).
 
 # Install
 
@@ -188,7 +188,7 @@ harvest.projects.list({}, function(error, res, body) {
   - `update(projectId, id, {params}, callback)`
   - `delete(projectId, id, callback)`
 
-For all methods, the last variable is expected to be a callback function. The possible options avalible for the params object can be found in the [Harvest API Documentation]. (http://help.getharvest.com/api/)
+For all methods, the last variable is expected to be a callback function. The possible options avalible for the params object can be found in the [Harvest API Documentation](http://help.getharvest.com/api/).
 
 # Testing
 

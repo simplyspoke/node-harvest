@@ -110,7 +110,6 @@ harvest.projects.list({}, function(error, res, body) {
   - `create({params}, callback)`
   - `update(id, {params}, callback)`
   - `delete(id, callback)`
-  - `toggle(id, callback)`
 - expenses
   - `list({params}, callback)`
   - `get(id, callback)`
@@ -142,13 +141,6 @@ harvest.projects.list({}, function(error, res, body) {
   - `create({params}, callback)`
   - `update(id, {params}, callback)`
   - `delete(id, callback)`
-- people
-  - `list({params}, callback)`
-  - `get(id, callback)`
-  - `create({params}, callback)`
-  - `update(id, {params}, callback)`
-  - `delete(id, callback)`
-  - `toggle(id, callback)`
 - projects
   - `list({params}, callback)`
   - `get(id, callback)`
@@ -182,6 +174,13 @@ harvest.projects.list({}, function(error, res, body) {
   - `update(id, {params}, callback)`
   - `delete(id, callback)`
   - `toggleTimer(id, callback)`
+- users
+  - `list({params}, callback)`
+  - `get(id, callback)`
+  - `create({params}, callback)`
+  - `update(id, {params}, callback)`
+  - `delete(id, callback)`
+  - `toggle(id, callback)`
 - userAssignment
   - `list(projectId, {params}, callback)`
   - `get(projectId, id, callback)`

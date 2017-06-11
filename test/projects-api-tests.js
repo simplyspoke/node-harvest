@@ -5,6 +5,8 @@ const common = require('./common');
 
 const harvest = common.harvest;
 
+let TEST_ID = 12958436;
+
 describe('The Projects API', function() {
   describe('Show all projects', function() {
     it('should implement the list method', function() {
@@ -48,6 +50,19 @@ describe('The Projects API', function() {
   describe('(De)Activate an existing project', function() {
     it('should implement the toggle method', function() {
       assert.equal(typeof harvest.projects.toggle, 'function');
+    });
+    it('should return an error when missing valid ids', function() {
+      harvest.projects.toggle(null, function(err, res, entries) {
+        assert(err.message === 'toggling activation on a project requires an id');
+      });
+    });
+    it('should work properly', function(done) {
+      harvest.projects.toggle(TEST_ID, function(err, res, results) {
+        assert(!err);
+        harvest.projects.toggle(TEST_ID, function(err, res, results) {
+          done();
+        });
+      });
     });
   });
   describe('Delete a project', function() {

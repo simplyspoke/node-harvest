@@ -3,7 +3,7 @@
 [![npm version](https://badge.fury.io/js/harvest.svg)](http://badge.fury.io/js/harvest)
 
 
-**This project is seeking a maintainer to take over development. I'm unable to keep this library adequately updated.**
+**Version 1.x represents a substantial rewrite of the module and includes many breaking changes from prior versions. Make sure to thoroughly test your application before releasing with the newest version.**
 
 Harvest is a tool that enables businesses to track time, track projects, manage clients, and invoice. This is a full client API built using node.js and the [Harvest API] (http://help.getharvest.com/api/).
 
@@ -16,7 +16,7 @@ Harvest is a tool that enables businesses to track time, track projects, manage 
 ## Basic Authentication
 
 ```js
-var Harvest = require('harvest'),
+let Harvest = require('harvest'),
 	harvest = new Harvest({
     subdomain: config.harvest.subdomain,
     email: config.harvest.email,
@@ -36,17 +36,11 @@ TimeTracking.daily({}, function(err, tasks) {
 ### When you already have an access token
 
 ```js
-var harvest_with_token = new Harvest({
-  subdomain: config.harvest_oauth.subdomain,
-  access_token: stored_access_token
-});
+const Harvest = require('harvest');
 
-var TimeTracking = harvest.TimeTracking;
-
-TimeTracking.daily({}, function(err, tasks) {
-  if (err) throw new Error(err);
-
-  console.log('Loaded tasks using passed in auth_token!');
+const harvest = new Harvest({
+  subdomain: 'your-shop-name',
+  accessToken: 'your-oauth-token'
 });
 ```
 
@@ -54,31 +48,151 @@ TimeTracking.daily({}, function(err, tasks) {
 
 ```js
 // See https://platform.harvestapp.com/oauth2_clients to get these
-var harvest = new Harvest({
-  subdomain: config.harvest_oauth.subdomain,
-  redirect_uri: config.harvest_oauth.redirect_uri,
-  identifier: config.harvest_oauth.client_id,
-  secret: config.harvest_oauth.secret
+let harvest = new Harvest({
+  subdomain: 'your-shop-name',
+  redirectUri: 'your-redirect-uri'
+  identifier: 'your-client-identifier',
+  secret: 'your-client-secret'
 });
 
 // Send the user to harvest.getAccessTokenURL()) and grab the access code passed as a get parameter
 // e.g. By running an express.js server at redirect_url
-var access_code = req.query.code;
+let access_code = req.query.code;
 
-harvest.parseAccessCode(access_code, function(access_token) {
-  console.log('Grabbed the access token to save', access_token);
-
-  var TimeTracking = harvest.TimeTracking;
-
-  TimeTracking.daily({}, function(err, tasks) {
-    if (err) throw new Error(err);
-
-    console.log('Loaded tasks using oauth!');
-  });
+harvest.parseAccessCode(access_code, function(err, message) {
+  // Do something here....
 });
 ```
 
+## Resources
+
+Every resource is accessed via your `harvest` instance:
+
+```js
+const harvest = new Harvest({
+  subdomain: 'your-shop-name',
+  accessToken: 'your-oauth-token'
+});
+
+// harvest.<resouce_name>.<method_name>
+```
+
+Each method returns to a callback with the results:
+
+```js
+harvest.projects.list({}, function(error, res, body) {
+
+})
+```
+
+### Available resources and methods
+
+- account
+  - `get(callback)`
+  - `rate_limit_status(callback)`
+- clientContacts
+  - `list({params}, callback)`
+  - `get(id, callback)`
+  - `create({params}, callback)`
+  - `update(id, {params}, callback)`
+  - `delete(id, callback)`
+  - `listByClient(clientId, callback)`
+- clients
+  - `list({params}, callback)`
+  - `get(id, callback)`
+  - `create({params}, callback)`
+  - `update(id, {params}, callback)`
+  - `delete(id, callback)`
+  - `toggle(id, callback)`
+- expenseCategories
+  - `list({params}, callback)`
+  - `get(id, callback)`
+  - `create({params}, callback)`
+  - `update(id, {params}, callback)`
+  - `delete(id, callback)`
+- expenses
+  - `list({params}, callback)`
+  - `get(id, callback)`
+  - `create({params}, callback)`
+  - `update(id, {params}, callback)`
+  - `delete(id, callback)`
+  - `attachReceipt(id, {params}, callback)`
+  - `getReceipt(id, callback)`
+- invoiceCategories
+  - `list({params}, callback)`
+  - `get(id, callback)`
+  - `create({params}, callback)`
+  - `update(id, {params}, callback)`
+  - `delete(id, callback)`
+- invoiceMessages
+  - `list(invoiceId, {params}, callback)`
+  - `get(invoiceId, id, callback)`
+  - `send(invoiceId, callback)`
+  - `delete(invoiceId, id, callback)`
+  - `mark(invoiceId, status, callback)`
+- invoicePayments
+  - `list(invoiceId, {params}, callback)`
+  - `get(invoiceId, id, callback)`
+  - `create(invoiceId, {params}, callback)`
+  - `delete(invoiceId, id, callback)`
+- invoices
+  - `list({params}, callback)`
+  - `get(id, callback)`
+  - `create({params}, callback)`
+  - `update(id, {params}, callback)`
+  - `delete(id, callback)`
+- projects
+  - `list({params}, callback)`
+  - `get(id, callback)`
+  - `create({params}, callback)`
+  - `update(id, {params}, callback)`
+  - `delete(id, callback)`
+  - `toggle(id, callback)`
+- reports
+  - `timeEntriesByProject(id, {params}, callback)`
+  - `timeEntriesByUser(id, {params}, callback)`
+  - `expensesByProject(id, {params}, callback)`
+  - `expensesByUser(id, {params}, callback)`
+- taskAssignment
+  - `list(projectId, {params}, callback)`
+  - `get(projectId, id, callback)`
+  - `update(projectId, id, {params}, callback)`
+  - `delete(projectId, id, callback)`
+  - `assign(projectId, {params}, callback)`
+  - `addToAll(projectId, {params}, callback)`
+- tasks
+  - `list({params}, callback)`
+  - `get(id, callback)`
+  - `create({params}, callback)`
+  - `update(id, {params}, callback)`
+  - `delete(id, callback)`
+  - `activate(id, callback)`
+- timeTracking
+  - `daily({params}, callback)`
+  - `get(id, callback)`
+  - `create({params}, callback)`
+  - `update(id, {params}, callback)`
+  - `delete(id, callback)`
+  - `toggleTimer(id, callback)`
+- users
+  - `list({params}, callback)`
+  - `get(id, callback)`
+  - `create({params}, callback)`
+  - `update(id, {params}, callback)`
+  - `delete(id, callback)`
+  - `toggle(id, callback)`
+- userAssignment
+  - `list(projectId, {params}, callback)`
+  - `get(projectId, id, callback)`
+  - `assign(projectId, {params}, callback)`
+  - `update(projectId, id, {params}, callback)`
+  - `delete(projectId, id, callback)`
+
+For all methods, the last variable is expected to be a callback function. The possible options avalible for the params object can be found in the [Harvest API Documentation]. (http://help.getharvest.com/api/)
+
 # Testing
+
+**Note: Many of the current tests are configured with hard set variables set in the testing Harvest account. Future updates will resolve these issues, but at the moment testing will likely break we run locally.**
 
 In order to test you will need to create a config file that uses your credentials inside `config/default.json`
 
@@ -90,7 +204,7 @@ In order to test you will need to create a config file that uses your credential
     "password": "...",
     "identifier": "...",
     "secret": "...",
-    "user_agent": "node-harvest test runner"
+    "userAgent": "node-harvest test runner"
   }
 }
 ```

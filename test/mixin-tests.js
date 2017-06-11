@@ -1,28 +1,67 @@
 'use strict';
 
-var assert = require('assert'),
-  mixins = require('../mixins');
+const assert = require('assert');
+const base = require('../lib/mixins/api-base');
+const child = require('../lib/mixins/api-child-base');
 
-
-describe('Mixins', function() {
-  describe('isUndefined', function() {
-    it('should return true if property is not defined', function() {
-      assert.equal(true, mixins.isUndefined({}, 'project_id'));
+describe('Base API', function() {
+  it('get should return an error if no id', function() {
+    base.get(null, function(err) {
+      assert(typeof err.message === 'string');
     });
   });
-  describe('ofUserUrl', function() {
-    var url = 'http://localhost';
-    var options = {
-      of_user: 'userID'
+  it('update should return an error if no id', function() {
+    base.update(null, {}, function(err) {
+      assert(typeof err.message === 'string');
+    });
+  });
+  it('delete should return an error if no id', function() {
+    base.delete(null, function(err) {
+      assert(typeof err.message === 'string');
+    });
+  });
+});
+describe('Child Base API', function() {
+  describe('has', function() {
+    let object = {
+      some: true,
+      test: true
     };
-    it('should return submitted url if of_user is not defined', function() {
-      assert.equal(url, mixins.ofUserUrl(url, {}));
+
+    it('list should be a function', function() {
+      assert.equal(typeof child.list, 'function');
     });
-    it('should an appended url with the of user parameter set', function() {
-      assert.equal(url + '/?of_user=userID', mixins.ofUserUrl(url, options));
+
+    it('get should return an error if no ids are given', function() {
+      child.get(null, null, function(err) {
+        assert(typeof err.message === 'string');
+      });
     });
-    it('should delete the of_user property if defined', function() {
-      assert.equal(typeof options.of_user, 'undefined');
+
+    it('create should return an error if no ids are given', function() {
+      child.create(null, {}, function(err) {
+        assert(typeof err.message === 'string');
+      });
     });
+
+    it('update should return an error if no ids are given', function() {
+      child.update(null, null, {}, function(err) {
+        assert(typeof err.message === 'string');
+      });
+    });
+
+    it('delete should return an error if no ids are given', function() {
+      child.delete(null, null, function(err) {
+        assert(typeof err.message === 'string');
+      });
+    });
+
+    // it('buildUri should be a function', function() {
+    //   assert.equal(typeof child.buildUri, 'function');
+    // });
+    //
+    // it('buildUri should return a string', function() {
+    //   assert.equal(typeof child.buildUri(), 'string');
+    // });
   });
 });

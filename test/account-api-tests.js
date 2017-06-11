@@ -1,33 +1,27 @@
 'use strict';
 
-var assert = require('assert'),
-  config = require('config'),
-  Harvest = require('../index'),
-  harvest = new Harvest({
-    subdomain: process.env.subdomain || config.harvest.subdomain,
-    email: process.env.email || config.harvest.email,
-    password: process.env.password || config.harvest.password
-  }),
-  Account = harvest.Account;
+const assert = require('assert');
+const common = require('./common');
 
-var subdomain = process.env.subdomain || config.harvest.subdomain,
-  email = process.env.email || config.harvest.email;
+const harvest = common.harvest;
+const config = common.config;
 
 describe('The Account API', function() {
   describe('Show account info', function() {
     it('should implement the get method', function() {
-      assert.equal(typeof Account.get, 'function');
+      assert.equal(typeof harvest.account.get, 'function');
     });
 
     it('should return account info', function(done) {
-      Account.get({}, function(err, info) {
+      harvest.account.get(function(err, response, info) {
         if (err) throw err;
         assert(info, 'Info must contain some information');
+        assert.equal(typeof info, 'object', 'Info should be an object');
         assert(info.company, 'Info must contain some information about the company');
-        assert.equal(info.company.full_domain, subdomain + '.harvestapp.com');
+        assert.equal(info.company.full_domain, config.subdomain + '.harvestapp.com');
 
         assert(info.user, 'Info must contain some information about the user');
-        assert(info.user.email, email);
+        assert(info.user.email, config.email);
 
         done();
       });
@@ -36,11 +30,11 @@ describe('The Account API', function() {
 
   describe('Show account throttle status', function() {
     it('should implement the rate_limit_status method', function() {
-      assert.equal(typeof Account.rate_limit_status, 'function');
+      assert.equal(typeof harvest.account.rate_limit_status, 'function');
     });
 
     it('should return throttle status', function(done) {
-      Account.rate_limit_status({}, function(err, status) {
+      harvest.account.rate_limit_status(function(err, response, status) {
         if (err) throw err;
 
         assert(status, 'Status must contain some information');

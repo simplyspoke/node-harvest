@@ -37,7 +37,19 @@ describe('The Expenses API', function() {
     });
     it('should should return an error when valid ids', function() {
       harvest.expenses.attachReceipt(null, {}, function(err, res, entries) {
-        assert(typeof err.message === 'string');
+        assert(err.message === 'attaching a receipt requires an id');
+      });
+    });
+    it('should should return an error when file', function() {
+      harvest.expenses.attachReceipt(15113947, {}, function(err, res, entries) {
+        assert(err.message === 'attaching a receipt requires a file object');
+      });
+    });
+    it('should should return an error when file has no path', function() {
+      harvest.expenses.attachReceipt(15113947, {
+        file: ''
+      }, function(err, res, entries) {
+        assert(err.message === 'file object must have a path and an originalname');
       });
     });
   });
@@ -46,8 +58,14 @@ describe('The Expenses API', function() {
       assert.equal(typeof harvest.expenses.getReceipt, 'function');
     });
     it('should should return an error when valid ids', function() {
-      harvest.expenses.getReceipt(null, {}, function(err, res, entries) {
+      harvest.expenses.getReceipt(null, function(err, res, entries) {
         assert(typeof err.message === 'string');
+      });
+    });
+    it('should work properly', function(done) {
+      harvest.expenses.getReceipt(15113947, function(err, res, results) {
+        assert(!err);
+        done();
       });
     });
   });

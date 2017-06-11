@@ -18,7 +18,7 @@ let testUser = {
 };
 let TEST_USER_ID;
 
-describe('The users API', function() {
+describe('The Users API', function() {
   describe('Show all users', function() {
     it('should implement the list method', function() {
       assert.equal(typeof harvest.users.list, 'function');
@@ -77,10 +77,12 @@ describe('The users API', function() {
         assert(err.message === 'toggling a user requires an id');
       });
     });
-    it('toggleActivation method should work properly', function(done) {
+    it('should work properly', function(done) {
       harvest.users.toggle(TEST_USER_ID, function(err, res, results) {
         assert(!err);
-        done();
+        harvest.users.toggle(TEST_USER_ID, function(err, res, results) {
+          done();
+        });
       });
     });
   });

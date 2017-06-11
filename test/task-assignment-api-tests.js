@@ -7,24 +7,24 @@ const helpers = require('../lib/helpers');
 const harvest = common.harvest;
 
 const random = parseInt(Math.random() * 10000, 10);
-const TEST_CLIENT_NAME = '__NODE-HARVEST__TESTS__CLIENT__' + random;
-const TEST_PROJECT_NAME = '__NODE-HARVEST__TESTS__PROJECT__' + random;
-const TEST_TASK_NAME = '__NODE-HARVEST__TESTS__TASK__' + random;
+const TEST_CLIENT_NAME2 = '__NODE-HARVEST__TESTS__CLIENT__' + random;
+const TEST_PROJECT_NAME2 = '__NODE-HARVEST__TESTS__PROJECT__' + random;
+const TEST_TASK_NAME2 = '__NODE-HARVEST__TESTS__TASK__' + random;
 
-let TEST_CLIENT_ID;
-let TEST_PROJECT_ID;
-let TEST_TASK_ID;
-let TEST_TIMER_ID;
+let TEST_CLIENT_ID2;
+let TEST_PROJECT_ID2;
+let TEST_TASK_ID2;
+let TEST_TIMER_ID2;
 
 let testTask = {
   'task': {
-    'id': TEST_TASK_ID
+    'ID2': TEST_TASK_ID2
   }
 };
 
 let testTask2 = {
   'task': {
-    'name': 'TEST_TASK_ID'
+    'NAME2': 'TEST_TASK_ID2'
   }
 };
 
@@ -41,7 +41,7 @@ describe('The TaskAssignment API', function() {
       assert.equal(typeof harvest.taskAssignment.list, 'function');
     });
     it('should return an array of taskAssignment', function(done) {
-      harvest.taskAssignment.list(TEST_PROJECT_ID, function(err, res, results) {
+      harvest.taskAssignment.list(TEST_PROJECT_ID2, function(err, res, results) {
         assert(typeof results, 'array');
         done();
       });
@@ -52,7 +52,7 @@ describe('The TaskAssignment API', function() {
       assert.equal(typeof harvest.taskAssignment.get, 'function');
     });
     it('should return a task', function(done) {
-      harvest.taskAssignment.get(TEST_PROJECT_ID, TEST_TASK_ID, function(err, res, results) {
+      harvest.taskAssignment.get(TEST_PROJECT_ID2, TEST_TASK_ID2, function(err, res, results) {
         assert(typeof results, 'array');
         done();
       });
@@ -67,9 +67,10 @@ describe('The TaskAssignment API', function() {
         assert(err.message === 'assigning a task assignment requires an id');
       });
     });
-    it('should assign a task', function() {
-      harvest.taskAssignment.assign(TEST_PROJECT_ID, testTask, function(err, res, entries) {
+    it('should assign a task', function(done) {
+      harvest.taskAssignment.assign(TEST_PROJECT_ID2, testTask, function(err, res, entries) {
         assert(!err);
+        done();
       });
     });
   });
@@ -82,9 +83,10 @@ describe('The TaskAssignment API', function() {
         assert(err.message === 'assigning a task assignment requires an id');
       });
     });
-    it('should create and assign a task', function() {
-      harvest.taskAssignment.create(TEST_PROJECT_ID, testTask2, function(err, res, entries) {
+    it('should create and assign a task', function(done) {
+      harvest.taskAssignment.create(TEST_PROJECT_ID2, testTask2, function(err, res, entries) {
         assert(!err);
+        done();
       });
     });
   });
@@ -105,35 +107,35 @@ describe('The TaskAssignment API', function() {
 function seedHarvest(done) {
   harvest.clients.create({
     'client': {
-      'name': TEST_CLIENT_NAME,
+      'name': TEST_CLIENT_NAME2,
       'active': true,
       'currency': 'United States Dollar - USD',
       'currency_symbol': '$',
       'details': '123 Main St\r\nAnytown, NY 12345'
     }
   }, function(err, res, body) {
-    TEST_CLIENT_ID = helpers.getId(res);
+    TEST_CLIENT_ID2 = helpers.getId(res);
     harvest.projects.create({
       'project': {
-        'client_id': TEST_CLIENT_ID,
-        'name': TEST_PROJECT_NAME,
+        'client_id': TEST_CLIENT_ID2,
+        'name': TEST_PROJECT_NAME2,
         'active': true
       }
     }, function(err, res, body) {
-      TEST_PROJECT_ID = helpers.getId(res);
+      TEST_PROJECT_ID2 = helpers.getId(res);
       harvest.tasks.create({
         'task': {
-          'name': TEST_TASK_NAME,
+          'name': TEST_TASK_NAME2,
           'billable_by_default': false,
           'is_default': true,
           'default_hourly_rate': 100,
           'deactivated': true
         }
       }, function(err, res, body) {
-        TEST_TASK_ID = helpers.getId(res);
-        harvest.taskAssignment.assign(TEST_PROJECT_ID, {
+        TEST_TASK_ID2 = helpers.getId(res);
+        harvest.taskAssignment.assign(TEST_PROJECT_ID2, {
           task: {
-            id: TEST_TASK_ID
+            id: TEST_TASK_ID2
           }
         }, function(err, res, body) {
           done();
@@ -144,9 +146,9 @@ function seedHarvest(done) {
 }
 
 function cleanupHarvest(done) {
-  harvest.tasks.delete(TEST_TASK_ID, function() {
-    harvest.projects.delete(TEST_PROJECT_ID, function() {
-      harvest.clients.delete(TEST_CLIENT_ID, function() {
+  harvest.tasks.delete(TEST_TASK_ID2, function() {
+    harvest.projects.delete(TEST_PROJECT_ID2, function() {
+      harvest.clients.delete(TEST_CLIENT_ID2, function() {
         done();
       });
     });

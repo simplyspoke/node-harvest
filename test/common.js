@@ -15,7 +15,7 @@ const config = {
 };
 
 const harvest = new Harvest({
-  debug: true,
+  debug: false,
   subdomain: config.subdomain,
   email: config.email,
   password: config.password

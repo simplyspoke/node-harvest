@@ -3,7 +3,7 @@
 [![npm version](https://badge.fury.io/js/harvest.svg)](http://badge.fury.io/js/harvest)
 
 
-**This project is seeking a maintainer to take over development. I'm unable to keep this library adequately updated.**
+**Version 1.x represents a substantial rewrite of the module and includes many breaking changes from prior versions. Make sure to thoroughly test your application before releasing with the newest version.**
 
 Harvest is a tool that enables businesses to track time, track projects, manage clients, and invoice. This is a full client API built using node.js and the [Harvest API] (http://help.getharvest.com/api/).
 
@@ -149,10 +149,10 @@ harvest.projects.list({}, function(error, res, body) {
   - `delete(id, callback)`
   - `toggle(id, callback)`
 - reports
-  - `timeEntriesByUser(id, {params}, callback)`
-  - `expensesByUser(id, {params}, callback)`
   - `timeEntriesByProject(id, {params}, callback)`
+  - `timeEntriesByUser(id, {params}, callback)`
   - `expensesByProject(id, {params}, callback)`
+  - `expensesByUser(id, {params}, callback)`
 - taskAssignment
   - `list(projectId, {params}, callback)`
   - `get(projectId, id, callback)`
@@ -191,6 +191,8 @@ harvest.projects.list({}, function(error, res, body) {
 For all methods, the last variable is expected to be a callback function. The possible options avalible for the params object can be found in the [Harvest API Documentation]. (http://help.getharvest.com/api/)
 
 # Testing
+
+**Note: Many of the current tests are configured with hard set variables set in the testing Harvest account. Future updates will resolve these issues, but at the moment testing will likely break we run locally.**
 
 In order to test you will need to create a config file that uses your credentials inside `config/default.json`
 

@@ -1,6 +1,6 @@
 {
   "name": "harvest",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Harvest API client library",
   "repository": "https://github.com/log0ymxm/node-harvest",
   "author": "Paul English",
@@ -13,7 +13,6 @@
   "dependencies": {
     "async": "^2.1.4",
     "lodash": "^4.17.4",
-    "qs": "^6.3.0",
     "request": "^2.79.0"
   },
   "devDependencies": {

@@ -7,10 +7,12 @@ const Client = require('../lib/client');
 
 const harvest = require('./common').harvest;
 
+const TEST_CLIENT_NAME = 'TEST_CLIENT_NAME';
+
 describe('The Harvest API Client', function() {
   describe('Instantiating a Harvest instance', function() {
     it('should be able to create an instance without new keyword', function() {
-      let harvest = Harvest({
+      let harvest = Harvest({ // eslint-disable-line new-cap
         subdomain: config.subdomain,
         email: config.email,
         password: config.password
@@ -34,7 +36,22 @@ describe('The Harvest API Client', function() {
       });
       assert(typeof harvest === 'object');
     });
-    it('return an error if there is no subdomain', function() {
+    it('should return an error with OAuth missing an accesstoken', function() {
+      let harvest = new Harvest({
+        subdomain: config.subdomain,
+        identifier: config.identifier,
+        secret: config.secret,
+        redirectUri: config.redirectUri
+      });
+      harvest.clients.create({
+        'client': {
+          'name': TEST_CLIENT_NAME
+        }
+      }, function(err) {
+        assert.equal(err.message, 'An access token is required if using oAuth, use parseAccessCode or pass an accessToken before making any requests');
+      });
+    });
+    it('should return an error if there is no subdomain', function() {
       try {
         let harvest = new Harvest({});
       } catch (err) {

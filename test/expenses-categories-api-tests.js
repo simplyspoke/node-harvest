@@ -5,10 +5,19 @@ const common = require('./common');
 
 const harvest = common.harvest;
 
+let TEST_ID;
+
 describe('The Expenses Categories API', function() {
   describe('Show all expense categories', function() {
     it('should implement the list method', function() {
       assert.equal(typeof harvest.expenseCategories.list, 'function');
+    });
+    it('should return an array of expense Categories', function(done) {
+      harvest.expenseCategories.list({}, function(err, res, results) {
+        TEST_ID = results[0].expense_category.id;
+        assert(typeof results, 'array');
+        done();
+      });
     });
   });
   describe('Get an expense category', function() {

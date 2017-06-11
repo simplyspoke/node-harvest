@@ -33,7 +33,7 @@ describe('Child Base API', function() {
     });
 
     it('get should return an error if no ids are given', function() {
-      child.get(null, null, {}, function(err) {
+      child.get(null, null, function(err) {
         assert(typeof err.message === 'string');
       });
     });

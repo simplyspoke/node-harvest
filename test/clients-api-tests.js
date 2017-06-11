@@ -72,7 +72,6 @@ describe('The Clients API', function() {
         assert(!err);
         harvest.clients.get(TEST_CLIENT_ID, function(err, res, data) {
           assert(!err);
-          console.log(data);
           assert(data);
           assert(data.client);
           assert.equal(data.client.id, TEST_CLIENT_ID);
@@ -86,6 +85,11 @@ describe('The Clients API', function() {
   describe('(De)Activate an existing client', function() {
     it('should implement the toggle method', function() {
       assert.equal(typeof harvest.clients.toggle, 'function');
+    });
+    it('should should return an error when missing valid ids', function() {
+      harvest.clients.toggle(null, function(err, res, entries) {
+        assert(err.message === 'toggling client activation requires an id');
+      });
     });
     it('toggleActivation method should work properly', function(done) {
       assert(TEST_CLIENT_ID);

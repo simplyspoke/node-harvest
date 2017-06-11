@@ -15,6 +15,15 @@ describe('The Reports API', function() {
         assert(typeof err.message === 'string');
       });
     });
+    it('should work correctly', function(done) {
+      harvest.reports.timeEntriesByProject(12958436, {
+        to: 20170101,
+        from: 20170401
+      }, function(err, res, entries) {
+        assert(!err);
+        done();
+      });
+    });
   });
   describe('Get all time entries logged by a user for a given timeframe', function() {
     it('should implement the timeEntriesByCurrentUser method', function() {
@@ -23,6 +32,15 @@ describe('The Reports API', function() {
     it('should should return an error when valid ids', function() {
       harvest.reports.timeEntriesByUser(1, {}, function(err, res, entries) {
         assert(typeof err.message === 'string');
+      });
+    });
+    it('should work correctly', function(done) {
+      harvest.reports.timeEntriesByUser(1509105, {
+        to: 20170101,
+        from: 20170401
+      }, function(err, res, entries) {
+        assert(!err);
+        done();
       });
     });
   });
@@ -35,6 +53,15 @@ describe('The Reports API', function() {
         assert(typeof err.message === 'string');
       });
     });
+    it('should work correctly', function(done) {
+      harvest.reports.expensesByProject(12958436, {
+        to: 20170101,
+        from: 20170401
+      }, function(err, res, entries) {
+        assert(!err);
+        done();
+      });
+    });
   });
   describe('Get all expense entries logged by a user for a given timeframe', function() {
     it('should implement the expensesByUser method', function() {
@@ -43,6 +70,15 @@ describe('The Reports API', function() {
     it('should should return an error when valid ids', function() {
       harvest.reports.expensesByUser(1, {}, function(err, res, entries) {
         assert(typeof err.message === 'string');
+      });
+    });
+    it('should work correctly', function(done) {
+      harvest.reports.expensesByUser(1509105, {
+        to: 20170101,
+        from: 20170401
+      }, function(err, res, entries) {
+        assert(!err);
+        done();
       });
     });
   });

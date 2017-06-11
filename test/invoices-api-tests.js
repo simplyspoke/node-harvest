@@ -11,10 +11,8 @@ describe('The Invoices API', function() {
       assert.equal(typeof harvest.invoices.list, 'function');
     });
     it('should return something', function(done) {
-      harvest.invoices.list({
-        status: ['pastdue', 'draft']
-      }, function(err, res, invoices) {
-        assert(!err, err);
+      harvest.invoices.list({}, function(err, res, invoices) {
+        assert(!err);
         assert(Array.isArray(invoices));
         assert.equal(typeof invoices[0], 'object');
         done();

@@ -127,6 +127,11 @@ describe('The TimeTracking API', function() {
     it('should implement the get method', function() {
       assert.equal(typeof harvest.timeTracking.get, 'function');
     });
+    it('should return an error when missing valid ids', function() {
+      harvest.timeTracking.get(null, function(err, res, entries) {
+        assert(err.message === 'getting daily time requires an id');
+      });
+    });
     it('should return an individual timer', function(done) {
       harvest.timeTracking.get(TEST_TIMER_ID, function(err, responce, timer) {
         assert(!err);
@@ -151,6 +156,11 @@ describe('The TimeTracking API', function() {
   describe('Toggling a timer', function() {
     it('should implement the toggleTimer method', function() {
       assert.equal(typeof harvest.timeTracking.toggleTimer, 'function');
+    });
+    it('should return an error when missing valid ids', function() {
+      harvest.timeTracking.toggleTimer(null, function(err, res, entries) {
+        assert(err.message === 'toggling the timer requires an id');
+      });
     });
     it('should toggle a timer on and off', function(done) {
       harvest.timeTracking.toggleTimer(TEST_TIMER_ID, function(err, responce, timer) {
@@ -179,6 +189,11 @@ describe('The TimeTracking API', function() {
   describe('Updating an entry', function() {
     it('should implement the update method', function() {
       assert.equal(typeof harvest.timeTracking.update, 'function');
+    });
+    it('should return an error when missing valid ids', function() {
+      harvest.timeTracking.update(null, {}, function(err, res, entries) {
+        assert(err.message === 'updating time requires an id');
+      });
     });
     it('should allow the updating of time entries', function(done) {
       harvest.timeTracking.update(TEST_TIMER_ID, {
@@ -209,6 +224,11 @@ describe('The TimeTracking API', function() {
   describe('Deleting an entry', function() {
     it('should implement the delete method', function() {
       assert.equal(typeof harvest.timeTracking.delete, 'function');
+    });
+    it('should return an error when missing valid ids', function() {
+      harvest.timeTracking.delete(null, function(err, res, entries) {
+        assert(err.message === 'deleting time requires an id');
+      });
     });
     it('should allow the deletion of a time entry', function(done) {
       harvest.timeTracking.delete(TEST_TIMER_ID, function(err) {

@@ -159,7 +159,6 @@ harvest.projects.list({}, function(error, res, body) {
   - `update(projectId, id, {params}, callback)`
   - `delete(projectId, id, callback)`
   - `assign(projectId, {params}, callback)`
-  - `addToAll(projectId, {params}, callback)`
 - tasks
   - `list({params}, callback)`
   - `get(id, callback)`

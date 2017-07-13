@@ -75,7 +75,7 @@ describe('The TaskAssignment API', function() {
     });
   });
   describe('Changing a task inside a project', function() {
-    it('should implement the addToAll method', function() {
+    it('should implement the create method', function() {
       assert.equal(typeof harvest.taskAssignment.create, 'function');
     });
     it('should return an error when missing valid ids', function() {

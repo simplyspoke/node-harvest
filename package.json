@@ -11,6 +11,7 @@
   },
   "main": "./lib/harest.js",
   "dependencies": {
+    "append-query": "^2.0.1",
     "async": "^2.1.4",
     "lodash": "^4.17.4",
     "request": "^2.79.0"

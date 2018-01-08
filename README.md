@@ -22,7 +22,7 @@ let Harvest = require('harvest'),
     email: config.harvest.email,
     password: config.harvest.password
   }),
-  TimeTracking = harvest.TimeTracking;
+  TimeTracking = harvest.timeTracking;
 
 TimeTracking.daily({}, function(err, tasks) {
   if (err) throw new Error(err);

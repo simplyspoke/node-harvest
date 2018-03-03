@@ -2,9 +2,19 @@
   "name": "harvest",
   "version": "1.0.9",
   "description": "Harvest API client library",
-  "repository": "https://github.com/log0ymxm/node-harvest",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/simplyspoke/node-harvest.git"
+  },
+  "keywords": [
+    "npm",
+    "harvest"
+  ],
   "author": "Paul English",
   "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/simplyspoke/node-harvest/issues"
+  },
   "scripts": {
     "test": "mocha --no-timeouts",
     "cover": "istanbul cover --report html ./node_modules/mocha/bin/_mocha -- -R spec"

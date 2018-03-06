@@ -3,22 +3,25 @@ var webpack = require('webpack');
 
 module.exports = {
   entry: {
-    index: './index.ts'
+    index: './src/index.ts'
   },
+  devtool: 'inline-source-map',
   target: 'node',
   module: {
-    loaders: [
-      { test: /\.ts(x?)$/, loader: 'ts-loader' },
-      { test: /\.json$/, loader: 'json-loader' }
+    rules: [
+      {
+        test: /\.ts$/,
+        use: 'ts-loader',
+        exclude: /node_modules/
+      }
     ]
   },
-  plugins: [new webpack.DefinePlugin({ 'process.env.NODE_ENV': '"production"' })],
   resolve: {
-    extensions: ['.ts', '.js', '.json']
+    extensions: ['.ts', '.tsx', '.js']
   },
   output: {
     libraryTarget: 'commonjs',
-    path: path.join(__dirname, 'lib'),
+    path: path.join(__dirname, 'dist'),
     filename: '[name].js'
   }
 };

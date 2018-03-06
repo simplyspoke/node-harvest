@@ -10,31 +10,101 @@
     "npm",
     "harvest"
   ],
+  "main": "dist/harvest.js",
+  "typings": "dist/types/harvest.d.ts",
+  "files": [
+    "dist"
+  ],
   "author": "Paul English",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/simplyspoke/node-harvest/issues"
   },
   "scripts": {
-    "test": "mocha --no-timeouts",
-    "cover": "istanbul cover --report html ./node_modules/mocha/bin/_mocha -- -R spec"
+    "lint": "tslint -t codeFrame 'src/**/*.ts' 'test/**/*.ts'",
+    "prebuild": "rimraf dist",
+    "build": "webpack --config webpack.config.js",
+    "start": "webpack --watch --config webpack.dev.js",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:prod": "npm run lint && npm run test -- --coverage --no-cache",
+    "deploy-docs": "ts-node tools/gh-pages-publish",
+    "report-coverage": "cat ./coverage/lcov.info | coveralls",
+    "commit": "git-cz",
+    "semantic-release": "semantic-release",
+    "semantic-release-prepare": "ts-node tools/semantic-release-prepare",
+    "precommit": "lint-staged"
   },
-  "main": "./lib/harest.js",
+  "lint-staged": {
+    "{src,test}/**/*.ts": [
+      "prettier --write --no-semi --single-quote",
+      "git add"
+    ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-conventional-changelog"
+    },
+    "validate-commit-msg": {
+      "types": "conventional-commit-types",
+      "helpMessage": "Use \"npm run commit\" instead, we use conventional-changelog format :) (https://github.com/commitizen/cz-cli)"
+    }
+  },
+  "jest": {
+    "transform": {
+      ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+    },
+    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
+    ],
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "/test/"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 90,
+        "functions": 95,
+        "lines": 95,
+        "statements": 95
+      }
+    },
+    "collectCoverage": true,
+    "mapCoverage": true
+  },
   "dependencies": {
     "async": "^2.1.4",
-    "lodash": "^4.17.4",
-    "request": "^2.79.0"
+    "request": "^2.79.0",
+    "request-promise-native": "^1.0.5"
   },
   "devDependencies": {
-    "coveralls": "^2.11.15",
+    "@types/jest": "^22.0.0",
+    "@types/node": "^9.3.0",
+    "commitizen": "^2.9.6",
+    "coveralls": "^3.0.0",
+    "cz-conventional-changelog": "^2.0.0",
     "dotenv": "^4.0.0",
-    "eslint": "^3.14.1",
-    "istanbul": "^0.4.5",
-    "mocha": "^3.2.0",
-    "mocha-lcov-reporter": "^1.2.0"
+    "fs-extra": "^5.0.0",
+    "husky": "^0.14.0",
+    "jest": "^22.0.2",
+    "lint-staged": "^7.0.0",
+    "prettier": "^1.4.4",
+    "rimraf": "^2.6.1",
+    "semantic-release": "^12.4.1",
+    "ts-jest": "^22.0.0",
+    "ts-node": "^5.0.1",
+    "tslint": "^5.8.0",
+    "tslint-config-prettier": "^1.1.0",
+    "tslint-config-standard": "^7.0.0",
+    "typedoc": "^0.11.0",
+    "typescript": "^2.6.2",
+    "validate-commit-msg": "^2.12.2",
+    "webpack": "^4.1.0"
   },
   "engines": {
-    "node": ">=6.9.4",
-    "npm": ">=3.10.10"
+    "node": ">=6.10.3"
   }
 }

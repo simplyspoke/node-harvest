@@ -1,16 +1,16 @@
+# Node Harvest
+
+[![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 [![Build Status](https://travis-ci.org/simplyspoke/node-harvest.svg?branch=master)](https://travis-ci.org/simplyspoke/node-harvest)
 [![Coverage Status](https://coveralls.io/repos/github/simplyspoke/node-harvest/badge.svg)](https://coveralls.io/github/simplyspoke/node-harvest)
+[![Dev Dependencies](https://david-dm.org/simplyspoke/node-harvest/dev-status.svg)](https://david-dm.org/simplyspoke/node-harvest?type=dev)
 [![npm version](https://badge.fury.io/js/harvest.svg)](http://badge.fury.io/js/harvest)
-
-**Version 1.x represents a substantial rewrite of the module and includes many breaking changes from prior versions. Make sure to thoroughly test your application before releasing with the newest version.**
-
-**Version 2.x is underway... please standby!**
 
 Harvest is a tool that enables businesses to track time, track projects, manage clients, and invoice. This is a full client API built using node.js and the [Harvest API](http://help.getharvest.com/api/).
 
 # Install
 
-  npm install harvest
+npm install harvest
 
 # Usage
 

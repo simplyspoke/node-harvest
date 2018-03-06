@@ -1,7 +1,19 @@
 language: node_js
-sudo: false
-maximum_number_of_builds: 1
+branches:
+  only:
+    - master
+    # - /^greenkeeper/.*$/
+cache:
+  yarn: true
+  directories:
+    - node_modules
+notifications:
+  email: false
 node_js:
-  - '6'
+  - '6.10.3'
+script:
+  - npm run test:prod && npm run build
 after_success:
-  - ./node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage
+  - npm run report-coverage
+  - npm run deploy-docs
+  - npm run semantic-release

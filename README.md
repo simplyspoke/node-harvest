@@ -1,9 +1,10 @@
 [![Build Status](https://travis-ci.org/simplyspoke/node-harvest.svg?branch=master)](https://travis-ci.org/simplyspoke/node-harvest)
-[![Coverage Status](https://coveralls.io/repos/simplyspoke/node-harvest/badge.svg?branch=master)](https://coveralls.io/r/simplyspoke/node-harvest?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/simplyspoke/node-harvest/badge.svg)](https://coveralls.io/github/simplyspoke/node-harvest)
 [![npm version](https://badge.fury.io/js/harvest.svg)](http://badge.fury.io/js/harvest)
 
-
 **Version 1.x represents a substantial rewrite of the module and includes many breaking changes from prior versions. Make sure to thoroughly test your application before releasing with the newest version.**
+
+**Version 2.x is underway... please standby!**
 
 Harvest is a tool that enables businesses to track time, track projects, manage clients, and invoice. This is a full client API built using node.js and the [Harvest API](http://help.getharvest.com/api/).
 

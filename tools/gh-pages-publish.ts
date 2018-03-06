@@ -3,7 +3,7 @@ const { readJsonSync } = require("fs-extra")
 const url = require("url")
 
 let repoUrl
-let pkg = JSON.parse(readJsonSync("package.json") as any)
+let pkg = readJsonSync("package.json");
 if (typeof pkg.repository === "object") {
   if (!pkg.repository.hasOwnProperty("url")) {
     throw new Error("URL does not exist in repository section")

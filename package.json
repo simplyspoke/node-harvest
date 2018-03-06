@@ -23,7 +23,7 @@
   "scripts": {
     "lint": "tslint -t codeFrame 'src/**/*.ts' 'test/**/*.ts'",
     "prebuild": "rimraf dist",
-    "build": "webpack --mode production",
+    "build": "webpack --mode production && typedoc --out docs --target es6 --theme minimal --mode file src",
     "start": "webpack --mode development --display-error-details --watch",
     "test": "jest",
     "test:watch": "jest --watch",

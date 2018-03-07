@@ -1,4 +1,4 @@
-'use strict';
+
 
 const Harvest = require('./lib/harvest');
 const harvest = new Harvest({

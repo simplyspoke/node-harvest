@@ -1,4 +1,4 @@
-'use strict';
+
 
 const assign = require('lodash/assign');
 const fs = require('fs');

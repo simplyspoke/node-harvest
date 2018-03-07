@@ -1,11 +1,10 @@
-'use strict';
-
 const _has = require('lodash/has');
 
 const helpers = {
-  dayOfYear: dayOfYear,
-  getId: getId,
-  has: has
+  dayOfYear,
+  getId,
+  has,
+  parseTimeout
 };
 
 module.exports = helpers;
@@ -53,4 +52,21 @@ function has(object, properties) {
     }
   }
   return true;
+}
+
+/**
+ * [parseTimeout description]
+ * @param  {[type]} after [description]
+ * @return {[type]}       [description]
+ */
+function parseTimeout(after) {
+  if (/^\d+$/.test(after)) {
+    return parseInt(after, 10) * 1000;
+  }
+  let til = Date.parse(after);
+
+  if (isNaN(til)) {
+    return 'cannot parse Retry-After value: ' + after
+  }
+  return new Date(til) - new Date();
 }

@@ -62,7 +62,8 @@
     ],
     "coveragePathIgnorePatterns": [
       "/node_modules/",
-      "/test/"
+      "/test/",
+      "/src/.*\\.(spec.ts|spec.js)$"
     ],
     "coverageThreshold": {
       "global": {
@@ -76,8 +77,8 @@
   },
   "dependencies": {
     "async": "^2.1.4",
-    "request": "^2.79.0",
-    "request-promise-native": "^1.0.5"
+    "axios": "^0.18.0",
+    "request": "^2.79.0"
   },
   "devDependencies": {
     "@types/jest": "^22.0.0",

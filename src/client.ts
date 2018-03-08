@@ -2,33 +2,33 @@ import asyncQueue from 'async/queue'
 import axios from 'axios'
 import { assign, cloneDeep } from 'lodash'
 
+import Authentication from './authentication'
 import * as helpers from './helpers'
 
 export default class Client {
   private defaults
   private queue
   private request
+  private authentication: Authentication
   private concurrency
   private timeout
 
   constructor(config: any) {
-    this.request = axios.create({
+    this.authentication = new Authentication(config.auth)
+
+    this.defaults = this.authentication.getConfig({
       baseURL: config.host,
       headers: {
         'Content-Type': 'application/json',
-        Accept: 'application/json'
+        Accept: 'application/json',
+        'User-Agent': config.userAgent
       },
       timeout: null
     })
 
-    // TODO: Make the user agnet required as described on https://help.getharvest.com/api-v2/introduction/overview/general/
+    this.request = axios.create(this.defaults)
 
-    if (config.useBasic) {
-      this.request.defaults.auth = {
-        username: config.email,
-        password: config.password
-      }
-    }
+    // TODO: Make the user agnet required as described on https://help.getharvest.com/api-v2/introduction/overview/general/
 
     this.concurrency = config.throttle_concurrency || 40
 
@@ -38,10 +38,6 @@ export default class Client {
 
       options.method = task.query.method
       options.uri = task.query.uri
-      if (task.query.qs.formData) {
-        options.formData = task.query.qs.formData
-        delete task.query.qs.formData
-      }
 
       assign(options.qs, task.query.qs)
 
@@ -77,26 +73,6 @@ export default class Client {
     this.queue.push({
       query: query,
       callback: callback
-    })
-  }
-
-  setAccessToken(options, cb) {
-    return new Promise((resolve, reject) => {
-      this.request
-        .post('/oauth2/token', {
-          data: options
-        })
-        .then(response => {
-          if (!response.access_token) {
-            return reject('Provided access code was rejected by Harvest, no token was returned')
-          }
-
-          this.request.defaults.headers.Authorization = `Bearer response.access_token`
-          resolve('Access token set')
-        })
-        .catch(error => {
-          reject(error)
-        })
     })
   }
 }

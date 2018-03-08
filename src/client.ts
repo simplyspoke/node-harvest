@@ -21,6 +21,8 @@ export default class Client {
       timeout: null
     })
 
+    // TODO: Make the user agnet required as described on https://help.getharvest.com/api-v2/introduction/overview/general/
+
     if (config.useBasic) {
       this.request.defaults.auth = {
         username: config.email,

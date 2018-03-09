@@ -1,14 +1,14 @@
-import Client from './client'
+import Authentication from './authentication';
 
 /**
  * Dummy test
  */
-describe('Client test', () => {
+describe('Authentication test', () => {
   it('works if true is truthy', () => {
-    expect(true).toBeTruthy()
-  })
+    expect(true).toBeTruthy();
+  });
 
-  it('Client is instantiable', () => {
-    expect(new Client({})).toBeInstanceOf(Client)
-  })
-})
+  it('Authentication is instantiable', () => {
+    expect(new Authentication({})).toBeInstanceOf(Authentication);
+  });
+});

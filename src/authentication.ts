@@ -1,33 +1,32 @@
-import asyncQueue from 'async/queue'
-import { AxiosRequestConfig } from 'axios'
-import { assign, cloneDeep } from 'lodash'
+import { AxiosRequestConfig } from 'axios';
+import { assign, cloneDeep } from 'lodash';
 
-import * as helpers from './helpers'
+import * as helpers from './helpers';
 
 export default class Authentication {
-  method: string
-  accessToken: string
-  accountId: string
-  private queue
-  private request
-  private concurrency
-  private timeout
+  // method: string
+  accessToken: string;
+  accountId: string;
+  private queue;
+  private request;
+  private concurrency;
+  private timeout;
 
   constructor(config: any) {
-    this.accessToken = config.accessToken
-    this.accountId = config.accountId
-    this.method = config.method
+    this.accessToken = config.accessToken;
+    this.accountId = config.accountId;
+    // this.method = config.method
 
     // TODO: Extend to cover oauth2
   }
 
   getConfig(requestConfig: AxiosRequestConfig) {
-    const config: AxiosRequestConfig = cloneDeep(requestConfig)
+    const config: AxiosRequestConfig = cloneDeep(requestConfig);
 
-    config.headers.Authorization = this.accessToken
-    config.headers['Harvest-Account-Id'] = this.accountId
+    config.headers.Authorization = this.accessToken;
+    config.headers['Harvest-Account-Id'] = this.accountId;
 
-    return config
+    return config;
   }
 
   // setAccessToken(options, cb) {

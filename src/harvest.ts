@@ -18,4 +18,25 @@ export default class Harvest {
 
     this.client = new Client(config);
   }
+
+  request(method: string, uri: string, data: any, callback: Function) {
+    if (this.debug) {
+      console.log(method, uri, data, callback);
+    }
+
+    return new Promise((resolve, reject) => {
+      this.client.push({
+        method,
+        uri,
+        data,
+        callback: (error, results) => {
+          if (error) {
+            reject(error);
+          }
+
+          resolve(results);
+        }
+      });
+    });
+  }
 }

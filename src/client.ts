@@ -1,5 +1,5 @@
-import asyncQueue from 'async/queue';
-import axios from 'axios';
+import async from 'async';
+import * as Request from 'request-promise';
 import { assign, cloneDeep } from 'lodash';
 
 import Authentication from './authentication';
@@ -13,66 +13,76 @@ export default class Client {
   private timeout;
 
   constructor(config: any) {
-    console.log(config);
     this.authentication = new Authentication(config.auth);
 
-    this.defaults = this.authentication.getConfig({
-      baseURL: config.host,
+    this.request = Request.defaults({
+      baseURL: 'https://api.harvestapp.com/',
       headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
+        'Access-Control-Allow-Origin': '*',
+        Authorization: 'Bearer ' + process.env.ACCESS_TOKEN,
+        'Harvest-Account-Id': process.env.ACCOUNT_ID,
         'User-Agent': config.userAgent
       },
-      timeout: null
+      transform: this.includeHeaders
     });
-
-    this.request = axios.create(this.defaults);
 
     // TODO: Make the user agnet required as described on https://help.getharvest.com/api-v2/introduction/overview/general/
 
     this.concurrency = config.throttleConcurrency || 40;
 
     // TODO: This needs to be broken down in to smaller chunks.
-    this.queue = asyncQueue(function(task, done) {
-      let options: any = {};
-
-      options.method = task.query.method;
-      options.uri = task.query.uri;
-
-      assign(options.qs, task.query.qs);
-
-      this.request(task.query.uri, options)
-        .then(response => {
-          if (response.headers['retry-after']) {
-            this.queue.pause();
-            this.queue.push(task);
-            done();
-            clearTimeout(this._timeout);
-
-            let timeout = helpers.parseTimeout(response.headers['retry-after']);
-
-            if (!isNaN(timeout)) {
-              return (this.timeout = setTimeout(() => {
-                this.queue.resume();
-              }, timeout));
-            }
-
-            task.callback(timeout, null, null);
-          }
-
-          done('requested');
-          task.callback(null, response);
-        })
-        .catch(error => {
-          task.callback(error, null, null);
-        });
-    }, this.concurrency || 40);
+    this.queue = async.queue(this.requestGenerator(), this.concurrency || 40);
   }
 
-  push(query, callback) {
-    this.queue.push({
-      query: query,
-      callback: callback
-    });
+  includeHeaders(body, response, resolveWithFullResponse) {
+    return { headers: response.headers, data: body };
+  }
+
+  push(task) {
+    this.queue.push(task);
+  }
+
+  requestGenerator() {
+    return (task, done) => {
+      let options: any = {};
+
+      options.method = task.method;
+      options.url = 'https://api.harvestapp.com/' + task.uri;
+
+      // assign(options.qs, task.qs);
+      // assign(options.data, task.data);
+
+      this.request(options)
+        .then(({ headers, data }) => {
+          if (headers['retry-after']) {
+            this.retryAfter(task, headers['retry-after'], done);
+          }
+
+          done();
+          task.callback(null, data);
+        })
+        .catch(error => {
+          done();
+          task.callback(error, null);
+        });
+    };
+  }
+
+  retryAfter(task, retryAfter, done) {
+    this.queue.pause();
+    this.queue.push(task);
+    clearTimeout(this.timeout);
+
+    // let timeout = helpers.parseTimeout(response.headers['retry-after']);
+    let timeout = null;
+
+    if (!isNaN(timeout)) {
+      return (this.timeout = setTimeout(() => {
+        this.queue.resume();
+      }, timeout));
+    }
+
+    done();
+    task.callback(timeout, null, null);
   }
 }

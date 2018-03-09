@@ -1,16 +1,21 @@
+import Client from './client';
+
 /**
  * Provides the starting point of the harvest module
  */
 export default class Harvest {
-  host
-  userAgent = null
-  concurrency = null
-  debug = false
+  host: string;
+  userAgent = null;
+  concurrency = null;
+  debug = false;
+  private client: Client;
 
   constructor(config) {
-    this.host = 'https://' + config.subdomain + '.harvestapp.com'
-    this.userAgent = config.userAgent
-    this.concurrency = config.concurrency || null
-    this.debug = config.debug || false
+    this.host = 'https://' + config.subdomain + '.harvestapp.com';
+    this.userAgent = config.userAgent;
+    this.concurrency = config.concurrency || null;
+    this.debug = config.debug || false;
+
+    this.client = new Client(config);
   }
 }

@@ -20,16 +20,29 @@ describe('Harvest', () => {
     expect(instance).toBeInstanceOf(Harvest);
   });
 
-  it('Can retrieve the me record', () => {
+  it('Can retrieve the me record', done => {
     instance
       .request('GET', 'v2/users/me', {})
       .then(response => {
-        console.log(response);
         expect(response).toBeDefined();
+        done();
       })
       .catch(error => {
-        console.log(error);
         expect(error).toBeNull();
+        done();
+      });
+  });
+
+  it('Can retrieve the me record', done => {
+    instance.company
+      .get()
+      .then(response => {
+        expect(response).toBeDefined();
+        done();
+      })
+      .catch(error => {
+        expect(error).toBeNull();
+        done();
       });
   });
 });

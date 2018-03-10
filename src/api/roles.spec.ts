@@ -1,4 +1,4 @@
-import Company from './company';
+import Roles from './roles';
 
 const harvest = {
   request: () => {
@@ -9,12 +9,12 @@ const harvest = {
 /**
  * Dummy test
  */
-describe('Company test', () => {
+describe('Roles test', () => {
   it('works if true is truthy', () => {
     expect(true).toBeTruthy();
   });
 
-  it('Company is instantiable', () => {
-    expect(new Company({})).toBeInstanceOf(Company);
+  it('Roles is instantiable', () => {
+    expect(new Roles({})).toBeInstanceOf(Roles);
   });
 });

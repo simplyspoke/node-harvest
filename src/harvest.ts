@@ -1,5 +1,6 @@
 import Client from './client';
 import CompanyAPI from './api/company';
+import RolesAPI from './api/roles';
 import UsersAPI from './api/users';
 
 /**
@@ -15,6 +16,7 @@ export default class Harvest {
   request;
 
   company;
+  roles;
   users;
 
   constructor(config) {
@@ -27,6 +29,7 @@ export default class Harvest {
     this.request = this.requestGenerator();
 
     this.company = new CompanyAPI(this);
+    this.roles = new RolesAPI(this);
     this.users = new UsersAPI(this);
   }
 

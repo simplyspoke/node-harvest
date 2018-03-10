@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>DummyClass | harvest</title>
+	<title>Currency | harvest</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<style type="text/css">/*! normalize.css v1.1.3 | MIT License | git.io/normalize */
@@ -910,36 +910,39 @@ img { max-width: 100%; }
 <nav class="tsd-navigation secondary">
 	<ul>
 		<li class=" tsd-kind-class">
-			<a href="authentication.html" class="tsd-kind-icon">Authentication</a>
+			<a href="../classes/authentication.html" class="tsd-kind-icon">Authentication</a>
 		</li>
 		<li class=" tsd-kind-class">
-			<a href="client.html" class="tsd-kind-icon">Client</a>
+			<a href="../classes/client.html" class="tsd-kind-icon">Client</a>
 		</li>
-		<li class="current tsd-kind-class">
-			<a href="dummyclass.html" class="tsd-kind-icon">Dummy<wbr>Class</a>
+		<li class=" tsd-kind-class">
+			<a href="../classes/dummyclass.html" class="tsd-kind-icon">Dummy<wbr>Class</a>
+		</li>
+		<li class=" tsd-kind-class">
+			<a href="../classes/harvest.html" class="tsd-kind-icon">Harvest</a>
+		</li>
+		<li class="current tsd-kind-interface">
+			<a href="currency.html" class="tsd-kind-icon">Currency</a>
 			<ul>
-				<li class=" tsd-kind-property tsd-parent-kind-class">
-					<a href="dummyclass.html#test" class="tsd-kind-icon">test</a>
+				<li class=" tsd-kind-property tsd-parent-kind-interface">
+					<a href="currency.html#code" class="tsd-kind-icon">code</a>
+				</li>
+				<li class=" tsd-kind-property tsd-parent-kind-interface">
+					<a href="currency.html#name" class="tsd-kind-icon">name</a>
 				</li>
 			</ul>
 		</li>
-		<li class=" tsd-kind-class">
-			<a href="harvest.html" class="tsd-kind-icon">Harvest</a>
+		<li class=" tsd-kind-interface">
+			<a href="pagenationparameters.html" class="tsd-kind-icon">Pagenation<wbr>Parameters</a>
 		</li>
 		<li class=" tsd-kind-interface">
-			<a href="../interfaces/currency.html" class="tsd-kind-icon">Currency</a>
+			<a href="pagenationresponse.html" class="tsd-kind-icon">Pagenation<wbr>Response</a>
 		</li>
 		<li class=" tsd-kind-interface">
-			<a href="../interfaces/pagenationparameters.html" class="tsd-kind-icon">Pagenation<wbr>Parameters</a>
+			<a href="responsecode.html" class="tsd-kind-icon">Response<wbr>Code</a>
 		</li>
 		<li class=" tsd-kind-interface">
-			<a href="../interfaces/pagenationresponse.html" class="tsd-kind-icon">Pagenation<wbr>Response</a>
-		</li>
-		<li class=" tsd-kind-interface">
-			<a href="../interfaces/responsecode.html" class="tsd-kind-icon">Response<wbr>Code</a>
-		</li>
-		<li class=" tsd-kind-interface">
-			<a href="../interfaces/timezone.html" class="tsd-kind-icon">Time<wbr>Zone</a>
+			<a href="timezone.html" class="tsd-kind-icon">Time<wbr>Zone</a>
 		</li>
 		<li class=" tsd-kind-variable">
 			<a href="../globals.html#responsecodes" class="tsd-kind-icon">Response<wbr>Codes</a>
@@ -957,11 +960,18 @@ img { max-width: 100%; }
 </nav>
 <div class="container container-main">
 	<div class="content-wrap">
+		<section class="tsd-panel tsd-comment">
+			<div class="tsd-comment tsd-typography">
+				<div class="lead">
+					<p>Provides a type for a timezone</p>
+				</div>
+			</div>
+		</section>
 		<section class="tsd-panel tsd-hierarchy">
 			<h3>Hierarchy</h3>
 			<ul class="tsd-hierarchy">
 				<li>
-					<span class="target">DummyClass</span>
+					<span class="target">Currency</span>
 				</li>
 			</ul>
 		</section>
@@ -972,7 +982,8 @@ img { max-width: 100%; }
 					<section class="tsd-index-section ">
 						<h3>Properties</h3>
 						<ul class="tsd-index-list">
-							<li class="tsd-kind-property tsd-parent-kind-class"><a href="dummyclass.html#test" class="tsd-kind-icon">test</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-interface"><a href="currency.html#code" class="tsd-kind-icon">code</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-interface"><a href="currency.html#name" class="tsd-kind-icon">name</a></li>
 						</ul>
 					</section>
 				</div>
@@ -980,15 +991,35 @@ img { max-width: 100%; }
 		</section>
 		<section class="tsd-panel-group tsd-member-group ">
 			<h2>Properties</h2>
-			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-				<a name="test" class="tsd-anchor"></a>
-				<h3>test</h3>
-				<div class="tsd-signature tsd-kind-icon">test<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;new&quot;</span></div>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+				<a name="code" class="tsd-anchor"></a>
+				<h3>code</h3>
+				<div class="tsd-signature tsd-kind-icon">code<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/simplyspoke/node-harvest/blob/1df8d15/src/index.ts#L5">index.ts:5</a></li>
+						<li>Defined in <a href="https://github.com/simplyspoke/node-harvest/blob/1df8d15/src/types/currencies.ts#L13">types/currencies.ts:13</a></li>
 					</ul>
 				</aside>
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Code</p>
+					</div>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+				<a name="name" class="tsd-anchor"></a>
+				<h3>name</h3>
+				<div class="tsd-signature tsd-kind-icon">name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/simplyspoke/node-harvest/blob/1df8d15/src/types/currencies.ts#L8">types/currencies.ts:8</a></li>
+					</ul>
+				</aside>
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Harvest Name</p>
+					</div>
+				</div>
 			</section>
 		</section>
 		<footer class="with-border-bottom">

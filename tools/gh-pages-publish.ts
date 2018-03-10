@@ -2,6 +2,8 @@ const { cd, exec, echo, touch } = require("shelljs")
 const { readJsonSync } = require("fs-extra")
 const url = require("url")
 
+require('dotenv').config();
+
 let repoUrl
 let pkg = readJsonSync("package.json");
 if (typeof pkg.repository === "object") {

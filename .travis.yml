@@ -2,6 +2,7 @@ language: node_js
 branches:
   only:
     - master
+    - api-v2
     # - /^greenkeeper/.*$/
 cache:
   yarn: true
@@ -16,4 +17,4 @@ script:
 after_success:
   - npm run report-coverage
   - npm run deploy-docs
-  - npm run semantic-release
+  # - npm run semantic-release

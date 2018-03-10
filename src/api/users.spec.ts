@@ -1,4 +1,4 @@
-import Company from './company';
+import Users from './users';
 
 const harvest = {
   request: () => {
@@ -14,7 +14,7 @@ describe('Users test', () => {
     expect(true).toBeTruthy();
   });
 
-  it('Company is instantiable', () => {
-    expect(new Company({})).toBeInstanceOf(Company);
+  it('Users is instantiable', () => {
+    expect(new Users({})).toBeInstanceOf(Users);
   });
 });

@@ -1,5 +1,6 @@
 import Client from './client';
 import CompanyAPI from './api/company';
+import UsersAPI from './api/users';
 
 /**
  * Provides the starting point of the harvest module
@@ -10,10 +11,11 @@ export default class Harvest {
   concurrency = null;
   debug = false;
 
-  company;
+  client: Client;
   request;
 
-  private client: Client;
+  company;
+  users;
 
   constructor(config) {
     this.host = 'https://' + config.subdomain + '.harvestapp.com';
@@ -25,10 +27,11 @@ export default class Harvest {
     this.request = this.requestGenerator();
 
     this.company = new CompanyAPI(this);
+    this.users = new UsersAPI(this);
   }
 
   requestGenerator() {
-    return function(method: string, uri: string, data: any) {
+    return function(method: string, uri: string, data: any = {}) {
       return new Promise((resolve, reject) => {
         this.client.push({
           method,

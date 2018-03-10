@@ -1,7 +1,7 @@
-import { AxiosRequestConfig } from 'axios';
+// import rp from 'request-promise';
 import { assign, cloneDeep } from 'lodash';
 
-import * as helpers from './helpers';
+// import * as helpers from './helpers';
 
 export default class Authentication {
   // method: string
@@ -20,10 +20,10 @@ export default class Authentication {
     // TODO: Extend to cover oauth2
   }
 
-  getConfig(requestConfig: AxiosRequestConfig) {
-    const config: AxiosRequestConfig = cloneDeep(requestConfig);
+  getConfig(requestConfig) {
+    const config = cloneDeep(requestConfig);
 
-    config.headers.Authorization = this.accessToken;
+    config.headers.Authorization = `Bearer ${this.accessToken}`;
     config.headers['Harvest-Account-Id'] = this.accountId;
 
     return config;

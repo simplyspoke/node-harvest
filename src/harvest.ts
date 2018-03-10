@@ -19,9 +19,9 @@ export default class Harvest {
     this.client = new Client(config);
   }
 
-  request(method: string, uri: string, data: any, callback: Function) {
+  request(method: string, uri: string, data: any) {
     if (this.debug) {
-      console.log(method, uri, data, callback);
+      console.log(method, uri, data);
     }
 
     return new Promise((resolve, reject) => {

@@ -15,26 +15,29 @@ export default class Client {
   constructor(config: any) {
     this.authentication = new Authentication(config.auth);
 
-    this.request = Request.defaults({
-      baseURL: 'https://api.harvestapp.com/',
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-        Authorization: 'Bearer ' + process.env.ACCESS_TOKEN,
-        'Harvest-Account-Id': process.env.ACCOUNT_ID,
-        'User-Agent': config.userAgent
-      },
-      transform: this.includeHeaders
-    });
+    this.request = Request.defaults(
+      this.authentication.getConfig({
+        baseURL: 'https://api.harvestapp.com/',
+        headers: {
+          'User-Agent': config.userAgent
+        },
+        transform: this.preprocess
+      })
+    );
 
     // TODO: Make the user agnet required as described on https://help.getharvest.com/api-v2/introduction/overview/general/
 
     this.concurrency = config.throttleConcurrency || 40;
 
     // TODO: This needs to be broken down in to smaller chunks.
-    this.queue = async.queue(this.requestGenerator(), this.concurrency || 40);
+    this.queue = async.queue(this.requestGenerator(), this.concurrency);
   }
 
-  includeHeaders(body, response, resolveWithFullResponse) {
+  preprocess(body, response) {
+    // if (headers['retry-after']) {
+    //   this.retryAfter(task, headers['retry-after'], done);
+    // }
+
     return { headers: response.headers, data: body };
   }
 
@@ -54,35 +57,31 @@ export default class Client {
 
       this.request(options)
         .then(({ headers, data }) => {
-          if (headers['retry-after']) {
-            this.retryAfter(task, headers['retry-after'], done);
-          }
-
-          done();
           task.callback(null, data);
+          done();
         })
         .catch(error => {
-          done();
           task.callback(error, null);
+          done();
         });
     };
   }
 
-  retryAfter(task, retryAfter, done) {
-    this.queue.pause();
-    this.queue.push(task);
-    clearTimeout(this.timeout);
-
-    // let timeout = helpers.parseTimeout(response.headers['retry-after']);
-    let timeout = null;
-
-    if (!isNaN(timeout)) {
-      return (this.timeout = setTimeout(() => {
-        this.queue.resume();
-      }, timeout));
-    }
-
-    done();
-    task.callback(timeout, null, null);
-  }
+  // retryAfter(task, retryAfter, done) {
+  //   this.queue.pause();
+  //   this.queue.push(task);
+  //   clearTimeout(this.timeout);
+  //
+  //   // let timeout = helpers.parseTimeout(response.headers['retry-after']);
+  //   let timeout = null;
+  //
+  //   if (!isNaN(timeout)) {
+  //     return (this.timeout = setTimeout(() => {
+  //       this.queue.resume();
+  //     }, timeout));
+  //   }
+  //
+  //   done();
+  //   task.callback(timeout, null, null);
+  // }
 }

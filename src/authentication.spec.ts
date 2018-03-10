@@ -1,5 +1,9 @@
 import Authentication from './authentication';
 
+const config = {
+  accessToken: process.env.ACCESS_TOKEN,
+  accountId: process.env.ACCOUNT_ID
+};
 /**
  * Dummy test
  */
@@ -9,6 +13,6 @@ describe('Authentication test', () => {
   });
 
   it('Authentication is instantiable', () => {
-    expect(new Authentication({})).toBeInstanceOf(Authentication);
+    expect(new Authentication(config)).toBeInstanceOf(Authentication);
   });
 });

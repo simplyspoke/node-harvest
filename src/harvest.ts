@@ -12,6 +12,7 @@ import InvoiceMessagesAPI from './api/invoiceMessages';
 import ProjectsAPI from './api/projects';
 import ProjectAssignmentsAPI from './api/projectAssignments';
 import RolesAPI from './api/roles';
+import TasksAPI from './api/tasks';
 import UsersAPI from './api/users';
 
 /**
@@ -39,6 +40,7 @@ export default class Harvest {
   projects;
   projectAssignments;
   roles;
+  tasks;
   users;
 
   constructor(config) {
@@ -63,6 +65,7 @@ export default class Harvest {
     this.projects = new ProjectsAPI(this);
     this.projectAssignments = new ProjectAssignmentsAPI(this);
     this.roles = new RolesAPI(this);
+    this.tasks = new TasksAPI(this);
     this.users = new UsersAPI(this);
   }
 

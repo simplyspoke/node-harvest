@@ -221,5 +221,5 @@ export interface EstimatesPagenationParameters extends PagenationParameters {
    * Only return estimates with an issue_date on or before the given date.
    * Type: date
    */
-  to: boolean;
+  to: string;
 }

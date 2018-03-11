@@ -67,11 +67,11 @@ export interface Contact {
   // 	The contact’s fax number.
   fax: string;
 
-  // datetime: Date and time the contact was created.
+  // Date and time the contact was created.
   // Type: datetime
   created_at: string;
 
-  // : Date and time the contact was last updated.
+  // Date and time the contact was last updated.
   // Type: datetime
   updated_at: string;
 }

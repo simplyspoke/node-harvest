@@ -50,10 +50,10 @@ export interface Client {
   // The currency code associated with this client.
   currency: string;
 
-  // datetime: Date and time the client was created.
+  // Date and time the client was created.
   created_at: string; // datetime
 
-  // : Date and time the client was last updated.
+  // Date and time the client was last updated.
   updated_at: string; // datetime
 }
 

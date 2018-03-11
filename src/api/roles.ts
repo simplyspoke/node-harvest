@@ -44,10 +44,10 @@ export interface Role {
   // The IDs of the users assigned to this role. array of integers
   user_ids: number[];
 
-  // datetime: Date and time the role was created.
+  // Date and time the role was created.
   created_at: string; // datetime
 
-  // : Date and time the role was last updated.
+  // Date and time the role was last updated.
   updated_at: string; // datetime
 }
 

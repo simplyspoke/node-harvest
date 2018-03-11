@@ -97,22 +97,22 @@ export interface Project {
   // Type: decimal
   fee: number;
 
-  // datetime: Date and time the projects was created.
+  // Date and time the projects was created.
   notes: string;
 
-  // datetime: Date and time the projects was created.
+  // Date and time the projects was created.
   // Type: date
   starts_on: string;
 
-  // datetime: Date and time the projects was created.
+  // Date and time the projects was created.
   // Type: date
   ends_on: string;
 
-  // datetime: Date and time the projects was created.
+  // Date and time the projects was created.
   // Type: datetime
   created_at: string;
 
-  // : Date and time the projects was last updated.
+  // Date and time the projects was last updated.
   // Type: datetime
   updated_at: string;
 }

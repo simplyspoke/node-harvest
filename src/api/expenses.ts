@@ -51,10 +51,10 @@ export interface Expense {
   // Whether the expenses is active or archived.
   is_active: boolean;
 
-  // datetime: Date and time the expenses was created.
+  // Date and time the expenses was created.
   created_at: string; // datetime
 
-  // : Date and time the expenses was last updated.
+  // Date and time the expenses was last updated.
   updated_at: string; // datetime
 }
 

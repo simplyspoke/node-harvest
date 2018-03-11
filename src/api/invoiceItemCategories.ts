@@ -47,10 +47,10 @@ export interface InvoiceItemCategory {
   // Whether this invoice item category is used for expenses when generating an invoice.
   use_as_expense: boolean;
 
-  // datetime: Date and time the invoiceItemCategorie was created.
+  // Date and time the invoiceItemCategorie was created.
   created_at: string; // datetime
 
-  // : Date and time the invoiceItemCategorie was last updated.
+  // Date and time the invoiceItemCategorie was last updated.
   updated_at: string; // datetime
 }
 

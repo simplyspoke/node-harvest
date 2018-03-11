@@ -97,10 +97,10 @@ export interface User {
   // The URL to the user’s avatar image.
   avatar_url: string;
 
-  // datetime: Date and time the user was created.
+  // Date and time the user was created.
   created_at: string; // datetime
 
-  // : Date and time the user was last updated.
+  // Date and time the user was last updated.
   updated_at: string; // datetime
 }
 

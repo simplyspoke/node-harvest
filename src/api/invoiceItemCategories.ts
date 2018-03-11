@@ -1,12 +1,12 @@
 import { PagenationParameters, PagenationResponse } from '../types/pagenation';
 
-// Admin permissions required, except when retrieving the currently authenticated invoiceItemCategorie.
+// Admin permissions required, except when retrieving the currently authenticated invoiceItemCategory.
 export default class InvoiceItemCategoriesAPI {
   harvest;
   baseUrl: string;
 
   constructor(harvest) {
-    this.baseUrl = '/v2/invoiceItemCategories';
+    this.baseUrl = '/v2/invoice_item_categories';
     this.harvest = harvest;
   }
 
@@ -35,10 +35,10 @@ export default class InvoiceItemCategoriesAPI {
  * An response from the InvoiceItemCategories API
  */
 export interface InvoiceItemCategory {
-  // integer Unique ID for the invoiceItemCategorie.
+  // integer Unique ID for the invoiceItemCategory.
   id: number;
 
-  // A textual description of the invoiceItemCategorie.
+  // A textual description of the invoiceItemCategory.
   name: string;
 
   // Whether this invoice item category is used for billable hours when generating an invoice.
@@ -47,10 +47,10 @@ export interface InvoiceItemCategory {
   // Whether this invoice item category is used for expenses when generating an invoice.
   use_as_expense: boolean;
 
-  // Date and time the invoiceItemCategorie was created.
+  // Date and time the invoiceItemCategory was created.
   created_at: string; // datetime
 
-  // Date and time the invoiceItemCategorie was last updated.
+  // Date and time the invoiceItemCategory was last updated.
   updated_at: string; // datetime
 }
 
@@ -59,8 +59,8 @@ export interface InvoiceItemCategory {
  */
 export interface InvoiceItemCategoriesPagenationResponse
   extends PagenationParameters {
-  // A list of invoiceItemCategories for the specified query.
-  invoiceItemCategories: InvoiceItemCategory[];
+  // A list of invoiceItemCategorys for the specified query.
+  invoiceItemCategorys: InvoiceItemCategory[];
 }
 
 /**
@@ -69,7 +69,7 @@ export interface InvoiceItemCategoriesPagenationResponse
 export interface InvoiceItemCategoriesPagenationParameters
   extends PagenationParameters {
   /**
-   * Pass true to only return active invoiceItemCategories and false to return inactive invoiceItemCategories
+   * Pass true to only return active invoiceItemCategorys and false to return inactive invoiceItemCategorys
    * Type: datetime.
    */
   updated_since: string;

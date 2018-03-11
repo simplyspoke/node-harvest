@@ -15,6 +15,7 @@ import ProjectAssignmentsAPI from './api/projectAssignments';
 import RolesAPI from './api/roles';
 import TasksAPI from './api/tasks';
 import UsersAPI from './api/users';
+import UserAssignmentsAPI from './api/userAssignments';
 
 /**
  * Provides the starting point of the harvest module
@@ -44,6 +45,7 @@ export default class Harvest {
   roles;
   tasks;
   users;
+  userAssignments;
 
   constructor(config) {
     this.host = 'https://' + config.subdomain + '.harvestapp.com';
@@ -70,6 +72,7 @@ export default class Harvest {
     this.roles = new RolesAPI(this);
     this.tasks = new TasksAPI(this);
     this.users = new UsersAPI(this);
+    this.userAssignments = new UserAssignmentsAPI(this);
   }
 
   requestGenerator() {

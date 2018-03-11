@@ -11,7 +11,7 @@ cache:
 notifications:
   email: false
 node_js:
-  - '6.10.3'
+  - '8.10.0'
 script:
   - npm run test:prod && npm run build
 after_success:

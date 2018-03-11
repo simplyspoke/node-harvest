@@ -2,6 +2,7 @@ import Client from './client';
 import ClientsAPI from './api/clients';
 import CompanyAPI from './api/company';
 import ExpensesAPI from './api/expenses';
+import InvoiceItemCategoriesAPI from './api/invoiceItemCategories';
 import RolesAPI from './api/roles';
 import UsersAPI from './api/users';
 

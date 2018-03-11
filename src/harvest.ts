@@ -1,5 +1,6 @@
 import Client from './client';
 import ClientsAPI from './api/clients';
+import ContactsAPI from './api/contacts';
 import CompanyAPI from './api/company';
 import ExpensesAPI from './api/expenses';
 import InvoiceItemCategoriesAPI from './api/invoiceItemCategories';
@@ -20,6 +21,7 @@ export default class Harvest {
 
   clients;
   company;
+  contacts;
   expenses;
   roles;
   users;
@@ -35,6 +37,7 @@ export default class Harvest {
 
     this.clients = new ClientsAPI(this);
     this.company = new CompanyAPI(this);
+    this.contacts = new ContactsAPI(this);
     this.expenses = new ExpensesAPI(this);
     this.roles = new RolesAPI(this);
     this.users = new UsersAPI(this);

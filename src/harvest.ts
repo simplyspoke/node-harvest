@@ -14,6 +14,7 @@ import ProjectsAPI from './api/projects';
 import ProjectAssignmentsAPI from './api/projectAssignments';
 import RolesAPI from './api/roles';
 import TasksAPI from './api/tasks';
+import TaskAssignmentsAPI from './api/taskAssignments';
 import UsersAPI from './api/users';
 import UserAssignmentsAPI from './api/userAssignments';
 
@@ -44,6 +45,7 @@ export default class Harvest {
   projectAssignments;
   roles;
   tasks;
+  taskAssignments;
   users;
   userAssignments;
 
@@ -71,6 +73,7 @@ export default class Harvest {
     this.projectAssignments = new ProjectAssignmentsAPI(this);
     this.roles = new RolesAPI(this);
     this.tasks = new TasksAPI(this);
+    this.taskAssignments = new TaskAssignmentsAPI(this);
     this.users = new UsersAPI(this);
     this.userAssignments = new UserAssignmentsAPI(this);
   }

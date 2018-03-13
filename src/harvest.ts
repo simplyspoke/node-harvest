@@ -10,6 +10,7 @@ import ExpenseCategoriesAPI from './api/expenseCategories';
 import InvoicesAPI from './api/invoices';
 import InvoiceItemCategoriesAPI from './api/invoiceItemCategories';
 import InvoiceMessagesAPI from './api/invoiceMessages';
+import InvoicePaymentsAPI from './api/invoicePayments';
 import ProjectsAPI from './api/projects';
 import ProjectAssignmentsAPI from './api/projectAssignments';
 import RolesAPI from './api/roles';
@@ -41,6 +42,7 @@ export default class Harvest {
   invoices;
   invoiceItemCategories;
   invoiceMessages;
+  invoicePayments;
   projects;
   projectAssignments;
   roles;
@@ -69,6 +71,7 @@ export default class Harvest {
     this.invoices = new InvoicesAPI(this);
     this.invoiceItemCategories = new InvoiceItemCategoriesAPI(this);
     this.invoiceMessages = new InvoiceMessagesAPI(this);
+    this.invoicePayments = new InvoicePaymentsAPI(this);
     this.projects = new ProjectsAPI(this);
     this.projectAssignments = new ProjectAssignmentsAPI(this);
     this.roles = new RolesAPI(this);

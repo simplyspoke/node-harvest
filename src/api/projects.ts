@@ -138,7 +138,7 @@ export interface ProjectsPagenationParameters extends PagenationParameters {
    * Only return projects belonging to the client with the given ID.
    * Type: integer.
    */
-  client_id: string;
+  client_id: number;
 
   /**
    * Pass true to only return active projects and false to return inactive projects

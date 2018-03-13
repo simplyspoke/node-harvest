@@ -203,7 +203,7 @@ export interface EstimatesPagenationParameters extends PagenationParameters {
    * Only return estimates belonging to the client with the given ID.
    * Type: integer.
    */
-  client_id: string;
+  client_id: number;
 
   /**
    * Pass true to only return active estimates and false to return inactive estimates

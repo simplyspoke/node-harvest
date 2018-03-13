@@ -106,19 +106,19 @@ export interface ExpensesPagenationParameters extends PagenationParameters {
    * Only return expenses belonging to the user with the given ID.
    * Type: integer.
    */
-  user_id: string;
+  user_id: number;
 
   /**
    * Only return expenses belonging to the client with the given ID.
    * Type: integer.
    */
-  client_id: string;
+  client_id: number;
 
   /**
    * Only return expenses associated with the project with the given ID.
    * Type: integer.
    */
-  project_id: string;
+  project_id: number;
 
   /**
    * Pass true to only return expenses that have been invoiced and false to return expenses that have not been invoiced.

@@ -225,13 +225,13 @@ export interface InvoicesPagenationParameters extends PagenationParameters {
    * Only return invoices belonging to the client with the given ID.
    * Type: integer.
    */
-  client_id: string;
+  client_id: number;
 
   /**
    * Only return invoices associated with the project with the given ID.
    * Type: integer.
    */
-  project_id: string;
+  project_id: number;
 
   /**
    * Pass true to only return active invoices and false to return inactive invoices

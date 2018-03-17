@@ -23,7 +23,11 @@ export default class UserAssignmentsAPI {
   }
 
   public create(projectId: number, data: UserAssignment) {
-    return this.harvest.request('POST', `/${projectId}/user_assignments`, data);
+    return this.harvest.request(
+      'POST',
+      `${this.baseUrl}/${projectId}/user_assignments`,
+      data
+    );
   }
 
   public get(projectId: number, id: number) {

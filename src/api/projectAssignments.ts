@@ -8,7 +8,7 @@ export default class ProjectAssignmentsAPI {
   baseUrl: string;
 
   constructor(harvest) {
-    this.baseUrl = '/v2/users/';
+    this.baseUrl = '/v2/users';
     this.harvest = harvest;
   }
 

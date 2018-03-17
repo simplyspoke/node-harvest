@@ -1,4 +1,4 @@
-import Projects from './invoices';
+import Projects from './projects';
 
 const harvest = {
   request: () => {

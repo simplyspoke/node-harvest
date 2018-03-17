@@ -9,7 +9,7 @@ export default class TimeEntriesAPI {
   baseUrl: string;
 
   constructor(harvest) {
-    this.baseUrl = '/v2/time-entries';
+    this.baseUrl = '/v2/time_entries';
     this.harvest = harvest;
   }
 

@@ -50,4 +50,32 @@ describe('Invoices test', () => {
     instance.delete(id);
     expect(request).toBeCalledWith('DELETE', '/v2/invoices/1000');
   });
+
+  it('should have a draft method that calls the request method', () => {
+    instance.draft(id);
+    expect(request).toBeCalledWith('POST', '/v2/invoices/1000/messages', {
+      event_type: 'draft'
+    });
+  });
+
+  it('should have a send method that calls the request method', () => {
+    instance.send(id);
+    expect(request).toBeCalledWith('POST', '/v2/invoices/1000/messages', {
+      event_type: 'send'
+    });
+  });
+
+  it('should have a close method that calls the request method', () => {
+    instance.close(id);
+    expect(request).toBeCalledWith('POST', '/v2/invoices/1000/messages', {
+      event_type: 'close'
+    });
+  });
+
+  it('should have a reopen method that calls the request method', () => {
+    instance.reopen(id);
+    expect(request).toBeCalledWith('POST', '/v2/invoices/1000/messages', {
+      event_type: 're-open'
+    });
+  });
 });

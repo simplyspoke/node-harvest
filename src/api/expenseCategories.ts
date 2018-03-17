@@ -9,7 +9,7 @@ export default class ExpenseCategoriesAPI {
   baseUrl: string;
 
   constructor(harvest) {
-    this.baseUrl = '/v2/expenseCategorys';
+    this.baseUrl = '/v2/expense_categorises';
     this.harvest = harvest;
   }
 

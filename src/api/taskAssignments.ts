@@ -23,7 +23,11 @@ export default class TaskAssignmentsAPI {
   }
 
   public create(projectId: number, data: TaskAssignment) {
-    return this.harvest.request('POST', `/${projectId}/task_assignments`, data);
+    return this.harvest.request(
+      'POST',
+      `${this.baseUrl}/${projectId}/task_assignments`,
+      data
+    );
   }
 
   public get(projectId: number, id: number) {

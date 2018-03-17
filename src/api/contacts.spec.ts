@@ -50,4 +50,9 @@ describe('Contacts test', () => {
     instance.delete(id);
     expect(request).toBeCalledWith('DELETE', '/v2/contacts/1000');
   });
+
+  it('should have a me method that calls the request method', () => {
+    instance.me();
+    expect(request).toBeCalledWith('GET', '/v2/contacts/me');
+  });
 });

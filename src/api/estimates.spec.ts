@@ -50,4 +50,32 @@ describe('Estimates test', () => {
     instance.delete(id);
     expect(request).toBeCalledWith('DELETE', '/v2/estimates/1000');
   });
+
+  it('should have a send method that calls the request method', () => {
+    instance.send(id);
+    expect(request).toBeCalledWith('POST', '/v2/estimates/1000/messages', {
+      event_type: 'send'
+    });
+  });
+
+  it('should have an accept method that calls the request method', () => {
+    instance.accept(id);
+    expect(request).toBeCalledWith('POST', '/v2/estimates/1000/messages', {
+      event_type: 'accept'
+    });
+  });
+
+  it('should have a decline method that calls the request method', () => {
+    instance.decline(id);
+    expect(request).toBeCalledWith('POST', '/v2/estimates/1000/messages', {
+      event_type: 'decline'
+    });
+  });
+
+  it('should have a reopen method that calls the request method', () => {
+    instance.reopen(id);
+    expect(request).toBeCalledWith('POST', '/v2/estimates/1000/messages', {
+      event_type: 're-open'
+    });
+  });
 });

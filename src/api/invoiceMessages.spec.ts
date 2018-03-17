@@ -10,11 +10,16 @@ const harvest = {
  * Dummy test
  */
 describe('InvoiceMessages test', () => {
-  it('works if true is truthy', () => {
-    expect(true).toBeTruthy();
+  let instance;
+  let request;
+  let id = 1000;
+
+  beforeEach(() => {
+    instance = new InvoiceMessages(harvest);
+    request = spyOn(instance.harvest, 'request');
   });
 
   it('InvoiceMessages is instantiable', () => {
-    expect(new InvoiceMessages({})).toBeInstanceOf(InvoiceMessages);
+    expect(instance).toBeInstanceOf(InvoiceMessages);
   });
 });

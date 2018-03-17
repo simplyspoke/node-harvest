@@ -10,11 +10,16 @@ const harvest = {
  * Dummy test
  */
 describe('EstimateMessages test', () => {
-  it('works if true is truthy', () => {
-    expect(true).toBeTruthy();
+  let instance;
+  let request;
+  let id = 1000;
+
+  beforeEach(() => {
+    instance = new EstimateMessages(harvest);
+    request = spyOn(instance.harvest, 'request');
   });
 
   it('EstimateMessages is instantiable', () => {
-    expect(new EstimateMessages({})).toBeInstanceOf(EstimateMessages);
+    expect(instance).toBeInstanceOf(EstimateMessages);
   });
 });

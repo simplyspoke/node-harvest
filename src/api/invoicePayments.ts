@@ -9,7 +9,7 @@ export default class InvoicePaymentsAPI {
   baseUrl: string;
 
   constructor(harvest) {
-    this.baseUrl = '/v2/invoice';
+    this.baseUrl = '/v2/invoices';
     this.harvest = harvest;
   }
 

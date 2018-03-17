@@ -1,5 +1,10 @@
 {
   "compilerOptions": {
+    "alwaysStrict": true,
+    "baseUrl": "src",
+    "lib": [
+        "es2016"
+    ],
     "moduleResolution": "node",
     "target": "es6",
     "module": "commonjs",

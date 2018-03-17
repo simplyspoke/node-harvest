@@ -10,11 +10,16 @@ const harvest = {
  * Dummy test
  */
 describe('UserAssignments test', () => {
-  it('works if true is truthy', () => {
-    expect(true).toBeTruthy();
+  let instance;
+  let request;
+  let id = 1000;
+
+  beforeEach(() => {
+    instance = new UserAssignments(harvest);
+    request = spyOn(instance.harvest, 'request');
   });
 
   it('UserAssignments is instantiable', () => {
-    expect(new UserAssignments({})).toBeInstanceOf(UserAssignments);
+    expect(instance).toBeInstanceOf(UserAssignments);
   });
 });

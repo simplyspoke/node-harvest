@@ -7,7 +7,7 @@ export default class TasksAPI {
   baseUrl: string;
 
   constructor(harvest) {
-    this.baseUrl = '/v2/tasks/';
+    this.baseUrl = '/v2/tasks';
     this.harvest = harvest;
   }
 

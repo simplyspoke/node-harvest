@@ -10,11 +10,21 @@ const harvest = {
  * Dummy test
  */
 describe('Company test', () => {
-  it('works if true is truthy', () => {
-    expect(true).toBeTruthy();
+  let instance;
+  let request;
+  let id = 1000;
+
+  beforeEach(() => {
+    instance = new Company(harvest);
+    request = spyOn(instance.harvest, 'request');
   });
 
   it('Company is instantiable', () => {
-    expect(new Company({})).toBeInstanceOf(Company);
+    expect(instance).toBeInstanceOf(Company);
+  });
+
+  it('should have a get method that calls the request method', () => {
+    instance.get();
+    expect(request).toBeCalledWith('GET', '/v2/company');
   });
 });

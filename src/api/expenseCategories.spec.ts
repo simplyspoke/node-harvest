@@ -9,12 +9,17 @@ const harvest = {
 /**
  * Dummy test
  */
-describe('ExpenseCategoriess test', () => {
-  it('works if true is truthy', () => {
-    expect(true).toBeTruthy();
+describe('ExpenseCategories test', () => {
+  let instance;
+  let request;
+  let id = 1000;
+
+  beforeEach(() => {
+    instance = new ExpenseCategories(harvest);
+    request = spyOn(instance.harvest, 'request');
   });
 
-  it('ExpenseCategoriess is instantiable', () => {
-    expect(new ExpenseCategories({})).toBeInstanceOf(ExpenseCategories);
+  it('ExpenseCategories is instantiable', () => {
+    expect(instance).toBeInstanceOf(ExpenseCategories);
   });
 });

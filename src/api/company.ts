@@ -8,6 +8,6 @@ export default class CompanyAPI {
   }
 
   public get() {
-    return this.harvest.request('GET', '/v2/company', {});
+    return this.harvest.request('GET', '/v2/company');
   }
 }

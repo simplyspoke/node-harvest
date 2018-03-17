@@ -8,7 +8,7 @@ export interface PagenationParameters {
    * Default: 1
    * Range: 1 or more
    */
-  page: number
+  page: number;
 
   /**
    * The number of records to return per page.
@@ -16,7 +16,7 @@ export interface PagenationParameters {
    * Default: 100
    * Range: 1 to 100
    */
-  per_page: number
+  per_page: number;
 }
 
 /**
@@ -26,27 +26,27 @@ export interface PagenationResponse {
   /**
    * The current page
    */
-  page: number
+  page: number;
 
   /**
    * Total number of pages
    */
-  total_pages: number
+  total_pages: number;
 
   /**
    * Total number of entries
    */
-  total_entries: number
+  total_entries: number;
 
   /**
    * The next page number
    */
-  next_page: number | null
+  next_page: number | null;
 
   /**
    * The previous page number
    */
-  previous_page: number | null
+  previous_page: number | null;
 
   /**
    * Links to other pages
@@ -55,21 +55,21 @@ export interface PagenationResponse {
     /**
      * The first page of entries
      */
-    first: string
+    first: string;
 
     /**
      * The next page of entries
      */
-    next: string | null
+    next: string | null;
 
     /**
      * The previous page of entries
      */
-    previous: string | null
+    previous: string | null;
 
     /**
      * The last page of entries
      */
-    last: string
-  }
+    last: string;
+  };
 }

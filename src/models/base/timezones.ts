@@ -5,22 +5,22 @@ export interface TimeZone {
   /**
    * Harvest 'name
    */
-  name: string
+  name: string;
 
   /**
    * TZ 'name
    */
-  tz: string
+  tz: string;
 
   /**
    * UTC Offset
    */
-  offset: string
+  offset: string;
 
   /**
    * The UTC DST Offset
    */
-  offsetDST: string
+  offsetDST: string;
 }
 
 export const SupportedTimeZones: TimeZone[] = [
@@ -924,4 +924,4 @@ export const SupportedTimeZones: TimeZone[] = [
     offset: '+13:00',
     offsetDST: '+13:00'
   }
-]
+];

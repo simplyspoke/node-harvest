@@ -2,12 +2,12 @@ export interface ResponseCode {
   /**
    * HTTP status code
    */
-  code: number
+  code: number;
 
   /**
    * Explanation of the codes meaning
    */
-  description: string
+  description: string;
 }
 
 export const ResponseCodes: ResponseCode[] = [
@@ -36,10 +36,12 @@ export const ResponseCodes: ResponseCode[] = [
   },
   {
     code: 429,
-    description: 'Your request has been throttled. Refer to the Rate Limiting section for details.'
+    description:
+      'Your request has been throttled. Refer to the Rate Limiting section for details.'
   },
   {
     code: 500,
-    description: 'There was a server error. Contact support@getharvest.com for help.'
+    description:
+      'There was a server error. Contact support@getharvest.com for help.'
   }
-]
+];

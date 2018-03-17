@@ -5,12 +5,12 @@ export interface Currency {
   /**
    * Harvest Name
    */
-  name: string
+  name: string;
 
   /**
    * Code
    */
-  code: string
+  code: string;
 }
 
 export const SupportedCurrency: Currency[] = [
@@ -698,4 +698,4 @@ export const SupportedCurrency: Currency[] = [
     name: 'Zambian Kwacha',
     code: 'ZMW'
   }
-]
+];

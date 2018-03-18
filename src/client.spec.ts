@@ -1,6 +1,5 @@
 import * as Request from 'request-promise';
 import Client from './client';
-import { assign, cloneDeep } from 'lodash';
 
 const config = {
   subdomain: process.env.SUBDOMAIN,

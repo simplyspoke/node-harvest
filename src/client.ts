@@ -1,8 +1,5 @@
 import async from 'async';
 import * as Request from 'request-promise';
-import { assign, cloneDeep } from 'lodash';
-
-// import { Authentication } from './authentication';
 
 export default class Client {
   private accessToken: string;
@@ -11,12 +8,9 @@ export default class Client {
   private defaults;
   private queue;
   private request;
-  // private authentication: Authentication;
   // private timeout;
 
   constructor(config: any) {
-    // this.authentication = new Authentication(config.auth);
-
     this.accessToken = config.auth.accessToken;
     this.accountId = config.auth.accountId;
 

@@ -2,28 +2,33 @@ import async from 'async';
 import * as Request from 'request-promise';
 import { assign, cloneDeep } from 'lodash';
 
-import Authentication from './authentication';
+// import { Authentication } from './authentication';
 
 export default class Client {
+  private accessToken: string;
+  private accountId: string;
+  private concurrency;
   private defaults;
   private queue;
   private request;
-  private authentication: Authentication;
-  private concurrency;
+  // private authentication: Authentication;
   private timeout;
 
   constructor(config: any) {
-    this.authentication = new Authentication(config.auth);
+    // this.authentication = new Authentication(config.auth);
 
-    this.request = Request.defaults(
-      this.authentication.getConfig({
-        baseURL: 'https://api.harvestapp.com/',
-        headers: {
-          'User-Agent': config.userAgent
-        },
-        transform: this.preprocess
-      })
-    );
+    this.accessToken = config.auth.accessToken;
+    this.accountId = config.auth.accountId;
+
+    this.request = Request.defaults({
+      baseURL: 'https://api.harvestapp.com/',
+      headers: {
+        'User-Agent': config.userAgent,
+        Authorization: `Bearer ${this.accessToken}`,
+        'Harvest-Account-Id': this.accountId
+      },
+      transform: this.preprocess
+    });
 
     // TODO: Make the user agnet required as described on https://help.getharvest.com/api-v2/introduction/overview/general/
 

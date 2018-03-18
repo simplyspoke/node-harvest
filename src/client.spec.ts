@@ -1,9 +1,6 @@
 import * as Request from 'request-promise';
 import Client from './client';
-import Authentication from './authentication';
 import { assign, cloneDeep } from 'lodash';
-
-jest.mock('./authentication');
 
 const config = {
   subdomain: process.env.SUBDOMAIN,

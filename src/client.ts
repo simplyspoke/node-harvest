@@ -12,7 +12,7 @@ export default class Client {
   private queue;
   private request;
   // private authentication: Authentication;
-  private timeout;
+  // private timeout;
 
   constructor(config: any) {
     // this.authentication = new Authentication(config.auth);

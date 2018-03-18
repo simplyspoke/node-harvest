@@ -16,10 +16,10 @@
     ]
   },
   "include": [
-    "src/**/*.ts"
+    "src"
   ],
   "exclude": [
-      "src/**/*.spec.ts",
+      "src/**/*.models.ts",
       "node_modules",
       "dist"
   ]

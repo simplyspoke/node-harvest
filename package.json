@@ -10,7 +10,7 @@
     "npm",
     "harvest"
   ],
-  "main": "dist/harvest.js",
+  "main": "dist/index.js",
   "typings": "dist/types/harvest.d.ts",
   "files": [
     "dist"

@@ -56,7 +56,7 @@ describe('Client test', () => {
     });
 
     it('should recieve data and send it to the callback', done => {
-      spyOn(instance, 'request').and.returnValue(
+      spyOn(instance, 'request').and.callFake(() =>
         Promise.resolve({ headers: true, data: true })
       );
       const task = {
@@ -74,7 +74,7 @@ describe('Client test', () => {
     });
 
     it('should recieve an error and send it to the callback', done => {
-      spyOn(instance, 'request').and.returnValue(Promise.reject(true));
+      spyOn(instance, 'request').and.callFake(() => Promise.reject(true));
       const task = {
         method: 'string',
         uri: 'string',

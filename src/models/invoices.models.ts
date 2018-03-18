@@ -36,6 +36,10 @@ export interface Invoice {
   // Type: decimal
   amount: number;
 
+  // The total amount due at this time for this invoice.
+  // Type: decimal
+  due_amount: number;
+
   // 	This percentage is applied to the subtotal, including line items and discounts.
   // Type: decimal
   tax: number;
@@ -120,6 +124,9 @@ export interface Invoice {
 export interface InvoiceLineItem {
   // integer Unique ID for the line item.
   id: number;
+
+  // An object containing the associated project’s id, name, and code.
+  project: object;
 
   // The name of an invoice item category.
   kind: string;

@@ -38,7 +38,7 @@ export interface TimeEntry {
 
   // Number of (decimal time) hours tracked in this time entry.
   // Type: decimal
-  hours: object;
+  hours: number;
 
   // Notes attached to the time entry.
   notes: string;

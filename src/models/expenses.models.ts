@@ -10,6 +10,16 @@ export interface Expense {
   // An object containing the expense’s client id, name, and currency.
   client: object;
 
+  // * Either units or total_cost is required. units is required if using a unit-based expense category. total_cost is required if not using a unit-based expense category.
+
+  // Date the expense occurred.
+  // Type: decimal
+  total_cost?: number;
+
+  // Date the expense occurred.
+  // Type: integer
+  units?: number;
+
   // An object containing the expense’s project id, name, and code.
   project: object;
 

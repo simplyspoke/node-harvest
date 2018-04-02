@@ -56,7 +56,7 @@ export default class Client {
 
       this.request(options)
         .then(({ headers, data }) => {
-          task.callback(null, data);
+          task.callback(null, JSON.parse(data));
           done();
         })
         .catch(error => {

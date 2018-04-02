@@ -3,7 +3,9 @@
     "alwaysStrict": true,
     "baseUrl": "src",
     "lib": [
-        "es2016"
+        "es2016",
+        "dom",
+        "esnext.asynciterable"
     ],
     "moduleResolution": "node",
     "target": "es6",

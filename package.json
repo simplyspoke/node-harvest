@@ -27,6 +27,7 @@
     "start": "webpack --mode development --display-error-details --watch",
     "test": "jest",
     "test:watch": "jest --watchAll",
+    "test:integration": "jest --config=jest.integration.js",
     "test:prod": "npm run lint && npm run test -- --coverage --no-cache",
     "deploy-docs": "ts-node tools/gh-pages-publish",
     "report-coverage": "cat ./coverage/lcov.info | coveralls",

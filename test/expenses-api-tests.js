@@ -58,12 +58,12 @@ describe('The Expenses API', function() {
       assert.equal(typeof harvest.expenses.getReceipt, 'function');
     });
     it('should should return an error when valid ids', function() {
-      harvest.expenses.getReceipt(null, function(err, res, entries) {
+      harvest.expenses.getReceipt(null, {}, function(err, res, entries) {
         assert(typeof err.message === 'string');
       });
     });
     it('should work properly', function(done) {
-      harvest.expenses.getReceipt(15113947, function(err, res, results) {
+      harvest.expenses.getReceipt(15113947, {}, function(err, res, results) {
         assert(!err);
         done();
       });

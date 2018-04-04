@@ -118,7 +118,7 @@ harvest.projects.list({}, function(error, res, body) {
   - `update(id, {params}, callback)`
   - `delete(id, callback)`
   - `attachReceipt(id, {params}, callback)`
-  - `getReceipt(id, callback)`
+  - `getReceipt(id, {params}, callback)`
 - invoiceCategories
   - `list({params}, callback)`
   - `get(id, callback)`
@@ -169,7 +169,7 @@ harvest.projects.list({}, function(error, res, body) {
   - `activate(id, callback)`
 - timeTracking
   - `daily({params}, callback)`
-  - `get(id, callback)`
+  - `get(id, {params}, callback)`
   - `create({params}, callback)`
   - `update(id, {params}, callback)`
   - `delete(id, callback)`

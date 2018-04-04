@@ -128,12 +128,12 @@ describe('The TimeTracking API', function() {
       assert.equal(typeof harvest.timeTracking.get, 'function');
     });
     it('should return an error when missing valid ids', function() {
-      harvest.timeTracking.get(null, function(err, res, entries) {
+      harvest.timeTracking.get(null, {}, function(err, res, entries) {
         assert(err.message === 'getting daily time requires an id');
       });
     });
     it('should return an individual timer', function(done) {
-      harvest.timeTracking.get(TEST_TIMER_ID, function(err, responce, timer) {
+      harvest.timeTracking.get(TEST_TIMER_ID, {}, function(err, responce, timer) {
         assert(!err);
         assert.equal(typeof timer, 'object');
         assert.equal(typeof timer.id, 'number');

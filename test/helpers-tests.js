@@ -41,4 +41,22 @@ describe('Helpers', function() {
       assert(!helpers.has(object, ['missing']));
     });
   });
+  describe('ofUserUri', function() {
+    let url = 'http://localhost';
+    let options = {
+      of_user: 'userID'
+    };
+    it('be a function', function() {
+      assert.equal(typeof helpers.ofUserUri, 'function');
+    });
+    it('should return submitted url if of_user is not defined', function() {
+      assert.equal(url, helpers.ofUserUri(url, {}));
+    });
+    it('should an appended url with the of user parameter set', function() {
+      assert.equal(url + '/?of_user=userID', helpers.ofUserUri(url, options));
+    });
+    it('should delete the of_user property if defined', function() {
+      assert.equal(typeof options.of_user, 'undefined');
+    });
+  });
 });

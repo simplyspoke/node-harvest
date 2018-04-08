@@ -18,7 +18,8 @@
     ]
   },
   "include": [
-    "src"
+    "src",
+    "test"
   ],
   "exclude": [
       "src/**/*.models.ts",

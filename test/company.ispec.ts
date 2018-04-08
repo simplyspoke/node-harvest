@@ -13,12 +13,10 @@ describe('The Company API', () => {
       .get()
       .then(response => {
         expect(response).toBeDefined();
-
         done();
       })
-      .catch(error => {
-        expect(error).toBeUndefined();
-        done();
+      .catch(() => {
+        fail();
       });
   });
 });

@@ -28,6 +28,7 @@
     "test": "jest",
     "test:watch": "jest --watchAll",
     "test:integration": "jest --config=jest.integration.js",
+    "test:integration:watch": "jest --config=jest.integration.js --watchAll",
     "test:prod": "npm run lint && npm run test -- --coverage --no-cache",
     "deploy-docs": "ts-node tools/gh-pages-publish",
     "report-coverage": "cat ./coverage/lcov.info | coveralls",

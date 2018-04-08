@@ -1,23 +1,101 @@
 import Harvest from '../src/index';
 import config from './test.config';
 
-describe('The Company API', () => {
-  let instance;
+const recipients = [
+  {
+    name: 'Bob Powell',
+    email: 'bobpowell@example.com'
+  }
+];
 
-  beforeAll(() => {
+describe('The Estimate Messages API', () => {
+  let instance;
+  let client;
+  let estimate;
+  let message;
+
+  beforeAll(done => {
     instance = new Harvest(config);
+    instance.clients
+      .create({
+        name: 'Test Client'
+      })
+      .then(response => {
+        client = response;
+        instance.estimates
+          .create({
+            name: 'Test Estimate',
+            currency: 'USD',
+            client_id: client.id
+          })
+          .then(response => {
+            estimate = response;
+            done();
+          })
+          .catch(error => {
+            console.log(error);
+            done();
+          });
+      });
   });
 
-  it('Can retrieve the Company record without erroring', done => {
-    instance.company
-      .get()
+  afterAll(done => {
+    instance.estimate.delete(estimate.id).then(() => {
+      instance.client
+        .delete(client.id)
+        .then(() => {
+          done();
+        })
+        .catch(error => {
+          console.log(error);
+          done();
+        });
+    });
+  });
+
+  it('should create an Estimate Message', done => {
+    instance.estimateMessages
+      .create(estimate.id, {
+        recipients
+      })
+      .then(response => {
+        expect(response).toBeDefined();
+        message = response;
+        done();
+      })
+      .catch(error => {
+        console.log(error);
+        fail();
+      });
+  });
+
+  it('should retrieve a list of Estimate Messages', done => {
+    instance.estimateMessages
+      .list(estimate.id)
+      .then(response => {
+        expect(response).toBeDefined();
+        // Find and assign the category incase the create failed
+        if (!message) {
+          message = response.estimate_messages.find(
+            entry => entry.recipients === recipients
+          );
+        }
+        done();
+      })
+      .catch(() => {
+        fail();
+      });
+  });
+
+  it('should to delete an Estimate Message', done => {
+    instance.estimateMessages
+      .delete(estimate.id, message.id)
       .then(response => {
         expect(response).toBeDefined();
         done();
       })
-      .catch(error => {
-        expect(error).toBeUndefined();
-        done();
+      .catch(() => {
+        fail();
       });
   });
 });

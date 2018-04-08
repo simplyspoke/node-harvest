@@ -1,23 +1,39 @@
 import Harvest from '../src/index';
 import config from './test.config';
 
-describe('The Company API', () => {
+describe('The User Project Assignments API', () => {
   let instance;
+  let user;
 
-  beforeAll(() => {
+  beforeAll(done => {
     instance = new Harvest(config);
+    instance.request('GET', 'v2/users/me', {}).then(response => {
+      user = response;
+      done();
+    });
   });
 
-  it('Can retrieve the Company record without erroring', done => {
-    instance.company
-      .get()
+  it('should retrieve the me users project assignments without returning an error', done => {
+    instance.projectAssignments
+      .me()
       .then(response => {
         expect(response).toBeDefined();
         done();
       })
-      .catch(error => {
-        expect(error).toBeUndefined();
+      .catch(() => {
+        fail();
+      });
+  });
+
+  it('should retrieve a list of project assignments for a given user', done => {
+    instance.projectAssignments
+      .list(user.id)
+      .then(response => {
+        expect(response).toBeDefined();
         done();
+      })
+      .catch(() => {
+        fail();
       });
   });
 });

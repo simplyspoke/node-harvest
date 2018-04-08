@@ -19,7 +19,6 @@ module.exports = {
       statements: 95
     }
   },
-  setupTestFrameworkScriptFile: './test/cleanup.ts',
   moduleFileExtensions: ['ts', 'tsx', 'js'],
   testMatch: [
     '<rootDir>/test/**/*.ispec.ts'

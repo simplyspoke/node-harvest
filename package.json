@@ -1,6 +1,6 @@
 {
   "name": "harvest",
-  "version": "2.0.0-0",
+  "version": "2.0.0-1",
   "description": "Harvest API client library",
   "repository": {
     "type": "git",

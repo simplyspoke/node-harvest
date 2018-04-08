@@ -10,7 +10,7 @@ export default class TaskAssignmentsAPI {
   baseUrl: string;
 
   constructor(harvest) {
-    this.baseUrl = 'v2/projects';
+    this.baseUrl = '/v2/projects';
     this.harvest = harvest;
   }
 

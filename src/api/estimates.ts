@@ -9,7 +9,7 @@ export default class EstimatesAPI {
   baseUrl: string;
 
   constructor(harvest) {
-    this.baseUrl = 'v2/estimates';
+    this.baseUrl = '/v2/estimates';
     this.harvest = harvest;
   }
 

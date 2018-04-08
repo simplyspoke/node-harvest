@@ -25,19 +25,19 @@ describe('ExpenseCategories test', () => {
 
   it('should have a get method that calls the request method', () => {
     instance.get(id);
-    expect(request).toBeCalledWith('GET', '/v2/expense_categorises/1000');
+    expect(request).toBeCalledWith('GET', '/v2/expense_categories/1000');
   });
 
   it('should have a list method that calls the request method', () => {
     const query = { is_active: true };
     instance.list(query);
-    expect(request).toBeCalledWith('GET', '/v2/expense_categorises', query);
+    expect(request).toBeCalledWith('GET', '/v2/expense_categories', query);
   });
 
   it('should have an create method that calls the request method', () => {
     const data = { property: true };
     instance.create(data);
-    expect(request).toBeCalledWith('POST', '/v2/expense_categorises', data);
+    expect(request).toBeCalledWith('POST', '/v2/expense_categories', data);
   });
 
   it('should have an update method that calls the request method', () => {
@@ -45,13 +45,13 @@ describe('ExpenseCategories test', () => {
     instance.update(id, query);
     expect(request).toBeCalledWith(
       'PATCH',
-      '/v2/expense_categorises/1000',
+      '/v2/expense_categories/1000',
       query
     );
   });
 
   it('should have a delete method that calls the request method', () => {
     instance.delete(id);
-    expect(request).toBeCalledWith('DELETE', '/v2/expense_categorises/1000');
+    expect(request).toBeCalledWith('DELETE', '/v2/expense_categories/1000');
   });
 });

@@ -15,7 +15,7 @@ export default class Client {
     this.accountId = config.auth.accountId;
 
     this.request = Request.defaults({
-      baseURL: 'https://api.harvestapp.com/',
+      baseURL: 'https://api.harvestapp.com',
       headers: {
         'User-Agent': config.userAgent,
         Authorization: `Bearer ${this.accessToken}`,
@@ -56,8 +56,7 @@ export default class Client {
 
       this.request(options)
         .then(({ headers, data }) => {
-          // console.log('headers', headers.status, headers['Retry-After'])
-          task.callback(null, JSON.parse(data));
+          task.callback(undefined, JSON.parse(data));
           done();
         })
         .catch(error => {
@@ -68,28 +67,22 @@ export default class Client {
               done
             );
           }
-          task.callback(error, null);
+          task.callback(error, undefined);
           done();
         });
     };
   }
 
   retryAfter(task, retryAfter, done) {
-    console.log('retry', task, retryAfter);
     this.queue.pause();
     this.queue.push(task);
     clearTimeout(this.timeout);
 
-    // let timeout = helpers.parseTimeout(response.headers['retry-after']);
-    let timeout = null;
-
-    if (!isNaN(timeout)) {
-      return (this.timeout = setTimeout(() => {
-        this.queue.resume();
-      }, timeout));
-    }
+    this.timeout = setTimeout(() => {
+      this.queue.resume();
+    }, retryAfter);
 
     done();
-    task.callback(timeout, null, null);
+    task.callback(`Retry after: ${retryAfter}`, undefined, undefined);
   }
 }

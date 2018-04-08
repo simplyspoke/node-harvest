@@ -63,7 +63,7 @@ describe('Client test', () => {
         uri: 'string',
         data: 'any',
         callback: (error, results) => {
-          expect(error).toBeNull();
+          expect(error).toBeUndefined();
           expect(results).toBeTruthy();
         }
       };
@@ -80,12 +80,69 @@ describe('Client test', () => {
         data: 'any',
         callback: (error, results) => {
           expect(error).toBeTruthy();
-          expect(results).toBeNull();
+          expect(results).toBeUndefined();
         }
       };
       generated(task, () => {
         done();
       });
+    });
+
+    it('should call the retryAfter method after an error with a 429 status is recieved', done => {
+      const task = {
+        method: 'string',
+        uri: 'string',
+        data: 'any',
+        callback: undefined
+      };
+      const complete = jasmine.createSpy();
+      spyOn(instance, 'request').and.callFake(() =>
+        Promise.reject({
+          statusCode: 429,
+          response: { headers: { 'retry-after': 10 } }
+        })
+      );
+      spyOn(instance, 'retryAfter').and.callFake(() => {
+        console.log('hit');
+        expect(instance.retryAfter).toHaveBeenCalledWith(task, 10, complete);
+        done();
+      });
+      generated(task, complete);
+    });
+  });
+
+  describe('retryAfter method', () => {
+    const complete = jasmine.createSpy();
+    let pause;
+    let push;
+    let resume;
+
+    beforeEach(() => {
+      pause = spyOn(instance.queue, 'pause').and.callFake(() => true);
+      push = spyOn(instance.queue, 'push').and.callFake(() => true);
+      resume = spyOn(instance.queue, 'resume').and.callFake(() => true);
+    });
+
+    it('should pause the queue and push the task on to it', () => {
+      const task = {
+        callback: timeout => {
+          expect(timeout).toEqual('Retry after: 15');
+        }
+      };
+      instance.retryAfter(task, 15, complete);
+      expect(instance.queue.pause).toHaveBeenCalled();
+      expect(instance.queue.push).toHaveBeenCalled();
+    });
+
+    it('should resume the queue after the timeout is over', done => {
+      const task = {
+        callback: jasmine.createSpy()
+      };
+      instance.retryAfter(task, 15, complete);
+      setTimeout(() => {
+        expect(instance.queue.resume).toHaveBeenCalled();
+        done();
+      }, 20);
     });
   });
 });

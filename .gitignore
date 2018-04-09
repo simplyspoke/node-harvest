@@ -14,3 +14,9 @@ node_modules
 
 # Local ENV Variables for development
 .env
+
+# build directories
+dist
+compiled
+.awcache
+.rpt2_cache

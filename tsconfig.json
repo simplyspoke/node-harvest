@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "alwaysStrict": true,
+    "baseUrl": "src",
+    "lib": [
+        "es2016",
+        "dom",
+        "esnext.asynciterable"
+    ],
+    "moduleResolution": "node",
+    "target": "es6",
+    "module": "commonjs",
+    "declaration": true,
+    "sourceMap": true,
+    "declarationDir": "types",
+    "typeRoots": [
+      "node_modules/@types"
+    ]
+  },
+  "include": [
+    "src",
+    "test"
+  ],
+  "exclude": [
+      "src/**/*.models.ts",
+      "node_modules",
+      "dist"
+  ]
+}

@@ -18,7 +18,8 @@ describe('The Roles API', () => {
         role = response;
         done();
       })
-      .catch(() => {
+      .catch(error => {
+        console.error(error);
         fail();
       });
   });
@@ -34,7 +35,8 @@ describe('The Roles API', () => {
         }
         done();
       })
-      .catch(() => {
+      .catch(error => {
+        console.error(error);
         fail();
       });
   });
@@ -46,7 +48,8 @@ describe('The Roles API', () => {
         expect(response).toBeDefined();
         done();
       })
-      .catch(() => {
+      .catch(error => {
+        console.error(error);
         fail();
       });
   });
@@ -58,7 +61,8 @@ describe('The Roles API', () => {
         expect(response).toBeDefined();
         done();
       })
-      .catch(() => {
+      .catch(error => {
+        console.error(error);
         fail();
       });
   });
@@ -70,7 +74,8 @@ describe('The Roles API', () => {
         expect(response).toBeDefined();
         done();
       })
-      .catch(() => {
+      .catch(error => {
+        console.error(error);
         fail();
       });
   });

@@ -18,13 +18,13 @@ describe('The Invoice Messages API', () => {
     instance = new Harvest(config);
     instance.clients
       .create({
-        name: 'Test Client'
+        name: 'Test Client - invoiceMessages'
       })
       .then(response => {
         client = response;
         instance.invoices
           .create({
-            name: 'Test Invoice',
+            name: 'Test Invoice - invoiceMessages',
             currency: 'USD',
             client_id: client.id
           })
@@ -82,7 +82,8 @@ describe('The Invoice Messages API', () => {
         }
         done();
       })
-      .catch(() => {
+      .catch(error => {
+        console.error(error);
         fail();
       });
   });
@@ -94,7 +95,8 @@ describe('The Invoice Messages API', () => {
         expect(response).toBeDefined();
         done();
       })
-      .catch(() => {
+      .catch(error => {
+        console.error(error);
         fail();
       });
   });

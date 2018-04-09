@@ -18,13 +18,13 @@ describe('The Estimate Messages API', () => {
     instance = new Harvest(config);
     instance.clients
       .create({
-        name: 'Test Client'
+        name: 'Test Client - estimateMessages'
       })
       .then(response => {
         client = response;
         instance.estimates
           .create({
-            name: 'Test Estimate',
+            name: 'Test Estimate - estimateMessages',
             currency: 'USD',
             client_id: client.id
           })
@@ -34,22 +34,15 @@ describe('The Estimate Messages API', () => {
           })
           .catch(error => {
             console.log(error);
-            done();
           });
       });
   });
 
   afterAll(done => {
-    instance.estimate.delete(estimate.id).then(() => {
-      instance.client
-        .delete(client.id)
-        .then(() => {
-          done();
-        })
-        .catch(error => {
-          console.log(error);
-          done();
-        });
+    instance.estimates.delete(estimate.id).then(() => {
+      instance.clients.delete(client.id).then(() => {
+        done();
+      });
     });
   });
 
@@ -82,7 +75,8 @@ describe('The Estimate Messages API', () => {
         }
         done();
       })
-      .catch(() => {
+      .catch(error => {
+        console.error(error);
         fail();
       });
   });
@@ -94,7 +88,8 @@ describe('The Estimate Messages API', () => {
         expect(response).toBeDefined();
         done();
       })
-      .catch(() => {
+      .catch(error => {
+        console.error(error);
         fail();
       });
   });

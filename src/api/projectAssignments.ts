@@ -15,7 +15,7 @@ export default class ProjectAssignmentsAPI {
   public list(id: number, query: ProjectAssignmentsPagenationParameters) {
     return this.harvest.request(
       'GET',
-      `${this.baseUrl}/${id}/project-assignments`,
+      `${this.baseUrl}/${id}/project_assignments`,
       query
     );
   }
@@ -25,7 +25,7 @@ export default class ProjectAssignmentsAPI {
   public me(query: PagenationParameters) {
     return this.harvest.request(
       'GET',
-      `${this.baseUrl}/me/project-assignments`,
+      `${this.baseUrl}/me/project_assignments`,
       query
     );
   }

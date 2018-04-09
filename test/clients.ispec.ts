@@ -49,7 +49,8 @@ describe('The Client API', () => {
         expect(response).toBeDefined();
         done();
       })
-      .catch(() => {
+      .catch(error => {
+        console.error(error);
         fail();
       });
   });
@@ -61,7 +62,8 @@ describe('The Client API', () => {
         expect(response).toBeDefined();
         done();
       })
-      .catch(() => {
+      .catch(error => {
+        console.error(error);
         fail();
       });
   });

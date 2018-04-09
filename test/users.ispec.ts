@@ -11,13 +11,14 @@ describe('The Users API', () => {
   });
 
   it('should retrieve the me User record without returning an error', done => {
-    instance
-      .request('GET', 'v2/users/me', {})
+    instance.users
+      .me()
       .then(response => {
         expect(response).toBeDefined();
         done();
       })
-      .catch(() => {
+      .catch(error => {
+        console.error(error);
         fail();
       });
   });
@@ -54,7 +55,8 @@ describe('The Users API', () => {
         user = response.users[0];
         done();
       })
-      .catch(() => {
+      .catch(error => {
+        console.error(error);
         fail();
       });
   });
@@ -66,7 +68,8 @@ describe('The Users API', () => {
         expect(response).toBeDefined();
         done();
       })
-      .catch(() => {
+      .catch(error => {
+        console.error(error);
         fail();
       });
   });
@@ -78,7 +81,8 @@ describe('The Users API', () => {
         expect(response).toBeDefined();
         done();
       })
-      .catch(() => {
+      .catch(error => {
+        console.error(error);
         fail();
       });
   });

@@ -7,7 +7,7 @@ describe('The User Project Assignments API', () => {
 
   beforeAll(done => {
     instance = new Harvest(config);
-    instance.request('GET', 'v2/users/me', {}).then(response => {
+    instance.users.me().then(response => {
       user = response;
       done();
     });
@@ -20,7 +20,8 @@ describe('The User Project Assignments API', () => {
         expect(response).toBeDefined();
         done();
       })
-      .catch(() => {
+      .catch(error => {
+        console.error(error);
         fail();
       });
   });
@@ -32,7 +33,8 @@ describe('The User Project Assignments API', () => {
         expect(response).toBeDefined();
         done();
       })
-      .catch(() => {
+      .catch(error => {
+        console.error(error);
         fail();
       });
   });

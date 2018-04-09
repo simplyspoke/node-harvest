@@ -12,7 +12,7 @@ describe('The Project Task Assignments API', () => {
     instance = new Harvest(config);
     instance.clients
       .create({
-        name: 'Test Client'
+        name: 'Test Client - taskAssignments'
       })
       .then(response => {
         client = response;
@@ -22,13 +22,13 @@ describe('The Project Task Assignments API', () => {
             budget_by: 'none',
             client_id: client.id,
             is_billable: true,
-            name: 'Test Project'
+            name: 'Test Project - taskAssignments'
           })
           .then(response => {
             project = response;
             instance.tasks
               .create({
-                name: 'Test Task'
+                name: 'Test Task - taskAssignments'
               })
               .then(response => {
                 task = response;
@@ -58,7 +58,8 @@ describe('The Project Task Assignments API', () => {
         assignment = response;
         done();
       })
-      .catch(() => {
+      .catch(error => {
+        console.error(error);
         fail();
       });
   });
@@ -76,7 +77,8 @@ describe('The Project Task Assignments API', () => {
         }
         done();
       })
-      .catch(() => {
+      .catch(error => {
+        console.error(error);
         fail();
       });
   });
@@ -88,7 +90,8 @@ describe('The Project Task Assignments API', () => {
         expect(response).toBeDefined();
         done();
       })
-      .catch(() => {
+      .catch(error => {
+        console.error(error);
         fail();
       });
   });
@@ -100,7 +103,8 @@ describe('The Project Task Assignments API', () => {
         expect(response).toBeDefined();
         done();
       })
-      .catch(() => {
+      .catch(error => {
+        console.error(error);
         fail();
       });
   });
@@ -112,7 +116,8 @@ describe('The Project Task Assignments API', () => {
         expect(response).toBeDefined();
         done();
       })
-      .catch(() => {
+      .catch(error => {
+        console.error(error);
         fail();
       });
   });

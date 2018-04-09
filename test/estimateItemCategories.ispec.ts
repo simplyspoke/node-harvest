@@ -17,7 +17,8 @@ describe('The Estimate Item Categories API', () => {
         category = response;
         done();
       })
-      .catch(() => {
+      .catch(error => {
+        console.error(error);
         fail();
       });
   });
@@ -35,7 +36,8 @@ describe('The Estimate Item Categories API', () => {
         }
         done();
       })
-      .catch(() => {
+      .catch(error => {
+        console.error(error);
         fail();
       });
   });
@@ -47,7 +49,8 @@ describe('The Estimate Item Categories API', () => {
         expect(response).toBeDefined();
         done();
       })
-      .catch(() => {
+      .catch(error => {
+        console.error(error);
         fail();
       });
   });
@@ -59,7 +62,8 @@ describe('The Estimate Item Categories API', () => {
         expect(response).toBeDefined();
         done();
       })
-      .catch(() => {
+      .catch(error => {
+        console.error(error);
         fail();
       });
   });
@@ -71,7 +75,8 @@ describe('The Estimate Item Categories API', () => {
         expect(response).toBeDefined();
         done();
       })
-      .catch(() => {
+      .catch(error => {
+        console.error(error);
         fail();
       });
   });

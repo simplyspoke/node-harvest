@@ -5,7 +5,8 @@ import config from './test.config';
 
 const instance = new Harvest(config);
 
-tasks()
+time()
+  .then(tasks)
   .then(invoices)
   .then(projects)
   .then(estimates)
@@ -35,25 +36,25 @@ function invoices() {
   });
 }
 
-// function time(projectId) {
-//   return new Promise((resolve, reject) => {
-//     instance.timeEntries.list().then((results) => {
-//       const defered = [];
-//       console.log(results)
-//       results.time_entries.forEach(entry => {
-//         defered.push(instance.timeEntries.delete(entry.id));
-//       });
-//
-//       Promise.all(defered).then(() => {
-//         console.log('Cleanup time entries complete');
-//         resolve();
-//       })
-//       .catch(error => {
-//         reject(error);
-//       });
-//     });
-//   });
-// }
+function time() {
+  return new Promise((resolve, reject) => {
+    instance.timeEntries.list().then(results => {
+      const defered = [];
+      results.time_entries.forEach(entry => {
+        defered.push(instance.timeEntries.delete(entry.id));
+      });
+
+      Promise.all(defered)
+        .then(() => {
+          console.log('Cleanup time entries complete');
+          resolve();
+        })
+        .catch(error => {
+          reject(error);
+        });
+    });
+  });
+}
 
 function projects() {
   return new Promise((resolve, reject) => {
@@ -61,7 +62,6 @@ function projects() {
       const defered = [];
 
       projects.forEach(entry => {
-        // defered.push(time(entry.id));
         defered.push(instance.projects.delete(entry.id));
       });
 

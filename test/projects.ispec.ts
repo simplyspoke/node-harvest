@@ -10,7 +10,7 @@ describe('The Projects API', () => {
     instance = new Harvest(config);
     instance.clients
       .create({
-        name: 'Test Client'
+        name: 'Test Client - projects'
       })
       .then(response => {
         client = response;
@@ -38,7 +38,8 @@ describe('The Projects API', () => {
         project = response;
         done();
       })
-      .catch(() => {
+      .catch(error => {
+        console.error(error);
         fail();
       });
   });
@@ -54,7 +55,8 @@ describe('The Projects API', () => {
         }
         done();
       })
-      .catch(() => {
+      .catch(error => {
+        console.error(error);
         fail();
       });
   });
@@ -66,7 +68,8 @@ describe('The Projects API', () => {
         expect(response).toBeDefined();
         done();
       })
-      .catch(() => {
+      .catch(error => {
+        console.error(error);
         fail();
       });
   });
@@ -78,7 +81,8 @@ describe('The Projects API', () => {
         expect(response).toBeDefined();
         done();
       })
-      .catch(() => {
+      .catch(error => {
+        console.error(error);
         fail();
       });
   });
@@ -90,7 +94,8 @@ describe('The Projects API', () => {
         expect(response).toBeDefined();
         done();
       })
-      .catch(() => {
+      .catch(error => {
+        console.error(error);
         fail();
       });
   });

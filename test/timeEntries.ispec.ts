@@ -14,7 +14,7 @@ describe('The Time Entries API', () => {
     instance = new Harvest(config);
     instance.clients
       .create({
-        name: 'Test Client'
+        name: 'Test Client - timeEntries'
       })
       .then(response => {
         client = response;
@@ -24,13 +24,13 @@ describe('The Time Entries API', () => {
             budget_by: 'none',
             client_id: client.id,
             is_billable: true,
-            name: 'Test Project'
+            name: 'Test Project - timeEntries'
           })
           .then(response => {
             project = response;
             instance.tasks
               .create({
-                name: 'Test Task'
+                name: 'Test Task - timeEntries'
               })
               .then(response => {
                 task = response;
@@ -41,12 +41,10 @@ describe('The Time Entries API', () => {
                   .then(response => {
                     expect(response).toBeDefined();
                     assignment = response;
-                    instance
-                      .request('GET', 'v2/users/me', {})
-                      .then(response => {
-                        user = response;
-                        done();
-                      });
+                    instance.users.me().then(response => {
+                      user = response;
+                      done();
+                    });
                   });
               });
           });
@@ -54,11 +52,16 @@ describe('The Time Entries API', () => {
   });
 
   afterAll(done => {
-    instance.timeEntries.delete(entry.id).then(() => {
-      instance.tasks.delete(task.id).then(() => {
-        instance.projects.delete(project.id).then(() => {
-          instance.clients.delete(client.id).then(done);
-        });
+    instance.tasks.delete(task.id).then(() => {
+      instance.projects.delete(project.id).then(() => {
+        instance.clients
+          .delete(client.id)
+          .then(() => {
+            done();
+          })
+          .catch(error => {
+            console.error(error);
+          });
       });
     });
   });
@@ -90,7 +93,8 @@ describe('The Time Entries API', () => {
         // Find and assign the project incase the create failed
         done();
       })
-      .catch(() => {
+      .catch(error => {
+        console.error(error);
         fail();
       });
   });
@@ -102,7 +106,8 @@ describe('The Time Entries API', () => {
         expect(response).toBeDefined();
         done();
       })
-      .catch(() => {
+      .catch(error => {
+        console.error(error);
         fail();
       });
   });
@@ -114,7 +119,8 @@ describe('The Time Entries API', () => {
         expect(response).toBeDefined();
         done();
       })
-      .catch(() => {
+      .catch(error => {
+        console.error(error);
         fail();
       });
   });
@@ -126,7 +132,8 @@ describe('The Time Entries API', () => {
         expect(response).toBeDefined();
         done();
       })
-      .catch(() => {
+      .catch(error => {
+        console.error(error);
         fail();
       });
   });

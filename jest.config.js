@@ -19,6 +19,7 @@ module.exports = {
       statements: 95
     }
   },
+  maxWorkers: 1,
   moduleFileExtensions: ['ts', 'tsx', 'js'],
   testMatch: [
     '<rootDir>/src/**/*.spec.ts'

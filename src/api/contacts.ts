@@ -32,9 +32,4 @@ export default class ContactsAPI {
   public delete(id) {
     return this.harvest.request('DELETE', `${this.baseUrl}/${id}`);
   }
-
-  // Special: Get current signed in contact
-  public me() {
-    return this.harvest.request('GET', `${this.baseUrl}/me`);
-  }
 }

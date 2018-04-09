@@ -11,7 +11,7 @@ fdescribe('The Invoices API', () => {
     instance = new Harvest(config);
     instance.clients
       .create({
-        name: 'Test Client'
+        name: 'Test Client - invoices'
       })
       .then(response => {
         client = response;
@@ -39,7 +39,8 @@ fdescribe('The Invoices API', () => {
         invoice = response;
         done();
       })
-      .catch(() => {
+      .catch(error => {
+        console.error(error);
         fail();
       });
   });
@@ -51,7 +52,8 @@ fdescribe('The Invoices API', () => {
         expect(response).toBeDefined();
         done();
       })
-      .catch(() => {
+      .catch(error => {
+        console.error(error);
         fail();
       });
   });
@@ -63,7 +65,8 @@ fdescribe('The Invoices API', () => {
         expect(response).toBeDefined();
         done();
       })
-      .catch(() => {
+      .catch(error => {
+        console.error(error);
         fail();
       });
   });
@@ -75,7 +78,8 @@ fdescribe('The Invoices API', () => {
         expect(response).toBeDefined();
         done();
       })
-      .catch(() => {
+      .catch(error => {
+        console.error(error);
         fail();
       });
   });
@@ -87,7 +91,8 @@ fdescribe('The Invoices API', () => {
         expect(response).toBeDefined();
         done();
       })
-      .catch(() => {
+      .catch(error => {
+        console.error(error);
         fail();
       });
   });

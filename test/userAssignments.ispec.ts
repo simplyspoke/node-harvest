@@ -12,7 +12,7 @@ describe('The Project User Assignments API', () => {
     instance = new Harvest(config);
     instance.clients
       .create({
-        name: 'Test Client'
+        name: 'Test Client - userAssignments'
       })
       .then(response => {
         client = response;
@@ -26,7 +26,7 @@ describe('The Project User Assignments API', () => {
           })
           .then(response => {
             project = response;
-            instance.request('GET', 'v2/users/me', {}).then(response => {
+            instance.users.me().then(response => {
               user = response;
               done();
             });
@@ -50,7 +50,8 @@ describe('The Project User Assignments API', () => {
         assignment = response;
         done();
       })
-      .catch(() => {
+      .catch(error => {
+        console.error(error);
         fail();
       });
   });
@@ -68,7 +69,8 @@ describe('The Project User Assignments API', () => {
         }
         done();
       })
-      .catch(() => {
+      .catch(error => {
+        console.error(error);
         fail();
       });
   });
@@ -80,7 +82,8 @@ describe('The Project User Assignments API', () => {
         expect(response).toBeDefined();
         done();
       })
-      .catch(() => {
+      .catch(error => {
+        console.error(error);
         fail();
       });
   });
@@ -92,7 +95,8 @@ describe('The Project User Assignments API', () => {
         expect(response).toBeDefined();
         done();
       })
-      .catch(() => {
+      .catch(error => {
+        console.error(error);
         fail();
       });
   });
@@ -104,7 +108,8 @@ describe('The Project User Assignments API', () => {
         expect(response).toBeDefined();
         done();
       })
-      .catch(() => {
+      .catch(error => {
+        console.error(error);
         fail();
       });
   });

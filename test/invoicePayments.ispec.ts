@@ -18,13 +18,13 @@ describe('The Invoice Payments API', () => {
     instance = new Harvest(config);
     instance.clients
       .create({
-        name: 'Test Client'
+        name: 'Test Client - invoicePayments'
       })
       .then(response => {
         client = response;
         instance.invoices
           .create({
-            name: 'Test Invoice',
+            name: 'Test Invoice - invoicePayments',
             currency: 'USD',
             client_id: client.id
           })
@@ -40,16 +40,10 @@ describe('The Invoice Payments API', () => {
   });
 
   afterAll(done => {
-    instance.invoice.delete(invoice.id).then(() => {
-      instance.client
-        .delete(client.id)
-        .then(() => {
-          done();
-        })
-        .catch(error => {
-          console.log(error);
-          done();
-        });
+    instance.invoices.delete(invoice.id).then(() => {
+      instance.clients.delete(client.id).then(() => {
+        done();
+      });
     });
   });
 
@@ -77,7 +71,8 @@ describe('The Invoice Payments API', () => {
         expect(response).toBeDefined();
         done();
       })
-      .catch(() => {
+      .catch(error => {
+        console.error(error);
         fail();
       });
   });
@@ -89,7 +84,8 @@ describe('The Invoice Payments API', () => {
         expect(response).toBeDefined();
         done();
       })
-      .catch(() => {
+      .catch(error => {
+        console.error(error);
         fail();
       });
   });

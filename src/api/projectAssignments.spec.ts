@@ -28,7 +28,7 @@ describe('ProjectAssignments test', () => {
     instance.list(id, query);
     expect(request).toBeCalledWith(
       'GET',
-      '/v2/users/1000/project-assignments',
+      '/v2/users/1000/project_assignments',
       query
     );
   });
@@ -38,7 +38,7 @@ describe('ProjectAssignments test', () => {
     instance.me(query);
     expect(request).toBeCalledWith(
       'GET',
-      '/v2/users/me/project-assignments',
+      '/v2/users/me/project_assignments',
       query
     );
   });

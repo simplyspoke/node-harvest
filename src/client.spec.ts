@@ -103,7 +103,6 @@ describe('Client test', () => {
         })
       );
       spyOn(instance, 'retryAfter').and.callFake(() => {
-        console.log('hit');
         expect(instance.retryAfter).toHaveBeenCalledWith(task, 10, complete);
         done();
       });

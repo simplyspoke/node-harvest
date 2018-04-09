@@ -35,23 +35,23 @@ export default class Harvest {
   clients;
   company;
   contacts;
-  estimates;
   estimateItemCategories;
   estimateMessages;
-  expenses;
+  estimates;
   expenseCategories;
-  invoices;
+  expenses;
   invoiceItemCategories;
   invoiceMessages;
   invoicePayments;
-  projects;
+  invoices;
   projectAssignments;
+  projects;
   roles;
-  tasks;
   taskAssignments;
+  tasks;
   timeEntries;
-  users;
   userAssignments;
+  users;
 
   constructor(config) {
     this.host = 'https://' + config.subdomain + '.harvestapp.com';

@@ -5,219 +5,106 @@
 [![Coverage Status](https://coveralls.io/repos/github/simplyspoke/node-harvest/badge.svg)](https://coveralls.io/github/simplyspoke/node-harvest)
 [![Dev Dependencies](https://david-dm.org/simplyspoke/node-harvest/dev-status.svg)](https://david-dm.org/simplyspoke/node-harvest?type=dev)
 [![npm version](https://badge.fury.io/js/harvest.svg)](http://badge.fury.io/js/harvest)
+[![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 
-Harvest is a tool that enables businesses to track time, track projects, manage clients, and invoice. This is a full client API built using node.js and the [Harvest API](http://help.getharvest.com/api/).
+**Version 1.x - Will be depreciated in the days to come, once enough testing of Version 2.x has been completed.**
+
+**Version 2.x - This is a substantial update to the prior versions adding functionality compatible with the Harvest API v2. This version is not backwards compatible**
+
+Harvest is a tool that enables businesses to track time, track projects, manage clients, and invoice. This is a full client API built using node.js and the [Harvest API](http://help.getharvest.com/api/). This node module provides an easy to use wrapper for the API returning promises.
 
 # Install
 
-npm install harvest
+`npm install harvest`
 
 # Usage
 
 ## Basic Authentication
 
 ```js
-let Harvest = require('harvest'),
-	harvest = new Harvest({
-    subdomain: config.harvest.subdomain,
-    email: config.harvest.email,
-    password: config.harvest.password
-  }),
-  TimeTracking = harvest.timeTracking;
+import Harvest from '../src/index';
 
-TimeTracking.daily({}, function(err, tasks) {
-  if (err) throw new Error(err);
-
-  // work with tasks
+const harvest = new Harvest({
+  subdomain: 'SUBDOMAIN',
+  userAgent: 'MyApp (yourname@example.com)',
+  concurrency: 1,
+  auth: {
+    accessToken: process.env.ACCESS_TOKEN,
+    accountId: process.env.ACCOUNT_ID
+  }
 });
+
+harvest.company
+  .get()
+  .then((response) => {
+    const company = response;
+    // Do some things with the company data
+  });
 ```
 
 ## OAuth Authentication
 
-### When you already have an access token
-
-```js
-const Harvest = require('harvest');
-
-const harvest = new Harvest({
-  subdomain: 'your-shop-name',
-  accessToken: 'your-oauth-token'
-});
-```
-
-### To get an access token which can then be stored and used in future
-
-```js
-// See https://platform.harvestapp.com/oauth2_clients to get these
-let harvest = new Harvest({
-  subdomain: 'your-shop-name',
-  redirectUri: 'your-redirect-uri'
-  identifier: 'your-client-identifier',
-  secret: 'your-client-secret'
-});
-
-// Send the user to harvest.getAccessTokenURL()) and grab the access code passed as a get parameter
-// e.g. By running an express.js server at redirect_url
-let access_code = req.query.code;
-
-harvest.parseAccessCode(access_code, function(err, message) {
-  // Do something here....
-});
-```
+*NOTE:* This feature has not yet been coded. To track its progress or provide feedback, use the following issue: https://github.com/simplyspoke/node-harvest/issues/85
 
 ## Resources
 
 Every resource is accessed via your `harvest` instance:
 
 ```js
-const harvest = new Harvest({
-  subdomain: 'your-shop-name',
-  accessToken: 'your-oauth-token'
-});
-
 // harvest.<resouce_name>.<method_name>
 ```
 
-Each method returns to a callback with the results:
+Each method returns to a promise that resolves the results:
 
 ```js
-harvest.projects.list({}, function(error, res, body) {
-
+harvest.projects.list().then((projects) =>{
+  // Do something with the projects list.
 })
 ```
 
-### Available resources and methods
+### Available resources and methods (Method documentation not complete.)
 
-- account
-  - `get(callback)`
-  - `rate_limit_status(callback)`
-- clientContacts
-  - `list({params}, callback)`
-  - `get(id, callback)`
-  - `create({params}, callback)`
-  - `update(id, {params}, callback)`
-  - `delete(id, callback)`
-  - `listByClient(clientId, callback)`
 - clients
-  - `list({params}, callback)`
-  - `get(id, callback)`
-  - `create({params}, callback)`
-  - `update(id, {params}, callback)`
-  - `delete(id, callback)`
-  - `toggle(id, callback)`
+- company
+- contacts
+- estimateItemCategories
+- estimateMessages
+- estimates
 - expenseCategories
-  - `list({params}, callback)`
-  - `get(id, callback)`
-  - `create({params}, callback)`
-  - `update(id, {params}, callback)`
-  - `delete(id, callback)`
 - expenses
-  - `list({params}, callback)`
-  - `get(id, callback)`
-  - `create({params}, callback)`
-  - `update(id, {params}, callback)`
-  - `delete(id, callback)`
-  - `attachReceipt(id, {params}, callback)`
-  - `getReceipt(id, callback)`
-- invoiceCategories
-  - `list({params}, callback)`
-  - `get(id, callback)`
-  - `create({params}, callback)`
-  - `update(id, {params}, callback)`
-  - `delete(id, callback)`
+- invoiceItemCategories
 - invoiceMessages
-  - `list(invoiceId, {params}, callback)`
-  - `get(invoiceId, id, callback)`
-  - `send(invoiceId, callback)`
-  - `delete(invoiceId, id, callback)`
-  - `mark(invoiceId, status, callback)`
 - invoicePayments
-  - `list(invoiceId, {params}, callback)`
-  - `get(invoiceId, id, callback)`
-  - `create(invoiceId, {params}, callback)`
-  - `delete(invoiceId, id, callback)`
 - invoices
-  - `list({params}, callback)`
-  - `get(id, callback)`
-  - `create({params}, callback)`
-  - `update(id, {params}, callback)`
-  - `delete(id, callback)`
+- projectAssignments
 - projects
-  - `list({params}, callback)`
-  - `get(id, callback)`
-  - `create({params}, callback)`
-  - `update(id, {params}, callback)`
-  - `delete(id, callback)`
-  - `toggle(id, callback)`
-- reports
-  - `timeEntriesByProject(id, {params}, callback)`
-  - `timeEntriesByUser(id, {params}, callback)`
-  - `expensesByProject(id, {params}, callback)`
-  - `expensesByUser(id, {params}, callback)`
-- taskAssignment
-  - `list(projectId, {params}, callback)`
-  - `get(projectId, id, callback)`
-  - `update(projectId, id, {params}, callback)`
-  - `delete(projectId, id, callback)`
-  - `assign(projectId, {params}, callback)`
+- roles
+- taskAssignments
 - tasks
-  - `list({params}, callback)`
-  - `get(id, callback)`
-  - `create({params}, callback)`
-  - `update(id, {params}, callback)`
-  - `delete(id, callback)`
-  - `activate(id, callback)`
-- timeTracking
-  - `daily({params}, callback)`
-  - `get(id, callback)`
-  - `create({params}, callback)`
-  - `update(id, {params}, callback)`
-  - `delete(id, callback)`
-  - `toggleTimer(id, callback)`
+- timeEntries
+- userAssignments
 - users
-  - `list({params}, callback)`
-  - `get(id, callback)`
-  - `create({params}, callback)`
-  - `update(id, {params}, callback)`
-  - `delete(id, callback)`
-  - `toggle(id, callback)`
-- userAssignment
-  - `list(projectId, {params}, callback)`
-  - `get(projectId, id, callback)`
-  - `assign(projectId, {params}, callback)`
-  - `update(projectId, id, {params}, callback)`
-  - `delete(projectId, id, callback)`
 
-For all methods, the last variable is expected to be a callback function. The possible options avalible for the params object can be found in the [Harvest API Documentation](http://help.getharvest.com/api/).
+For all methods, the last variable is expected to be a callback function. The possible options available for the params object can be found in the [Harvest API Documentation](http://help.getharvest.com/api/).
 
 # Testing
 
-**Note: Many of the current tests are configured with hard set variables set in the testing Harvest account. Future updates will resolve these issues, but at the moment testing will likely break we run locally.**
+In order to run the tests, you will need to have the following environmental variables defined:
 
-In order to test you will need to create a config file that uses your credentials inside `config/default.json`
-
-```json
-{
-  "harvest": {
-    "subdomain": "...",
-    "email": "...",
-    "password": "...",
-    "identifier": "...",
-    "secret": "...",
-    "userAgent": "node-harvest test runner"
-  }
-}
+```
+SUBDOMAIN=''
+ACCESS_TOKEN=''
+ACCOUNT_ID=''
 ```
 
-This API is designed to work either using HTTP Basic authentication, or OAuth so either set of credentials will work. Subdomain is always required.
+For additional information about setting up harvest access tokens, visit the following page: https://help.getharvest.com/api-v2/authentication-api/authentication/authentication/
 
 ## Running the tests
 
     npm test
-
-    # or
-
-    mocha
+    npm run test:watch
+    npm run test:integration
+    npm run test:integration:watch
 
 ## Projects using this library
 

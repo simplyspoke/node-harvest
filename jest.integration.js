@@ -4,6 +4,7 @@ require('dotenv').config();
 module.exports = {
   collectCoverage: true,
   collectCoverageFrom: ['**/*.ts'],
+  coverageDirectory: '<rootDir>/coverage/integration',
   coveragePathIgnorePatterns: [
     '/node_modules/',
     '/tools/',

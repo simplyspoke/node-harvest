@@ -9,7 +9,11 @@ cache:
   directories:
     - node_modules
 notifications:
-  email: false
+  slack:
+    rooms:
+      - $SLACK_ACCOUNT:$SLACK_TOKEN#node-harvest
+    on_success: change # default: always
+    on_failure: always # default: always
 node_js:
   - '8.10.0'
 script:
@@ -19,10 +23,4 @@ script:
 after_success:
   - npm run report-coverage
   - npm run deploy-docs
-  # - npm run semantic-release
-notifications:
-  slack:
-    rooms:
-      - $SLACK_ACCOUNT:$SLACK_TOKEN#node-harvest
-    on_success: change # default: always
-    on_failure: always # default: always
+  - npm run semantic-release

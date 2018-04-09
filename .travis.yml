@@ -13,8 +13,16 @@ notifications:
 node_js:
   - '8.10.0'
 script:
-  - npm run test:prod && npm run build
+  - npm run test:prod
+  - npm run test:integration
+  - npm run build
 after_success:
   - npm run report-coverage
   - npm run deploy-docs
   # - npm run semantic-release
+notifications:
+  slack:
+    rooms:
+      - $SLACK_ACCOUNT:$SLACK_TOKEN#node-harvest
+    on_success: change # default: always
+    on_failure: always # default: always

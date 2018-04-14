@@ -1,10 +1,11 @@
 # Node Harvest
 
-[![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 [![Build Status](https://travis-ci.org/simplyspoke/node-harvest.svg?branch=master)](https://travis-ci.org/simplyspoke/node-harvest)
 [![Coverage Status](https://coveralls.io/repos/github/simplyspoke/node-harvest/badge.svg)](https://coveralls.io/github/simplyspoke/node-harvest)
-[![Dev Dependencies](https://david-dm.org/simplyspoke/node-harvest/dev-status.svg)](https://david-dm.org/simplyspoke/node-harvest?type=dev)
 [![npm version](https://badge.fury.io/js/harvest.svg)](http://badge.fury.io/js/harvest)
+[![Dev Dependencies](https://david-dm.org/simplyspoke/node-harvest/dev-status.svg)](https://david-dm.org/simplyspoke/node-harvest?type=dev)
+[![Greenkeeper badge](https://badges.greenkeeper.io/simplyspoke/node-harvest.svg)](https://greenkeeper.io/)
+[![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 
 **Version 1.x - Will be depreciated in the days to come, once enough testing of Version 2.x has been completed.**

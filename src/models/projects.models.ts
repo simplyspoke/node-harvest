@@ -101,17 +101,17 @@ export interface ProjectsPagenationParameters extends PagenationParameters {
   /**
    * Pass true to only return active projects and false to return inactive projects.
    */
-  is_active: boolean;
+  is_active?: boolean;
 
   /**
    * Only return projects belonging to the client with the given ID.
    * Type: integer.
    */
-  client_id: number;
+  client_id?: number;
 
   /**
    * Pass true to only return active projects and false to return inactive projects
    * Type: datetime.
    */
-  updated_since: string;
+  updated_since?: string;
 }

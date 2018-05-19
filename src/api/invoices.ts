@@ -17,7 +17,7 @@ export class InvoicesAPI {
     return this.harvest.request('GET', `${this.baseUrl}/${id}`);
   }
 
-  public list(query: InvoicesPagenationParameters) {
+  public list(query: InvoicesPagenationParameters = {}) {
     return this.harvest.request('GET', this.baseUrl, query);
   }
 

@@ -14,7 +14,7 @@ export class ClientsAPI {
     return this.harvest.request('GET', `${this.baseUrl}/${id}`);
   }
 
-  public list(query: ClientsPagenationParameters) {
+  public list(query: ClientsPagenationParameters = {}) {
     return this.harvest.request('GET', this.baseUrl, query);
   }
 

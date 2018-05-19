@@ -15,7 +15,7 @@ export class TasksAPI {
     return this.harvest.request('GET', `${this.baseUrl}/${id}`);
   }
 
-  public list(query: TasksPagenationParameters) {
+  public list(query: TasksPagenationParameters = {}) {
     return this.harvest.request('GET', this.baseUrl, query);
   }
 

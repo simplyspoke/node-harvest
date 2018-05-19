@@ -17,7 +17,7 @@ export class ContactsAPI {
     return this.harvest.request('GET', `${this.baseUrl}/${id}`);
   }
 
-  public list(query: ContactsPagenationParameters) {
+  public list(query: ContactsPagenationParameters = {}) {
     return this.harvest.request('GET', this.baseUrl, query);
   }
 

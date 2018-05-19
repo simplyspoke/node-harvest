@@ -47,11 +47,11 @@ export interface TasksPagenationParameters extends PagenationParameters {
   /**
    * Pass true to only return active tasks and false to return inactive tasks.
    */
-  is_active: boolean;
+  is_active?: boolean;
 
   /**
    * Pass true to only return active tasks and false to return inactive tasks
    * Type: datetime.
    */
-  updated_since: string;
+  updated_since?: string;
 }

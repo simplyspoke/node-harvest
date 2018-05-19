@@ -17,7 +17,7 @@ export class TimeEntriesAPI {
     return this.harvest.request('GET', `${this.baseUrl}/${id}`);
   }
 
-  public list(query: TimeEntriesPagenationParameters) {
+  public list(query: TimeEntriesPagenationParameters = {}) {
     return this.harvest.request('GET', this.baseUrl, query);
   }
 

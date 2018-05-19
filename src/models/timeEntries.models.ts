@@ -109,45 +109,45 @@ export interface TimeEntriesPagenationParameters extends PagenationParameters {
    * Only return time entries belonging to the user with the given ID.
    * Type: integer.
    */
-  user_id: number;
+  user_id?: number;
 
   /**
    * OOnly return time entries belonging to the client with the given ID.
    * Type: integer.
    */
-  client_id: number;
+  client_id?: number;
 
   /**
    * Only return time entries belonging to the project with the given ID.
    * Type: integer.
    */
-  project_id: number;
+  project_id?: number;
 
   /**
    * Pass true to only return time entries that have been invoiced and false to return time entries that have not been invoiced.
    */
-  is_billed: boolean;
+  is_billed?: boolean;
 
   /**
    * Pass true to only return running time entries and false to return non-running time entries.
    */
-  is_running: boolean;
+  is_running?: boolean;
 
   /**
    * Only return time entries that have been updated since the given date and time.
    * Type: datetime.
    */
-  updated_since: string;
+  updated_since?: string;
 
   /**
    * Only return time entries with a spent_date on or after the given date.
    * Type: date
    */
-  from: string;
+  from?: string;
 
   /**
    * Only return time entries with a spent_date on or before the given date.
    * Type: date
    */
-  to: string;
+  to?: string;
 }

@@ -17,7 +17,7 @@ export class EstimatesAPI {
     return this.harvest.request('GET', `${this.baseUrl}/${id}`);
   }
 
-  public list(query: EstimatesPagenationParameters) {
+  public list(query: EstimatesPagenationParameters = {}) {
     return this.harvest.request('GET', this.baseUrl, query);
   }
 

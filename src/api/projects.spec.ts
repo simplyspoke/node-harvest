@@ -34,6 +34,11 @@ describe('Projects test', () => {
     expect(request).toBeCalledWith('GET', '/v2/projects', query);
   });
 
+  it('should have a list method that calls the request method with a default set', () => {
+    instance.list();
+    expect(request).toBeCalledWith('GET', '/v2/projects', {});
+  });
+
   it('should have an create method that calls the request method', () => {
     const data = { property: true };
     instance.create(data);

@@ -8,7 +8,7 @@ export interface PagenationParameters {
    * Default: 1
    * Range: 1 or more
    */
-  page: number;
+  page?: number;
 
   /**
    * The number of records to return per page.
@@ -16,7 +16,7 @@ export interface PagenationParameters {
    * Default: 100
    * Range: 1 to 100
    */
-  per_page: number;
+  per_page?: number;
 }
 
 /**

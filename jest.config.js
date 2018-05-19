@@ -7,6 +7,7 @@ module.exports = {
   coveragePathIgnorePatterns: [
     '/node_modules/',
     '/tools/',
+    '/dist',
     '/test/',
     '/src/models',
     '/src/.*\\.(spec.ts|model.ts)$'

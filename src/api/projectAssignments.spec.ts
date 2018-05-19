@@ -1,4 +1,4 @@
-import ProjectAssignments from './projectAssignments';
+import { ProjectAssignmentsAPI } from './projectAssignments';
 
 const harvest = {
   request: () => {
@@ -15,12 +15,12 @@ describe('ProjectAssignments test', () => {
   let id = 1000;
 
   beforeEach(() => {
-    instance = new ProjectAssignments(harvest);
+    instance = new ProjectAssignmentsAPI(harvest);
     request = spyOn(instance.harvest, 'request');
   });
 
   it('ProjectAssignments is instantiable', () => {
-    expect(instance).toBeInstanceOf(ProjectAssignments);
+    expect(instance).toBeInstanceOf(ProjectAssignmentsAPI);
   });
 
   it('should have a list method that calls the request method', () => {

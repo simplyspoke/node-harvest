@@ -4,7 +4,7 @@ import {
 } from '../models/estimateItemCategories.models';
 
 // Admin permissions required, except when retrieving the currently authenticated estimateItemCategory.
-export default class EstimateItemCategoriesAPI {
+export class EstimateItemCategoriesAPI {
   harvest;
   baseUrl: string;
 

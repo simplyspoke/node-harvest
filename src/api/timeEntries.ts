@@ -4,7 +4,7 @@ import {
 } from '../models/timeEntries.models';
 
 // Admin permissions required.
-export default class TimeEntriesAPI {
+export class TimeEntriesAPI {
   harvest;
   baseUrl: string;
 

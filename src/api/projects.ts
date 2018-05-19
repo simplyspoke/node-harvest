@@ -4,7 +4,7 @@ import {
 } from '../models/projects.models';
 
 // Admin permissions required.
-export default class ProjectsAPI {
+export class ProjectsAPI {
   harvest;
   baseUrl: string;
 

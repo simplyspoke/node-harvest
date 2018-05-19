@@ -1,4 +1,4 @@
-import UserAssignments from './userAssignments';
+import { UserAssignmentsAPI } from './userAssignments';
 
 const harvest = {
   request: () => {
@@ -15,12 +15,12 @@ describe('UserAssignments test', () => {
   let id = 1003;
 
   beforeEach(() => {
-    instance = new UserAssignments(harvest);
+    instance = new UserAssignmentsAPI(harvest);
     request = spyOn(instance.harvest, 'request');
   });
 
   it('UserAssignments is instantiable', () => {
-    expect(instance).toBeInstanceOf(UserAssignments);
+    expect(instance).toBeInstanceOf(UserAssignmentsAPI);
   });
 
   it('should have a get method that calls the request method', () => {

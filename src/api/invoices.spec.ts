@@ -1,4 +1,4 @@
-import Invoices from './invoices';
+import { InvoicesAPI } from './invoices';
 
 const harvest = {
   request: () => {
@@ -15,12 +15,12 @@ describe('Invoices test', () => {
   let id = 1000;
 
   beforeEach(() => {
-    instance = new Invoices(harvest);
+    instance = new InvoicesAPI(harvest);
     request = spyOn(instance.harvest, 'request');
   });
 
   it('Invoices is instantiable', () => {
-    expect(instance).toBeInstanceOf(Invoices);
+    expect(instance).toBeInstanceOf(InvoicesAPI);
   });
 
   it('should have a get method that calls the request method', () => {

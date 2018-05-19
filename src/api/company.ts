@@ -1,6 +1,6 @@
 import { Company } from '../models/company.models';
 
-export default class CompanyAPI {
+export class CompanyAPI {
   harvest;
 
   constructor(harvest) {

@@ -1,4 +1,4 @@
-import TimeEntries from './timeEntries';
+import { TimeEntriesAPI } from './timeEntries';
 
 const harvest = {
   request: () => {
@@ -15,12 +15,12 @@ describe('TimeEntries test', () => {
   let id = 1000;
 
   beforeEach(() => {
-    instance = new TimeEntries(harvest);
+    instance = new TimeEntriesAPI(harvest);
     request = spyOn(instance.harvest, 'request');
   });
 
   it('TimeEntries is instantiable', () => {
-    expect(instance).toBeInstanceOf(TimeEntries);
+    expect(instance).toBeInstanceOf(TimeEntriesAPI);
   });
 
   it('should have a get method that calls the request method', () => {

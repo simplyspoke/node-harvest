@@ -1,4 +1,4 @@
-import Roles from './roles';
+import { RolesAPI } from './roles';
 
 const harvest = {
   request: () => {
@@ -15,12 +15,12 @@ describe('Roles test', () => {
   let id = 1000;
 
   beforeEach(() => {
-    instance = new Roles(harvest);
+    instance = new RolesAPI(harvest);
     request = spyOn(instance.harvest, 'request');
   });
 
   it('Roles is instantiable', () => {
-    expect(instance).toBeInstanceOf(Roles);
+    expect(instance).toBeInstanceOf(RolesAPI);
   });
 
   it('should have a get method that calls the request method', () => {

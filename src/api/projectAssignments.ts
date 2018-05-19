@@ -3,7 +3,7 @@ import { ProjectAssignmentsPagenationParameters } from '../models/projectAssignm
 
 // Admin permissions required.
 // NOTE: COnsider refactoring this into the user class prior to release.
-export default class ProjectAssignmentsAPI {
+export class ProjectAssignmentsAPI {
   harvest;
   baseUrl: string;
 

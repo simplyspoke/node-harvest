@@ -4,7 +4,7 @@ import {
 } from '../models/expenseCategories.models';
 
 // Admin permissions required.
-export default class ExpenseCategoriesAPI {
+export class ExpenseCategoriesAPI {
   harvest;
   baseUrl: string;
 

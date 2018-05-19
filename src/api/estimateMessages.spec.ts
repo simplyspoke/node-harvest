@@ -1,4 +1,4 @@
-import EstimateMessages from './estimateMessages';
+import { EstimateMessagesAPI } from './estimateMessages';
 
 const harvest = {
   request: () => {
@@ -15,12 +15,12 @@ describe('EstimateMessages test', () => {
   let id = 1004;
 
   beforeEach(() => {
-    instance = new EstimateMessages(harvest);
+    instance = new EstimateMessagesAPI(harvest);
     request = spyOn(instance.harvest, 'request');
   });
 
   it('EstimateMessages is instantiable', () => {
-    expect(instance).toBeInstanceOf(EstimateMessages);
+    expect(instance).toBeInstanceOf(EstimateMessagesAPI);
   });
 
   it('should have a list method that calls the request method', () => {

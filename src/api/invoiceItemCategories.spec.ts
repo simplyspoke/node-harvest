@@ -1,4 +1,4 @@
-import InvoiceItemCategories from './invoiceItemCategories';
+import { InvoiceItemCategoriesAPI } from './invoiceItemCategories';
 
 const harvest = {
   request: () => {
@@ -15,12 +15,12 @@ describe('InvoiceItemCategories test', () => {
   let id = 1000;
 
   beforeEach(() => {
-    instance = new InvoiceItemCategories(harvest);
+    instance = new InvoiceItemCategoriesAPI(harvest);
     request = spyOn(instance.harvest, 'request');
   });
 
   it('InvoiceItemCategories is instantiable', () => {
-    expect(instance).toBeInstanceOf(InvoiceItemCategories);
+    expect(instance).toBeInstanceOf(InvoiceItemCategoriesAPI);
   });
 
   it('should have a get method that calls the request method', () => {

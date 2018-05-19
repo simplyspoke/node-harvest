@@ -1,8 +1,8 @@
 import { TasksPagenationParameters, Task } from '../models/tasks.models';
 
 // Admin permissions required.
-// NOTE: COnsider refactoring this into the user class prior to release.
-export default class TasksAPI {
+// NOTE: Consider refactoring this into the user class prior to release.
+export class TasksAPI {
   harvest;
   baseUrl: string;
 

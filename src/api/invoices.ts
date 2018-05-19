@@ -4,7 +4,7 @@ import {
 } from '../models/invoices.models';
 
 // Admin permissions required.
-export default class InvoicesAPI {
+export class InvoicesAPI {
   harvest;
   baseUrl: string;
 

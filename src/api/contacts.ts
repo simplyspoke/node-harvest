@@ -4,7 +4,7 @@ import {
 } from '../models/contacts.models';
 
 // Admin permissions required, except when retrieving the currently authenticated contact.
-export default class ContactsAPI {
+export class ContactsAPI {
   harvest;
   baseUrl: string;
 

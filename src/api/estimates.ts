@@ -4,7 +4,7 @@ import {
 } from '../models/estimates.models';
 
 // Admin permissions required.
-export default class EstimatesAPI {
+export class EstimatesAPI {
   harvest;
   baseUrl: string;
 
@@ -17,7 +17,7 @@ export default class EstimatesAPI {
     return this.harvest.request('GET', `${this.baseUrl}/${id}`);
   }
 
-  public list(query: EstimatesPagenationParameters) {
+  public list(query: EstimatesPagenationParameters = {}) {
     return this.harvest.request('GET', this.baseUrl, query);
   }
 

@@ -4,7 +4,7 @@ import {
 } from '../models/invoiceItemCategories.models';
 
 // Admin permissions required, except when retrieving the currently authenticated invoiceItemCategory.
-export default class InvoiceItemCategoriesAPI {
+export class InvoiceItemCategoriesAPI {
   harvest;
   baseUrl: string;
 

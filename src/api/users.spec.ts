@@ -1,4 +1,4 @@
-import Users from './users';
+import { UsersAPI } from './users';
 
 const harvest = {
   request: () => {
@@ -15,12 +15,12 @@ describe('Users test', () => {
   let id = 1000;
 
   beforeEach(() => {
-    instance = new Users(harvest);
+    instance = new UsersAPI(harvest);
     request = spyOn(instance.harvest, 'request');
   });
 
   it('Users is instantiable', () => {
-    expect(instance).toBeInstanceOf(Users);
+    expect(instance).toBeInstanceOf(UsersAPI);
   });
 
   it('should have a get method that calls the request method', () => {

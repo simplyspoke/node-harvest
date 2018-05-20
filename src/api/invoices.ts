@@ -4,7 +4,7 @@ import {
 } from '../models/invoices.models';
 
 // Admin permissions required.
-export default class InvoicesAPI {
+export class InvoicesAPI {
   harvest;
   baseUrl: string;
 
@@ -17,7 +17,7 @@ export default class InvoicesAPI {
     return this.harvest.request('GET', `${this.baseUrl}/${id}`);
   }
 
-  public list(query: InvoicesPagenationParameters) {
+  public list(query: InvoicesPagenationParameters = {}) {
     return this.harvest.request('GET', this.baseUrl, query);
   }
 

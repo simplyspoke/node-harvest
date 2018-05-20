@@ -5,7 +5,7 @@ import {
 
 // Admin permissions required.
 // NOTE: COnsider refactoring this into the task class prior to release.
-export default class TaskAssignmentsAPI {
+export class TaskAssignmentsAPI {
   harvest;
   baseUrl: string;
 

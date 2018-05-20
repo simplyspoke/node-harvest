@@ -1,4 +1,4 @@
-import EstimateItemCategories from './estimateItemCategories';
+import { EstimateItemCategoriesAPI } from './estimateItemCategories';
 
 const harvest = {
   request: () => {
@@ -15,12 +15,12 @@ describe('EstimateItemCategories test', () => {
   let id = 1000;
 
   beforeEach(() => {
-    instance = new EstimateItemCategories(harvest);
+    instance = new EstimateItemCategoriesAPI(harvest);
     request = spyOn(instance.harvest, 'request');
   });
 
   it('EstimateItemCategories is instantiable', () => {
-    expect(instance).toBeInstanceOf(EstimateItemCategories);
+    expect(instance).toBeInstanceOf(EstimateItemCategoriesAPI);
   });
 
   it('should have a get method that calls the request method', () => {

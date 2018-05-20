@@ -1,8 +1,8 @@
 import { TasksPagenationParameters, Task } from '../models/tasks.models';
 
 // Admin permissions required.
-// NOTE: COnsider refactoring this into the user class prior to release.
-export default class TasksAPI {
+// NOTE: Consider refactoring this into the user class prior to release.
+export class TasksAPI {
   harvest;
   baseUrl: string;
 
@@ -15,7 +15,7 @@ export default class TasksAPI {
     return this.harvest.request('GET', `${this.baseUrl}/${id}`);
   }
 
-  public list(query: TasksPagenationParameters) {
+  public list(query: TasksPagenationParameters = {}) {
     return this.harvest.request('GET', this.baseUrl, query);
   }
 

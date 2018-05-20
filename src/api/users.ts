@@ -1,7 +1,7 @@
 import { UsersPagenationParameters, User } from '../models/users.models';
 
 // Admin permissions required, except when retrieving the currently authenticated user.
-export default class UsersAPI {
+export class UsersAPI {
   harvest;
   baseUrl: string;
 

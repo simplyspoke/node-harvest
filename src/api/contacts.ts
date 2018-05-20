@@ -4,7 +4,7 @@ import {
 } from '../models/contacts.models';
 
 // Admin permissions required, except when retrieving the currently authenticated contact.
-export default class ContactsAPI {
+export class ContactsAPI {
   harvest;
   baseUrl: string;
 
@@ -17,7 +17,7 @@ export default class ContactsAPI {
     return this.harvest.request('GET', `${this.baseUrl}/${id}`);
   }
 
-  public list(query: ContactsPagenationParameters) {
+  public list(query: ContactsPagenationParameters = {}) {
     return this.harvest.request('GET', this.baseUrl, query);
   }
 

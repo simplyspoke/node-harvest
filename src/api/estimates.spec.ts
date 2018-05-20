@@ -1,4 +1,4 @@
-import Estimates from './estimates';
+import { EstimatesAPI } from './estimates';
 
 const harvest = {
   request: () => {
@@ -15,12 +15,12 @@ describe('Estimates test', () => {
   let id = 1000;
 
   beforeEach(() => {
-    instance = new Estimates(harvest);
+    instance = new EstimatesAPI(harvest);
     request = spyOn(instance.harvest, 'request');
   });
 
   it('Estimates is instantiable', () => {
-    expect(instance).toBeInstanceOf(Estimates);
+    expect(instance).toBeInstanceOf(EstimatesAPI);
   });
 
   it('should have a get method that calls the request method', () => {
@@ -32,6 +32,11 @@ describe('Estimates test', () => {
     const query = { is_active: true };
     instance.list(query);
     expect(request).toBeCalledWith('GET', '/v2/estimates', query);
+  });
+
+  it('should have a list method that calls the request method with a default set', () => {
+    instance.list();
+    expect(request).toBeCalledWith('GET', '/v2/estimates', {});
   });
 
   it('should have an create method that calls the request method', () => {

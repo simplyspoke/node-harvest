@@ -1,4 +1,4 @@
-import Contacts from './contacts';
+import { ContactsAPI } from './contacts';
 
 const harvest = {
   request: () => {
@@ -15,12 +15,12 @@ describe('Contacts test', () => {
   let id = 1000;
 
   beforeEach(() => {
-    instance = new Contacts(harvest);
+    instance = new ContactsAPI(harvest);
     request = spyOn(instance.harvest, 'request');
   });
 
   it('Contacts is instantiable', () => {
-    expect(instance).toBeInstanceOf(Contacts);
+    expect(instance).toBeInstanceOf(ContactsAPI);
   });
 
   it('should have a get method that calls the request method', () => {
@@ -32,6 +32,11 @@ describe('Contacts test', () => {
     const query = { is_active: true };
     instance.list(query);
     expect(request).toBeCalledWith('GET', '/v2/contacts', query);
+  });
+
+  it('should have a list method that calls the request method with a default set', () => {
+    instance.list();
+    expect(request).toBeCalledWith('GET', '/v2/contacts', {});
   });
 
   it('should have an create method that calls the request method', () => {

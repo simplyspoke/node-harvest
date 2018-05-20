@@ -46,7 +46,7 @@ export interface ProjectAssignment {
 export interface ProjectAssignmentsPagenationResponse
   extends PagenationParameters {
   // A list of projectAssignments for the specified query.
-  projectAssignments: ProjectAssignment[];
+  projectAssignments?: ProjectAssignment[];
 }
 
 /**

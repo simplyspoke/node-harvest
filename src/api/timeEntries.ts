@@ -4,7 +4,7 @@ import {
 } from '../models/timeEntries.models';
 
 // Admin permissions required.
-export default class TimeEntriesAPI {
+export class TimeEntriesAPI {
   harvest;
   baseUrl: string;
 
@@ -17,7 +17,7 @@ export default class TimeEntriesAPI {
     return this.harvest.request('GET', `${this.baseUrl}/${id}`);
   }
 
-  public list(query: TimeEntriesPagenationParameters) {
+  public list(query: TimeEntriesPagenationParameters = {}) {
     return this.harvest.request('GET', this.baseUrl, query);
   }
 

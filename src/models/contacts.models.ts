@@ -55,11 +55,11 @@ export interface ContactsPagenationParameters extends PagenationParameters {
   /**
    * Only return contacts belonging to the client with the given ID.
    */
-  client_id: boolean;
+  client_id?: boolean;
 
   /**
    * Pass true to only return active contacts and false to return inactive contacts
    * Type: datetime.
    */
-  updated_since: string;
+  updated_since?: string;
 }

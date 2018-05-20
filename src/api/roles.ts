@@ -2,7 +2,7 @@ import { PagenationParameters } from '../models/base/pagenation';
 import { Role } from '../models/roles.models';
 
 // Admin permissions and Team feature required.
-export default class RolesAPI {
+export class RolesAPI {
   harvest;
   baseUrl: string;
 

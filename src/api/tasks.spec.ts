@@ -1,4 +1,4 @@
-import Tasks from './tasks';
+import { TasksAPI } from './tasks';
 
 const harvest = {
   request: () => {
@@ -15,12 +15,12 @@ describe('Tasks test', () => {
   let id = 1000;
 
   beforeEach(() => {
-    instance = new Tasks(harvest);
+    instance = new TasksAPI(harvest);
     request = spyOn(instance.harvest, 'request');
   });
 
   it('Tasks is instantiable', () => {
-    expect(instance).toBeInstanceOf(Tasks);
+    expect(instance).toBeInstanceOf(TasksAPI);
   });
 
   it('should have a get method that calls the request method', () => {
@@ -32,6 +32,11 @@ describe('Tasks test', () => {
     const query = { is_active: true };
     instance.list(query);
     expect(request).toBeCalledWith('GET', '/v2/tasks', query);
+  });
+
+  it('should have a list method that calls the request method with a default set', () => {
+    instance.list();
+    expect(request).toBeCalledWith('GET', '/v2/tasks', {});
   });
 
   it('should have an create method that calls the request method', () => {

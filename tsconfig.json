@@ -12,18 +12,19 @@
     "module": "commonjs",
     "declaration": true,
     "sourceMap": true,
-    "declarationDir": "types",
+    "removeComments": true,
     "typeRoots": [
       "node_modules/@types"
     ]
   },
   "include": [
-    "src",
-    "test"
+    "src"
   ],
   "exclude": [
       "src/**/*.models.ts",
       "node_modules",
+      "**/*.spec.ts",
+      "test",
       "dist"
   ]
 }

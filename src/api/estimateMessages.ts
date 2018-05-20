@@ -4,7 +4,7 @@ import {
 } from '../models/estimateMessages.models';
 
 // Admin permissions required.
-export default class EstimateMessagesAPI {
+export class EstimateMessagesAPI {
   harvest;
   baseUrl: string;
 

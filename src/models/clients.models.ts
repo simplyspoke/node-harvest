@@ -41,11 +41,11 @@ export interface ClientsPagenationParameters extends PagenationParameters {
   /**
    * Pass true to only return active clients and false to return inactive clients.
    */
-  is_active: boolean;
+  is_active?: boolean;
 
   /**
    * Pass true to only return active clients and false to return inactive clients
    * Type: datetime.
    */
-  updated_since: string;
+  updated_since?: string;
 }

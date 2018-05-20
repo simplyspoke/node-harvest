@@ -140,23 +140,23 @@ export interface EstimatesPagenationParameters extends PagenationParameters {
    * Only return estimates belonging to the client with the given ID.
    * Type: integer.
    */
-  client_id: number;
+  client_id?: number;
 
   /**
    * Pass true to only return active estimates and false to return inactive estimates
    * Type: datetime.
    */
-  updated_since: string;
+  updated_since?: string;
 
   /**
    * Only return estimates with an issue_date on or after the given date.
    * Type: date
    */
-  from: string;
+  from?: string;
 
   /**
    * Only return estimates with an issue_date on or before the given date.
    * Type: date
    */
-  to: string;
+  to?: string;
 }

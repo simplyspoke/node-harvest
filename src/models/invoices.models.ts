@@ -169,29 +169,29 @@ export interface InvoicesPagenationParameters extends PagenationParameters {
    * Only return invoices belonging to the client with the given ID.
    * Type: integer.
    */
-  client_id: number;
+  client_id?: number;
 
   /**
    * Only return invoices associated with the project with the given ID.
    * Type: integer.
    */
-  project_id: number;
+  project_id?: number;
 
   /**
    * Pass true to only return active invoices and false to return inactive invoices
    * Type: datetime.
    */
-  updated_since: string;
+  updated_since?: string;
 
   /**
    * Only return invoices with an issue_date on or after the given date.
    * Type: date
    */
-  from: string;
+  from?: string;
 
   /**
    * Only return invoices with an issue_date on or before the given date.
    * Type: date
    */
-  to: boolean;
+  to?: boolean;
 }

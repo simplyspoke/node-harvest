@@ -4,7 +4,7 @@ import {
 } from '../models/projects.models';
 
 // Admin permissions required.
-export default class ProjectsAPI {
+export class ProjectsAPI {
   harvest;
   baseUrl: string;
 
@@ -17,7 +17,7 @@ export default class ProjectsAPI {
     return this.harvest.request('GET', `${this.baseUrl}/${id}`);
   }
 
-  public list(query: ProjectsPagenationParameters) {
+  public list(query: ProjectsPagenationParameters = {}) {
     return this.harvest.request('GET', this.baseUrl, query);
   }
 

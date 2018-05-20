@@ -1,7 +1,7 @@
 import { ClientsPagenationParameters, Client } from '../models/clients.models';
 
 // Admin permissions required, except when retrieving the currently authenticated client.
-export default class ClientsAPI {
+export class ClientsAPI {
   harvest;
   baseUrl: string;
 
@@ -14,7 +14,7 @@ export default class ClientsAPI {
     return this.harvest.request('GET', `${this.baseUrl}/${id}`);
   }
 
-  public list(query: ClientsPagenationParameters) {
+  public list(query: ClientsPagenationParameters = {}) {
     return this.harvest.request('GET', this.baseUrl, query);
   }
 

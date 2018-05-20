@@ -4,8 +4,8 @@ import {
 } from '../models/userAssignments.models';
 
 // Admin permissions required.
-// NOTE: COnsider refactoring this into the user class prior to release.
-export default class UserAssignmentsAPI {
+// NOTE: Consider refactoring this into the user class prior to release.
+export class UserAssignmentsAPI {
   harvest;
   baseUrl: string;
 

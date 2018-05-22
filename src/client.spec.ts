@@ -1,5 +1,5 @@
 import * as Request from 'request-promise';
-import RequestClient from './client';
+import { RequestClient } from './client';
 
 const config = {
   subdomain: process.env.SUBDOMAIN,

@@ -1,4 +1,4 @@
-import Client from './client';
+import RequestClient from './client';
 import { ClientsAPI } from './api/clients';
 import { CompanyAPI } from './api/company';
 import { ContactsAPI } from './api/contacts';
@@ -29,7 +29,7 @@ export default class Harvest {
   concurrency = null;
   debug = false;
 
-  client: Client;
+  client: RequestClient;
   request;
 
   clients: ClientsAPI;
@@ -59,7 +59,7 @@ export default class Harvest {
     this.concurrency = config.concurrency || null;
     this.debug = config.debug || false;
 
-    this.client = new Client(config);
+    this.client = new RequestClient(config);
     this.request = this.requestGenerator();
 
     this.clients = new ClientsAPI(this);

@@ -1,4 +1,4 @@
-import RequestClient from './client';
+import { RequestClient } from './client';
 import { ClientsAPI } from './api/clients';
 import { CompanyAPI } from './api/company';
 import { ContactsAPI } from './api/contacts';

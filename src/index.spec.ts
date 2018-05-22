@@ -1,5 +1,5 @@
 import Harvest from './index';
-import Client from './client';
+import { RequestClient } from './client';
 
 jest.mock('./client');
 

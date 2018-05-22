@@ -1,5 +1,5 @@
 import * as Request from 'request-promise';
-import Client from './client';
+import RequestClient from './client';
 
 const config = {
   subdomain: process.env.SUBDOMAIN,
@@ -17,11 +17,11 @@ describe('Client test', () => {
   let instance;
 
   beforeEach(() => {
-    instance = new Client(config);
+    instance = new RequestClient(config);
   });
 
   it('Client is instantiable', () => {
-    expect(instance).toBeInstanceOf(Client);
+    expect(instance).toBeInstanceOf(RequestClient);
   });
 
   describe('preprocess method', () => {

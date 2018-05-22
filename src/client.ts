@@ -1,7 +1,7 @@
 import async from 'async';
 import * as Request from 'request-promise';
 
-export default class Client {
+export default class RequestClient {
   private accessToken: string;
   private accountId: string;
   private concurrency;

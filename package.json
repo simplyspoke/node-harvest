@@ -14,7 +14,8 @@
   "main": "./",
   "typings": "dist/index.d.ts",
   "files": [
-    "dist"
+    "dist",
+    "index.js"
   ],
   "author": "Tristan Fitzgerald",
   "license": "MIT",

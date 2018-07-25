@@ -1,26 +1,25 @@
 language: node_js
 branches:
   only:
-    - master
-    - api-v2
-    # - /^greenkeeper/.*$/
+  - master
+  - api-v2
 cache:
   directories:
-    - node_modules
+  - node_modules
 notifications:
   slack:
     rooms:
-      - $SLACK_ACCOUNT:$SLACK_TOKEN#node-harvest
-    on_success: change # default: always
-    on_failure: always # default: always
+      secure: X+LogZiKFDkcjG9MZb6o0IsVL9d56CD41auvw0yzmYyzfVbR4AYNFUh4ebTGc3DM8iFAXbjLV8Jlg7ADyj6KyxHHr63XRzruN374nouN7EHgaxF6MKLAMTxxYasn1x9XXUNrXDDhDS3Em/+TbQs3lenB1YfKjikOavNBC10bdcA=
+    on_success: change
+    on_failure: always
 node_js:
-  - '8.10.0'
-  - '10'
+- 8.10.0
+- '10'
 script:
-  - npm run test:prod
-  - npm run test:integration
-  - npm run build
+- npm run test:prod
+- npm run test:integration
+- npm run build
 after_success:
-  - npm run report-coverage
-  - npm run deploy-docs
-  - npm run semantic-release
+- npm run report-coverage
+- npm run deploy-docs
+- npm run semantic-release

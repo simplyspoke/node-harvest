@@ -26,6 +26,6 @@ module.exports = {
     '<rootDir>/src/**/*.spec.ts'
   ],
   transform: {
-    '.(ts|tsx)': '<rootDir>/node_modules/ts-jest/preprocessor.js'
+    '^.+\\.tsx?$': 'ts-jest'
   }
 };

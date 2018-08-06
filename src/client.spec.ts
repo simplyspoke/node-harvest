@@ -95,15 +95,16 @@ describe('Client test', () => {
         data: 'any',
         callback: undefined
       };
+      const retryAfter = 15;
       const complete = jasmine.createSpy();
       spyOn(instance, 'request').and.callFake(() =>
         Promise.reject({
           statusCode: 429,
-          response: { headers: { 'retry-after': 10 } }
+          response: { headers: { 'retry-after': retryAfter } }
         })
       );
       spyOn(instance, 'retryAfter').and.callFake(() => {
-        expect(instance.retryAfter).toHaveBeenCalledWith(task, 10, complete);
+        expect(instance.retryAfter).toHaveBeenCalledWith(task, retryAfter, complete);
         done();
       });
       generated(task, complete);
@@ -137,11 +138,12 @@ describe('Client test', () => {
       const task = {
         callback: jasmine.createSpy()
       };
-      instance.retryAfter(task, 15, complete);
+      const retryAfter = 0.15;
+      instance.retryAfter(task, retryAfter, complete);
       setTimeout(() => {
         expect(instance.queue.resume).toHaveBeenCalled();
         done();
-      }, 20);
+      }, retryAfter * 1000);
     });
   });
 });

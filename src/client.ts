@@ -80,7 +80,7 @@ export class RequestClient {
 
     this.timeout = setTimeout(() => {
       this.queue.resume();
-    }, retryAfter);
+    }, retryAfter * 1000);
 
     done();
     task.callback(`Retry after: ${retryAfter}`, undefined, undefined);

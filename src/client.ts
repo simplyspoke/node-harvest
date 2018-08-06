@@ -34,10 +34,6 @@ export class RequestClient {
   }
 
   preprocess(body, response) {
-    // if (headers['retry-after']) {
-    //   this.retryAfter(task, headers['retry-after'], done);
-    // }
-
     return { headers: response.headers, data: body };
   }
 
@@ -61,14 +57,15 @@ export class RequestClient {
         })
         .catch(error => {
           if (error.statusCode === 429) {
-            return this.retryAfter(
+            this.retryAfter(
               task,
               error.response.headers['retry-after'],
               done
             );
+          } else {
+            task.callback(error, undefined);
+            done();
           }
-          task.callback(error, undefined);
-          done();
         });
     };
   }
@@ -80,9 +77,7 @@ export class RequestClient {
 
     this.timeout = setTimeout(() => {
       this.queue.resume();
+      done();
     }, retryAfter * 1000);
-
-    done();
-    task.callback(`Retry after: ${retryAfter}`, undefined, undefined);
   }
 }

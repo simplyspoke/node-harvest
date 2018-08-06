@@ -125,9 +125,7 @@ describe('Client test', () => {
 
     it('should pause the queue and push the task on to it', () => {
       const task = {
-        callback: timeout => {
-          expect(timeout).toEqual('Retry after: 15');
-        }
+        callback: () => undefined
       };
       instance.retryAfter(task, 15, complete);
       expect(instance.queue.pause).toHaveBeenCalled();

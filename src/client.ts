@@ -1,4 +1,4 @@
-import async from 'async';
+import * as async from 'async';
 import * as Request from 'request-promise';
 
 export class RequestClient {
@@ -15,7 +15,7 @@ export class RequestClient {
     this.accountId = config.auth.accountId;
 
     this.request = Request.defaults({
-      baseURL: 'https://api.harvestapp.com',
+      baseUrl: 'https://api.harvestapp.com',
       headers: {
         'User-Agent': config.userAgent,
         Authorization: `Bearer ${this.accessToken}`,
@@ -34,10 +34,6 @@ export class RequestClient {
   }
 
   preprocess(body, response) {
-    // if (headers['retry-after']) {
-    //   this.retryAfter(task, headers['retry-after'], done);
-    // }
-
     return { headers: response.headers, data: body };
   }
 
@@ -50,7 +46,7 @@ export class RequestClient {
       let options: any = {};
 
       options.method = task.method;
-      options.url = 'https://api.harvestapp.com/' + task.uri;
+      options.uri = task.uri;
 
       options.body = JSON.stringify(task.data);
 
@@ -67,6 +63,7 @@ export class RequestClient {
               done
             );
           }
+
           task.callback(error, undefined);
           done();
         });
@@ -75,14 +72,12 @@ export class RequestClient {
 
   retryAfter(task, retryAfter, done) {
     this.queue.pause();
-    this.queue.push(task);
+    this.queue.unshift(task);
     clearTimeout(this.timeout);
 
     this.timeout = setTimeout(() => {
       this.queue.resume();
-    }, retryAfter);
-
-    done();
-    task.callback(`Retry after: ${retryAfter}`, undefined, undefined);
+      done();
+    }, retryAfter * 1000);
   }
 }

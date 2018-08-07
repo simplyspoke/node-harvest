@@ -10,6 +10,8 @@ const config = {
   }
 };
 
+jest.useFakeTimers();
+
 /**
  * Dummy test
  */
@@ -36,7 +38,7 @@ describe('Client test', () => {
 
   describe('push method', () => {
     it('should call the client push method with the request', () => {
-      spyOn(instance.queue, 'push');
+      jest.spyOn(instance.queue, 'push');
       const task = { test: true };
       instance.push(task);
       expect(instance.queue.push).toHaveBeenCalledWith(task);
@@ -55,9 +57,10 @@ describe('Client test', () => {
     });
 
     it('should recieve data and send it to the callback', done => {
-      spyOn(instance, 'request').and.callFake(() =>
-        Promise.resolve({ headers: true, data: true })
-      );
+      instance.request = jest.fn().mockResolvedValue({
+        headers: true,
+        data: true
+      });
       const task = {
         method: 'string',
         uri: 'string',
@@ -72,8 +75,8 @@ describe('Client test', () => {
       });
     });
 
-    it('should recieve an error and send it to the callback', done => {
-      spyOn(instance, 'request').and.callFake(() => Promise.reject(true));
+    it('should recieve an error and send it to the callback', () => {
+      instance.request = jest.fn().mockRejectedValue(true);
       const task = {
         method: 'string',
         uri: 'string',
@@ -83,65 +86,65 @@ describe('Client test', () => {
           expect(results).toBeUndefined();
         }
       };
-      generated(task, () => {
-        done();
-      });
+      return generated(task, jest.fn());
     });
 
-    it('should call the retryAfter method after an error with a 429 status is recieved', done => {
+    it('should call the retryAfter method after an error with a 429 status is recieved', () => {
       const task = {
         method: 'string',
         uri: 'string',
         data: 'any',
         callback: undefined
       };
-      const complete = jasmine.createSpy();
-      spyOn(instance, 'request').and.callFake(() =>
-        Promise.reject({
-          statusCode: 429,
-          response: { headers: { 'retry-after': 10 } }
-        })
-      );
-      spyOn(instance, 'retryAfter').and.callFake(() => {
-        expect(instance.retryAfter).toHaveBeenCalledWith(task, 10, complete);
-        done();
+      const retryAfter = 15;
+      const complete = jest.fn();
+      instance.request = jest.fn().mockRejectedValue({
+        statusCode: 429,
+        response: { headers: { 'retry-after': retryAfter } }
       });
-      generated(task, complete);
+      instance.retryAfter = jest.fn().mockImplementation(() => {
+        expect(instance.retryAfter).toHaveBeenCalledWith(
+          task,
+          retryAfter,
+          complete
+        );
+      });
+      return generated(task, complete);
     });
   });
 
   describe('retryAfter method', () => {
-    const complete = jasmine.createSpy();
+    const complete = jest.fn();
     let pause;
     let push;
     let resume;
 
     beforeEach(() => {
-      pause = spyOn(instance.queue, 'pause').and.callFake(() => true);
-      push = spyOn(instance.queue, 'push').and.callFake(() => true);
-      resume = spyOn(instance.queue, 'resume').and.callFake(() => true);
+      instance.queue.pause = jest.fn();
+      instance.queue.unshift = jest.fn();
+      instance.queue.resume = jest.fn();
     });
 
-    it('should pause the queue and push the task on to it', () => {
+    it('should pause the queue and unshift the task on to it', () => {
       const task = {
-        callback: timeout => {
-          expect(timeout).toEqual('Retry after: 15');
-        }
+        callback: jest.fn()
       };
       instance.retryAfter(task, 15, complete);
       expect(instance.queue.pause).toHaveBeenCalled();
-      expect(instance.queue.push).toHaveBeenCalled();
+      expect(instance.queue.unshift).toHaveBeenCalled();
+      expect(task.callback).not.toHaveBeenCalled();
     });
 
-    it('should resume the queue after the timeout is over', done => {
+    it('should resume the queue after the timeout is over', () => {
       const task = {
-        callback: jasmine.createSpy()
+        callback: jest.fn()
       };
-      instance.retryAfter(task, 15, complete);
-      setTimeout(() => {
-        expect(instance.queue.resume).toHaveBeenCalled();
-        done();
-      }, 20);
+      const retryAfter = 0.15;
+      instance.retryAfter(task, retryAfter, complete);
+
+      jest.advanceTimersByTime(retryAfter * 1000);
+
+      expect(instance.queue.resume).toHaveBeenCalled();
     });
   });
 });

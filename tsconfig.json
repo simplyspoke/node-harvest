@@ -3,9 +3,8 @@
     "alwaysStrict": true,
     "baseUrl": "src",
     "lib": [
-        "es2016",
-        "dom",
-        "esnext.asynciterable"
+      "es2016",
+      "dom"
     ],
     "moduleResolution": "node",
     "target": "es6",
@@ -21,10 +20,6 @@
     "src"
   ],
   "exclude": [
-      "src/**/*.models.ts",
-      "node_modules",
-      "**/*.spec.ts",
-      "test",
-      "dist"
+    "node_modules"
   ]
 }

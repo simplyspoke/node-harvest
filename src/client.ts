@@ -1,4 +1,4 @@
-import async from 'async';
+import * as async from 'async';
 import * as Request from 'request-promise';
 
 export class RequestClient {
@@ -15,7 +15,7 @@ export class RequestClient {
     this.accountId = config.auth.accountId;
 
     this.request = Request.defaults({
-      baseURL: 'https://api.harvestapp.com',
+      baseUrl: 'https://api.harvestapp.com',
       headers: {
         'User-Agent': config.userAgent,
         Authorization: `Bearer ${this.accessToken}`,
@@ -46,7 +46,7 @@ export class RequestClient {
       let options: any = {};
 
       options.method = task.method;
-      options.url = 'https://api.harvestapp.com/' + task.uri;
+      options.uri = task.uri;
 
       options.body = JSON.stringify(task.data);
 
@@ -57,22 +57,22 @@ export class RequestClient {
         })
         .catch(error => {
           if (error.statusCode === 429) {
-            this.retryAfter(
+            return this.retryAfter(
               task,
               error.response.headers['retry-after'],
               done
             );
-          } else {
-            task.callback(error, undefined);
-            done();
           }
+
+          task.callback(error, undefined);
+          done();
         });
     };
   }
 
   retryAfter(task, retryAfter, done) {
     this.queue.pause();
-    this.queue.push(task);
+    this.queue.unshift(task);
     clearTimeout(this.timeout);
 
     this.timeout = setTimeout(() => {

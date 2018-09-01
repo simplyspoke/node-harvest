@@ -23,7 +23,7 @@ Harvest is a tool that enables businesses to track time, track projects, manage 
 ## Basic Authentication
 
 ```js
-import Harvest from '../src/index';
+import Harvest from 'harvest';
 
 const harvest = new Harvest({
   subdomain: 'SUBDOMAIN',

@@ -34,12 +34,11 @@ describe('ProjectAssignments test', () => {
   });
 
   it('should have a me method that calls the request method', () => {
-    const query = { is_active: true };
-    instance.me(query);
+    instance.me();
     expect(request).toBeCalledWith(
       'GET',
       '/v2/users/me/project_assignments',
-      query
+      {}
     );
   });
 });

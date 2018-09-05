@@ -1,6 +1,8 @@
 import {
   TimeEntriesPagenationParameters,
-  TimeEntry
+  TimeEntry,
+  TimeEntryCreateFromDuration,
+  TimeEntryCreateFromStartAndEndTime
 } from '../models/timeEntries.models';
 
 // Admin permissions required.
@@ -21,7 +23,7 @@ export class TimeEntriesAPI {
     return this.harvest.request('GET', this.baseUrl, query);
   }
 
-  public create(data: TimeEntry) {
+  public create(data: TimeEntryCreateFromDuration | TimeEntryCreateFromStartAndEndTime) {
     return this.harvest.request('POST', this.baseUrl, data);
   }
 

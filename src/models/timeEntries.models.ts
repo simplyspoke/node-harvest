@@ -112,7 +112,7 @@ export interface TimeEntriesPagenationParameters extends PagenationParameters {
   user_id?: number;
 
   /**
-   * OOnly return time entries belonging to the client with the given ID.
+   * Only return time entries belonging to the client with the given ID.
    * Type: integer.
    */
   client_id?: number;

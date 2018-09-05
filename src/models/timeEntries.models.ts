@@ -151,3 +151,103 @@ export interface TimeEntriesPagenationParameters extends PagenationParameters {
    */
   to?: string;
 }
+
+/**
+ * Create a Time Entry from a duration
+ */
+export interface TimeEntryCreateFromDuration {
+  /**
+   * The ID of the project to associate with the time entry.
+   * Type: integer 
+   */
+  project_id: number;
+  
+  /**
+   * The ID of the task to associate with the time entry.
+   * Type: integer 
+   */
+  task_id: number;
+  
+  /**
+   * The ISO 8601 formatted date the time entry was spent.
+   * Type: date 
+   */
+  spent_date: string;
+  
+  /**
+   * The ID of the user to associate with the time entry. Defaults to the currently authenticated user’s ID.
+   * Type: integer 
+   */
+  user_id?: number;
+  
+  /**
+   * The current amount of time tracked. If provided, `is_running` on the time entry will be true.
+   * Type: decimal 
+   */
+  hours?: number;
+  
+  /**
+   * Any notes to be associated with the time entry.
+   * Type: string 
+   */
+  notes?: string;
+  
+  /**
+   * An object containing the `id`, `group_id`, and `permalink` of the external reference.
+   * Type: object 
+   */
+  external_reference?: any;
+}
+
+/**
+ * Create a Time Entry from a start and end time
+ */
+export interface TimeEntryCreateFromStartAndEndTime {
+  /**
+   * The ID of the project to associate with the time entry.
+   * Type: integer 
+   */
+  project_id: number;
+  
+  /**
+   * The ID of the task to associate with the time entry.
+   * Type: integer 
+   */
+  task_id: number;
+  
+  /**
+   * The ISO 8601 formatted date the time entry was spent.
+   * Type: date 
+   */
+  spent_date: string;
+  
+  /**
+   * The ID of the user to associate with the time entry. Defaults to the currently authenticated user’s ID.
+   * Type: integer 
+   */
+  user_id?: number;
+  
+  /**
+   * The time the entry started. Defaults to the current time. Example: "8:00am".
+   * Type: time 
+   */
+  started_time?: string;
+  
+  /**
+   * The time the entry ended. If provided, `is_running` on the time entry will be false.
+   * Type: time 
+   */
+  ended_time?: string;
+
+  /**
+   * Any notes to be associated with the time entry.
+   * Type: string 
+   */
+  notes?: string;
+  
+  /**
+   * An object containing the `id`, `group_id`, and `permalink` of the external reference.
+   * Type: object 
+   */
+  external_reference?: any;
+}

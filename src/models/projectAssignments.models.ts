@@ -1,4 +1,7 @@
 import { PagenationParameters, PagenationResponse } from './base/pagenation';
+import { Project } from './projects.models';
+import { Client } from './clients.models';
+import { TaskAssignment } from './taskAssignments.models';
 
 /**
  * An response from the ProjectAssignments API
@@ -22,14 +25,14 @@ export interface ProjectAssignment {
   budget: number;
 
   // An object containing the assigned project id, name, and code.
-  project: object;
+  project: Project;
 
   // An object containing the project’s client id and name.
-  client: object;
+  client: Client;
 
   // Array of task assignment objects associated with the project.
   // Complete with new model
-  task_assignments: any[];
+  task_assignments: TaskAssignment[];
 
   // Date and time the projectAssignments was created.
   // Type: datetime

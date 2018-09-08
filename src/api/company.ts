@@ -1,13 +1,14 @@
+import Harvest from '../index';
 import { Company } from '../models/company.models';
 
 export class CompanyAPI {
-  harvest;
+  private harvest: Harvest;
 
-  constructor(harvest) {
+  constructor(harvest: Harvest) {
     this.harvest = harvest;
   }
 
   public get() {
-    return this.harvest.request('GET', '/v2/company');
+    return this.harvest.request<Company>('GET', '/v2/company');
   }
 }

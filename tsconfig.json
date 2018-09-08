@@ -16,7 +16,7 @@
       "node_modules/@types"
     ],
     "outDir": "dist",
-    "noImplicitAny": true
+    "noImplicitAny": false
   },
   "include": [
     "src"

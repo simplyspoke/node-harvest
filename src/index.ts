@@ -20,17 +20,24 @@ import { TimeEntriesAPI } from './api/timeEntries';
 import { UserAssignmentsAPI } from './api/userAssignments';
 import { UsersAPI } from './api/users';
 
+interface Config {
+  subdomain: string;
+  userAgent: string;
+  concurrency?: number;
+  debug?: boolean;
+}
+
 /**
  * Provides the starting point of the harvest module
  */
 export default class Harvest {
   host: string;
-  userAgent = null;
-  concurrency = null;
-  debug = false;
+  userAgent: string = null;
+  concurrency: number = null;
+  debug: boolean = false;
 
   client: RequestClient;
-  request;
+  request: (method: string, uri: string, data?: any) => Promise<any>;
 
   clients: ClientsAPI;
   company: CompanyAPI;
@@ -53,7 +60,7 @@ export default class Harvest {
   userAssignments: UserAssignmentsAPI;
   users: UsersAPI;
 
-  constructor(config) {
+  constructor(config: Config) {
     this.host = 'https://' + config.subdomain + '.harvestapp.com';
     this.userAgent = config.userAgent;
     this.concurrency = config.concurrency || null;
@@ -85,7 +92,7 @@ export default class Harvest {
   }
 
   requestGenerator() {
-    return function(method: string, uri: string, data: any = {}) {
+    return (method: string, uri: string, data: any = {}) => {
       return new Promise((resolve, reject) => {
         this.client.push({
           method,

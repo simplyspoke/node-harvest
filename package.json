@@ -1,6 +1,6 @@
 {
   "name": "harvest",
-  "version": "2.0.0-1",
+  "version": "2.0.3",
   "description": "Harvest API client library",
   "repository": {
     "type": "git",
@@ -11,11 +11,11 @@
     "harvest"
   ],
   "module": "./dist/index.js",
+  "jsnext:main": "./dist/index.js",
   "main": "./dist/index.js",
   "typings": "./dist/index.d.ts",
   "files": [
-    "dist",
-    "index.js"
+    "dist"
   ],
   "author": "Tristan Fitzgerald",
   "license": "MIT",

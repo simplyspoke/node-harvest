@@ -55,6 +55,8 @@
     }
   },
   "dependencies": {
+    "@types/async": "^2.0.49",
+    "@types/request-promise": "^4.1.42",
     "async": "^2.6.0",
     "request": "^2.85.0",
     "request-promise": "^4.2.2",

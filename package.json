@@ -25,8 +25,7 @@
   "scripts": {
     "lint": "tslint -t codeFrame 'src/**/*.ts' 'test/**/*.ts'",
     "prebuild": "rimraf dist",
-    "build": "webpack --mode production && typedoc --out docs --target es6 --theme minimal --mode file src",
-    "start": "webpack --mode development --display-error-details --watch",
+    "build": "tsc && typedoc --out docs --target es6 --theme minimal --mode file src",
     "test": "jest",
     "test:watch": "jest --watchAll",
     "test:integration": "npm run test:cleanup && jest -i --config=jest.integration.js",
@@ -82,9 +81,7 @@
     "tslint-config-standard": "^7.0.0",
     "typedoc": "^0.11.1",
     "typescript": "^2.8.1",
-    "validate-commit-msg": "^2.14.0",
-    "webpack": "^4.5.0",
-    "webpack-cli": "^3.0.0"
+    "validate-commit-msg": "^2.14.0"
   },
   "engines": {
     "node": ">=8.10.0"

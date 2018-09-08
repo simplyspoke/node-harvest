@@ -37,7 +37,7 @@ export default class Harvest {
   debug: boolean = false;
 
   client: RequestClient;
-  request: (method: string, uri: string, data?: any) => Promise<any>;
+  request: <T>(method: string, uri: string, data?: any) => Promise<T>;
 
   clients: ClientsAPI;
   company: CompanyAPI;
@@ -91,9 +91,9 @@ export default class Harvest {
     this.userAssignments = new UserAssignmentsAPI(this);
   }
 
-  requestGenerator() {
+  requestGenerator<T>() {
     return (method: string, uri: string, data: any = {}) => {
-      return new Promise((resolve, reject) => {
+      return new Promise<T>((resolve, reject) => {
         this.client.push({
           method,
           uri,

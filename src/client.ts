@@ -1,14 +1,23 @@
-import * as async from 'async';
+import { queue, AsyncQueue } from 'async';
 import * as Request from 'request-promise';
+
+interface RequestTask {
+  method: string;
+  uri: string;
+  data: any;
+  callback: (error: any, data: any) => void;
+}
 
 export class RequestClient {
   private accessToken: string;
   private accountId: string;
-  private concurrency;
-  private defaults;
-  private queue;
-  private request;
-  private timeout;
+  private concurrency: number;
+  private queue: AsyncQueue<RequestTask>;
+  private timeout: NodeJS.Timer;
+
+  // this signature is required because @types/request-promise does not expose
+  // the RequestAPI interface
+  private request: (options: any) => Promise<{ headers: any; data: any }>;
 
   constructor(config: any) {
     this.accessToken = config.auth.accessToken;
@@ -23,26 +32,29 @@ export class RequestClient {
         'Content-Type': 'application/json'
       },
       transform: this.preprocess
-    });
+    }) as any;
 
     // TODO: Make the user agnet required as described on https://help.getharvest.com/api-v2/introduction/overview/general/
 
     this.concurrency = config.throttleConcurrency || 40;
 
     // TODO: This needs to be broken down in to smaller chunks.
-    this.queue = async.queue(this.requestGenerator(), this.concurrency);
+    this.queue = queue<RequestTask, any>(
+      this.requestGenerator(),
+      this.concurrency
+    );
   }
 
-  preprocess(body, response) {
+  preprocess(body: any, response: { headers: any }) {
     return { headers: response.headers, data: body };
   }
 
-  push(task) {
+  push(task: RequestTask) {
     this.queue.push(task);
   }
 
   requestGenerator() {
-    return (task, done) => {
+    return (task: RequestTask, done: Function) => {
       let options: any = {};
 
       options.method = task.method;
@@ -70,7 +82,7 @@ export class RequestClient {
     };
   }
 
-  retryAfter(task, retryAfter, done) {
+  retryAfter(task: RequestTask, retryAfter: number, done: Function) {
     this.queue.pause();
     this.queue.unshift(task);
     clearTimeout(this.timeout);

@@ -15,7 +15,8 @@
     "typeRoots": [
       "node_modules/@types"
     ],
-    "outDir": "dist"
+    "outDir": "dist",
+    "noImplicitAny": false
   },
   "include": [
     "src"

@@ -1,16 +1,17 @@
+import Harvest from '../index';
 import { ClientsPagenationParameters, Client } from '../models/clients.models';
 
 // Admin permissions required, except when retrieving the currently authenticated client.
 export class ClientsAPI {
-  harvest;
+  harvest: Harvest;
   baseUrl: string;
 
-  constructor(harvest) {
+  constructor(harvest: Harvest) {
     this.baseUrl = '/v2/clients';
     this.harvest = harvest;
   }
 
-  public get(id) {
+  public get(id: number) {
     return this.harvest.request('GET', `${this.baseUrl}/${id}`);
   }
 
@@ -22,11 +23,11 @@ export class ClientsAPI {
     return this.harvest.request('POST', this.baseUrl, client);
   }
 
-  public update(id, data) {
+  public update(id: number, data: any) {
     return this.harvest.request('PATCH', `${this.baseUrl}/${id}`, data);
   }
 
-  public delete(id) {
+  public delete(id: number) {
     return this.harvest.request('DELETE', `${this.baseUrl}/${id}`);
   }
 }

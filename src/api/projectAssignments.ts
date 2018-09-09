@@ -21,8 +21,7 @@ export class ProjectAssignmentsAPI {
   }
 
   // List all project assignments for the currently authenticated user
-  // TODO: COnsider handling defaults
-  public me(query: PagenationParameters) {
+  public me(query: PagenationParameters = {}) {
     return this.harvest.request(
       'GET',
       `${this.baseUrl}/me/project_assignments`,

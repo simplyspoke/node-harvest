@@ -1,6 +1,6 @@
 {
   "name": "harvest",
-  "version": "2.0.0-1",
+  "version": "2.0.3",
   "description": "Harvest API client library",
   "repository": {
     "type": "git",
@@ -10,12 +10,12 @@
     "npm",
     "harvest"
   ],
-  "module": "dist/index.js",
-  "main": "./",
-  "typings": "dist/index.d.ts",
+  "module": "./dist/index.js",
+  "jsnext:main": "./dist/index.js",
+  "main": "./dist/index.js",
+  "typings": "./dist/index.d.ts",
   "files": [
-    "dist",
-    "index.js"
+    "dist"
   ],
   "author": "Tristan Fitzgerald",
   "license": "MIT",
@@ -25,8 +25,7 @@
   "scripts": {
     "lint": "tslint -t codeFrame 'src/**/*.ts' 'test/**/*.ts'",
     "prebuild": "rimraf dist",
-    "build": "webpack --mode production && typedoc --out docs --target es6 --theme minimal --mode file src",
-    "start": "webpack --mode development --display-error-details --watch",
+    "build": "tsc && typedoc --out docs --target es6 --theme minimal --mode file src",
     "test": "jest",
     "test:watch": "jest --watchAll",
     "test:integration": "npm run test:cleanup && jest -i --config=jest.integration.js",
@@ -63,7 +62,7 @@
   },
   "devDependencies": {
     "@types/jest": "^23.0.0",
-    "@types/node": "^10.0.3",
+    "@types/node": "^10.9.4",
     "coveralls": "^3.0.0",
     "cz-conventional-changelog": "^2.1.0",
     "dotenv": "^6.0.0",
@@ -79,12 +78,10 @@
     "ts-node": "^7.0.0",
     "tslint": "^5.9.1",
     "tslint-config-prettier": "^1.10.0",
-    "tslint-config-standard": "^7.0.0",
+    "tslint-config-standard": "^8.0.0",
     "typedoc": "^0.12.0",
     "typescript": "^2.8.1",
-    "validate-commit-msg": "^2.14.0",
-    "webpack": "^4.5.0",
-    "webpack-cli": "^3.0.0"
+    "validate-commit-msg": "^2.14.0"
   },
   "engines": {
     "node": ">=8.10.0"

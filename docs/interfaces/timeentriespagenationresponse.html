@@ -912,14 +912,14 @@ img { max-width: 100%; }
 		<li class="current tsd-kind-interface">
 			<a href="timeentriespagenationresponse.html" class="tsd-kind-icon">Time<wbr>Entries<wbr>Pagenation<wbr>Response</a>
 			<ul>
-				<li class=" tsd-kind-property tsd-parent-kind-interface">
-					<a href="timeentriespagenationresponse.html#expenses" class="tsd-kind-icon">expenses</a>
-				</li>
 				<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
 					<a href="timeentriespagenationresponse.html#page" class="tsd-kind-icon">page</a>
 				</li>
 				<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
 					<a href="timeentriespagenationresponse.html#per_page" class="tsd-kind-icon">per_<wbr>page</a>
+				</li>
+				<li class=" tsd-kind-property tsd-parent-kind-interface">
+					<a href="timeentriespagenationresponse.html#time_entries" class="tsd-kind-icon">time_<wbr>entries</a>
 				</li>
 			</ul>
 		</li>
@@ -954,9 +954,9 @@ img { max-width: 100%; }
 					<section class="tsd-index-section ">
 						<h3>Properties</h3>
 						<ul class="tsd-index-list">
-							<li class="tsd-kind-property tsd-parent-kind-interface"><a href="timeentriespagenationresponse.html#expenses" class="tsd-kind-icon">expenses</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="timeentriespagenationresponse.html#page" class="tsd-kind-icon">page</a></li>
 							<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="timeentriespagenationresponse.html#per_page" class="tsd-kind-icon">per_<wbr>page</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-interface"><a href="timeentriespagenationresponse.html#time_entries" class="tsd-kind-icon">time_<wbr>entries</a></li>
 						</ul>
 					</section>
 				</div>
@@ -964,16 +964,6 @@ img { max-width: 100%; }
 		</section>
 		<section class="tsd-panel-group tsd-member-group ">
 			<h2>Properties</h2>
-			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-				<a name="expenses" class="tsd-anchor"></a>
-				<h3>expenses</h3>
-				<div class="tsd-signature tsd-kind-icon">expenses<span class="tsd-signature-symbol">:</span> <a href="timeentry.html" class="tsd-signature-type">TimeEntry</a><span class="tsd-signature-symbol">[]</span></div>
-				<aside class="tsd-sources">
-					<ul>
-						<li>Defined in <a href="https://github.com/simplyspoke/node-harvest/blob/5bf2297/src/models/timeEntries.models.ts#L101">models/timeEntries.models.ts:101</a></li>
-					</ul>
-				</aside>
-			</section>
 			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
 				<a name="page" class="tsd-anchor"></a>
 				<h3><span class="tsd-flag ts-flagOptional">Optional</span> page</h3>
@@ -981,7 +971,7 @@ img { max-width: 100%; }
 				<aside class="tsd-sources">
 					<p>Inherited from <a href="pagenationparameters.html">PagenationParameters</a>.<a href="pagenationparameters.html#page">page</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/simplyspoke/node-harvest/blob/5bf2297/src/models/base/pagenation.ts#L11">models/base/pagenation.ts:11</a></li>
+						<li>Defined in <a href="https://github.com/simplyspoke/node-harvest/blob/301ff53/src/models/base/pagenation.ts#L11">models/base/pagenation.ts:11</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -1000,7 +990,7 @@ img { max-width: 100%; }
 				<aside class="tsd-sources">
 					<p>Inherited from <a href="pagenationparameters.html">PagenationParameters</a>.<a href="pagenationparameters.html#per_page">per_page</a></p>
 					<ul>
-						<li>Defined in <a href="https://github.com/simplyspoke/node-harvest/blob/5bf2297/src/models/base/pagenation.ts#L19">models/base/pagenation.ts:19</a></li>
+						<li>Defined in <a href="https://github.com/simplyspoke/node-harvest/blob/301ff53/src/models/base/pagenation.ts#L19">models/base/pagenation.ts:19</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
@@ -1011,6 +1001,16 @@ img { max-width: 100%; }
 						Range: 1 to 100</p>
 					</div>
 				</div>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+				<a name="time_entries" class="tsd-anchor"></a>
+				<h3>time_<wbr>entries</h3>
+				<div class="tsd-signature tsd-kind-icon">time_<wbr>entries<span class="tsd-signature-symbol">:</span> <a href="timeentry.html" class="tsd-signature-type">TimeEntry</a><span class="tsd-signature-symbol">[]</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/simplyspoke/node-harvest/blob/301ff53/src/models/timeEntries.models.ts#L101">models/timeEntries.models.ts:101</a></li>
+					</ul>
+				</aside>
 			</section>
 		</section>
 		<footer class="with-border-bottom">

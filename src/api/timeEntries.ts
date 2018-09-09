@@ -1,6 +1,9 @@
 import {
   TimeEntriesPagenationParameters,
-  TimeEntry
+  TimeEntriesPagenationResponse,
+  TimeEntry,
+  TimeEntryCreateFromDuration,
+  TimeEntryCreateFromStartAndEndTime
 } from '../models/timeEntries.models';
 
 // Admin permissions required.
@@ -17,15 +20,19 @@ export class TimeEntriesAPI {
     return this.harvest.request('GET', `${this.baseUrl}/${id}`);
   }
 
-  public list(query: TimeEntriesPagenationParameters = {}) {
+  public list(
+    query: TimeEntriesPagenationParameters = {}
+  ): Promise<TimeEntriesPagenationResponse> {
     return this.harvest.request('GET', this.baseUrl, query);
   }
 
-  public create(data: TimeEntry) {
+  public create(
+    data: TimeEntryCreateFromDuration | TimeEntryCreateFromStartAndEndTime
+  ): Promise<TimeEntry> {
     return this.harvest.request('POST', this.baseUrl, data);
   }
 
-  public update(id, data) {
+  public update(id, data): Promise<TimeEntry> {
     return this.harvest.request('PATCH', `${this.baseUrl}/${id}`, data);
   }
 
@@ -35,13 +42,13 @@ export class TimeEntriesAPI {
 
   // Restarting a time entry is only possible if it isn’t currently running.
   // Returns a 200 OK response code if the call succeeded.
-  public restart(id) {
+  public restart(id): Promise<TimeEntry> {
     return this.harvest.request('PATCH', `${this.baseUrl}/${id}/restart`);
   }
 
   // Stopping a time entry is only possible if it’s currently running.
   // Returns a 200 OK response code if the call succeeded.
-  public stop(id) {
+  public stop(id): Promise<TimeEntry> {
     return this.harvest.request('PATCH', `${this.baseUrl}/${id}/stop`);
   }
 }

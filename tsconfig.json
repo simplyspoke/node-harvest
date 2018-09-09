@@ -14,7 +14,8 @@
     "removeComments": true,
     "typeRoots": [
       "node_modules/@types"
-    ]
+    ],
+    "outDir": "dist"
   },
   "include": [
     "src"

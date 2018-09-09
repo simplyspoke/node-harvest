@@ -1,6 +1,6 @@
 import { ClientsAPI } from './clients';
 
-const harvest = {
+const harvest: any = {
   request: () => {
     console.log('Request Made');
   }

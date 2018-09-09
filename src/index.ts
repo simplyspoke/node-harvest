@@ -20,11 +20,15 @@ import { TimeEntriesAPI } from './api/timeEntries';
 import { UserAssignmentsAPI } from './api/userAssignments';
 import { UsersAPI } from './api/users';
 
-interface Config {
+export interface Config {
   subdomain: string;
   userAgent: string;
   concurrency?: number;
   debug?: boolean;
+  auth: {
+    accessToken: string;
+    accountId: string;
+  };
 }
 
 /**

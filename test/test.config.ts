@@ -1,4 +1,6 @@
-export default {
+import { Config } from '../src/index';
+
+const config: Config = {
   subdomain: process.env.SUBDOMAIN,
   userAgent: 'MyApp (yourname@example.com)',
   concurrency: 1,
@@ -7,3 +9,5 @@ export default {
     accountId: process.env.ACCOUNT_ID
   }
 };
+
+export default config;

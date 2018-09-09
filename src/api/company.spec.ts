@@ -1,6 +1,6 @@
 import { CompanyAPI } from './company';
 
-const harvest = {
+const harvest: any = {
   request: () => {
     console.log('Request Made');
   }

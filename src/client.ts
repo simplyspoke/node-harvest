@@ -1,7 +1,7 @@
 import { queue, AsyncQueue } from 'async';
 import * as Request from 'request-promise';
 
-interface RequestTask {
+export interface RequestTask {
   method: string;
   uri: string;
   data: any;

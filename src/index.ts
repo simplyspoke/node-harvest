@@ -27,7 +27,7 @@ export interface Config {
   debug?: boolean;
   auth: {
     accessToken: string;
-    accountId: string;
+    accountId: number;
   };
 }
 

@@ -63,7 +63,7 @@
   "devDependencies": {
     "@types/async": "^2.0.49",
     "@types/jest": "^24.0.9",
-    "@types/node": "^11.9.5",
+    "@types/node": "^12.7.8",
     "@types/request-promise": "^4.1.42",
     "coveralls": "^3.0.2",
     "cz-conventional-changelog": "^2.1.0",

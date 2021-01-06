@@ -60,7 +60,11 @@ export class RequestClient {
       options.method = task.method;
       options.uri = task.uri;
 
-      options.body = JSON.stringify(task.data);
+      if (task.method === 'GET') {
+        options.qs = task.data;
+      } else {
+        options.body = JSON.stringify(task.data);
+      }
 
       this.request(options)
         .then(({ headers, data }) => {

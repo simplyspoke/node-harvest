@@ -37,13 +37,6 @@
     "commit": "git-cz",
     "semantic-release": "semantic-release",
     "semantic-release-prepare": "ts-node tools/semantic-release-prepare",
-    "precommit": "lint-staged"
-  },
-  "lint-staged": {
-    "{src,test}/**/*.ts": [
-      "prettier --write --single-quote",
-      "git add"
-    ]
   },
   "config": {
     "commitizen": {
@@ -70,9 +63,7 @@
     "dotenv": "^8.1.0",
     "dts-bundle": "^0.7.3",
     "fs-extra": "^8.1.0",
-    "husky": "^3.0.8",
     "jest": "^24.9.0",
-    "lint-staged": "^9.4.1",
     "prettier": "^1.18.2",
     "rimraf": "^3.0.0",
     "ts-jest": "^24.1.0",

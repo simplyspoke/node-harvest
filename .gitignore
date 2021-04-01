@@ -11,6 +11,7 @@ node_modules
 
 # Optional npm cache directory
 .npm
+package-lock.json
 
 # Local ENV Variables for development
 .env

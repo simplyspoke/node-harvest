@@ -1,15 +1,23 @@
 {
   "name": "@thisismissem/harvest",
   "version": "0.0.0-development",
+  "license": "MIT",
   "description": "Harvest API client library",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/thisismissem/node-harvest"
-  },
   "keywords": [
     "harvest",
     "getharvest"
   ],
+  "author": "Tristan Fitzgerald <tristan@simplyspoke.com>",
+  "contributors": [
+    "Emelia Smith <ThisIsMissEm@users.noreply.github.com>"
+  ],
+  "bugs": {
+    "url": "https://github.com/simplyspoke/node-harvest/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thisismissem/node-harvest"
+  },
   "module": "./dist/index.js",
   "jsnext:main": "./dist/index.js",
   "main": "./dist/index.js",
@@ -17,14 +25,6 @@
   "files": [
     "dist"
   ],
-  "author": "Tristan Fitzgerald <tristan@simplyspoke.com>",
-  "contributors": [
-    "Emelia Smith <ThisIsMissEm@users.noreply.github.com>"
-  ],
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/simplyspoke/node-harvest/issues"
-  },
   "scripts": {
     "lint": "tslint -t codeFrame 'src/**/*.ts' 'test/**/*.ts'",
     "prebuild": "rimraf dist",
@@ -61,14 +61,12 @@
     "coveralls": "^3.0.6",
     "cz-conventional-changelog": "^3.0.2",
     "dotenv": "^8.1.0",
-    "dts-bundle": "^0.7.3",
     "fs-extra": "^8.1.0",
     "jest": "^24.9.0",
     "prettier": "^1.18.2",
     "rimraf": "^3.0.0",
     "semantic-release": "^17.4.2",
     "ts-jest": "^24.1.0",
-    "ts-loader": "^6.2.0",
     "ts-node": "^8.4.1",
     "tslint": "^5.20.0",
     "tslint-config-prettier": "^1.15.0",

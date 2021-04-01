@@ -20,7 +20,6 @@ let repository = (parsedUrl.host || '') + (parsedUrl.path || '');
 let ghToken = process.env.GH_TOKEN;
 
 echo('Deploying docs!!!');
-exec('yarn docs:generate');
 cd('docs');
 touch('.nojekyll');
 exec('git init');

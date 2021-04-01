@@ -1,0 +1,58 @@
+name: Publish Package
+# Run the workflow when a Pull Request is opened or when changes are pushed to stable
+on:
+  pull_request:
+  push:
+    branches:
+      - stable
+      - main
+jobs:
+  # TODO: automatic release PRs
+  # release-pr:
+  #   runs-on: ubuntu-latest
+  #   if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     # Setup .npmrc file to publish to npm
+  #     - uses: actions/setup-node@v1
+  #       with:
+  #         node-version: '12.x'
+  #         # Defaults to the user or organization that owns the workflow file
+  #         scope: '@thisismissem'
+  #     - run: yarn install --frozen-lockfile
+  #       env:
+  #         # needed by actions/setup-node@v1
+  #         NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  #     - name: 'Create Or Update Release PR'
+  #       run: yarn release:notes
+  #       env:
+  #         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  build_and_release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      # Setup .npmrc file to publish to npm
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '14.x'
+          # Defaults to the user or organization that owns the workflow file
+          scope: '@thisismissem'
+      - run: yarn install --frozen-lockfile
+        env:
+          # needed by actions/setup-node@v1
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build
+        run: yarn build
+      - name: Release
+        run: yarn release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: 'Merge stable into main'
+        if: github.event_name == 'push' && github.ref == 'refs/heads/stable'
+        run: |
+          git fetch origin
+          git checkout -B main --track origin/main
+          git merge stable
+          git push origin main

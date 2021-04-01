@@ -39,29 +39,25 @@
     "docs:publish": "node tools/gh-pages-publish.js",
     "report-coverage": "cat ./coverage/lcov.info | coveralls",
     "commit": "git-cz",
-    "semantic-release": "semantic-release",
-    "semantic-release-prepare": "ts-node tools/semantic-release-prepare",
-  },
-  "config": {
-    "commitizen": {
-      "path": "node_modules/cz-conventional-changelog"
-    },
-    "validate-commit-msg": {
-      "types": "conventional-commit-types",
-      "helpMessage": "Use \"npm run commit\" instead, we use conventional-changelog format :) (https://github.com/commitizen/cz-cli)"
-    }
+    "release": "semantic-release"
   },
   "dependencies": {
     "async": "^3.1.0",
     "request": "^2.88.0",
     "request-promise": "^4.2.2",
-    "semantic-release": "^15.13.25"
   },
   "devDependencies": {
+    "@commitlint/config-conventional": "^9.1.1",
+    "@semantic-release/changelog": "^5.0.1",
+    "@semantic-release/exec": "^5.0.0",
+    "@semantic-release/git": "^9.0.0",
+    "@semantic-release/github": "^7.0.7",
     "@types/async": "^3.0.2",
     "@types/jest": "^24.0.18",
     "@types/node": "^12.7.11",
     "@types/request-promise": "^4.1.44",
+    "commitizen": "^4.1.2",
+    "commitlint": "^9.1.0",
     "coveralls": "^3.0.6",
     "cz-conventional-changelog": "^3.0.2",
     "dotenv": "^8.1.0",
@@ -70,6 +66,7 @@
     "jest": "^24.9.0",
     "prettier": "^1.18.2",
     "rimraf": "^3.0.0",
+    "semantic-release": "^17.4.2",
     "ts-jest": "^24.1.0",
     "ts-loader": "^6.2.0",
     "ts-node": "^8.4.1",
@@ -77,10 +74,19 @@
     "tslint-config-prettier": "^1.15.0",
     "tslint-config-standard": "^8.0.1",
     "typedoc": "^0.15.0",
-    "typescript": "^3.6.3",
-    "validate-commit-msg": "^2.14.0"
+    "typescript": "^3.6.3"
   },
   "engines": {
     "node": ">=8.10.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-conventional-changelog"
+    }
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
   }
 }

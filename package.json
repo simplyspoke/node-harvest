@@ -1,14 +1,14 @@
 {
-  "name": "harvest",
-  "version": "2.0.3",
+  "name": "@thisismissem/harvest",
+  "version": "0.0.0-development",
   "description": "Harvest API client library",
   "repository": {
     "type": "git",
-    "url": "https://github.com/simplyspoke/node-harvest.git"
+    "url": "https://github.com/thisismissem/node-harvest"
   },
   "keywords": [
-    "npm",
-    "harvest"
+    "harvest",
+    "getharvest"
   ],
   "module": "./dist/index.js",
   "jsnext:main": "./dist/index.js",
@@ -17,7 +17,10 @@
   "files": [
     "dist"
   ],
-  "author": "Tristan Fitzgerald",
+  "author": "Tristan Fitzgerald <tristan@simplyspoke.com>",
+  "contributors": [
+    "Emelia Smith <ThisIsMissEm@users.noreply.github.com>"
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/simplyspoke/node-harvest/issues"

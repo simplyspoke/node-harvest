@@ -114,3 +114,5 @@ export default class Harvest {
     };
   }
 }
+
+export * from './models';
